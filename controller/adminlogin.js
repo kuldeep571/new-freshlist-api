@@ -112,5 +112,4 @@ exports.adminlogin = async (req, res) => {
   };
 
 
-  //console
 
