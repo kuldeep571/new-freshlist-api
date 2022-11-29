@@ -3,19 +3,19 @@ const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
 
-const { verifytoken } = require("../functions/verifytoken");
-const { tokenverify } = require("../functions/tokenverify");
+// const { verifytoken } = require("../functions/verifytoken");
+// const { tokenverify } = require("../functions/tokenverify");
 
 const {
-  websignup,
-  veryfyotp,
+    Addadmin,
+    adminlogin,
   login,
   editprofile,
   sendotp,
   userVryfyotp,
   emailSend,
   verifyotp,
-} = require("../controller/user");
+} = require("../controller/adminlogin");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //console.log(file);
@@ -44,11 +44,12 @@ const fileFilter = (req, file, cb) => {
 
 let uploads = multer({ storage: storage });
 
-router.post("/user/websignup", websignup);
-router.post("/user/veryfyotp", veryfyotp);
-router.post("/user/login", login);
-router.post("/user/editprofile", editprofile);
-// router.post("/user/sendotp", sendotp);
+router.post("/admin/Addadmin", Addadmin);
+router.post("/admin/adminlogin", adminlogin);
+// router.post("/user/veryfyotp", veryfyotp);
+// router.post("/user/login", login);
+// router.post("/user/editprofile", editprofile);
+// // router.post("/user/sendotp", sendotp);
 
 
 module.exports = router;

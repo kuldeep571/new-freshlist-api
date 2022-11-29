@@ -87,37 +87,37 @@ exports.websignup = async (req, res) => {
   }
 };
 
-exports.sendotpuser = async (req, res) => {
-  let length = 6;
-  let defaultotp = "123456";
-  const {mobile} =
-    req.body;
+// exports.sendotpuser = async (req, res) => {
+//   let length = 6;
+//   let defaultotp = "123456";
+//   const {mobile} =
+//     req.body;
 
-  const newUser = new User({
+//   const newUser = new User({
     
-    mobile: mobile,
+//     mobile: mobile,
    
-     otp: defaultotp
-  });
-  const findexist = await User.findOne({
-    $or: [{ mobile: mobile }],
-  });
-  if (findexist) {
-    resp.alreadyr(res);
-  } 
-      newUser.save()
-      .then((data) => {
-        res.status(200).json({
-          status: true,
-          msg: "otp send successfully",
-          data: data.mobile,
-          otp:data.otp,
-         _id: data?._id,
+//      otp: defaultotp
+//   });
+//   const findexist = await User.findOne({
+//     $or: [{ mobile: mobile }],
+//   });
+//   if (findexist) {
+//     resp.alreadyr(res);
+//   } 
+//       newUser.save()
+//       .then((data) => {
+//         res.status(200).json({
+//           status: true,
+//           msg: "otp send successfully",
+//           data: data.mobile,
+//           otp:data.otp,
+//          _id: data?._id,
 
-        })
-      })
-      .catch((error) => resp.errorr(res, error));
-}
+//         })
+//       })
+//       .catch((error) => resp.errorr(res, error));
+// }
 
 exports.veryfyotp =async(req, res)=>{
     const{mobile, otp}= req.body;
@@ -194,6 +194,29 @@ exports.login = async (req, res) => {
     });
   
 };
+}
 
+exports.editprofile = async (req, res)=>{
+  const findandUpdateEntry= await User.findOneAndUpdate(
+    {
+      _id: req.userId,
+    },
+    {$set: req.body},
+    {new: true}
+  );
+
+  if(findandUpdateEntry){
+    res.status(200).json({
+      status: true,
+      msg:'success',
+      data: findandUpdateEntry,
+    })
+  } else{
+    res.status(400).json({
+      status:false,
+      status:error,
+      msg:'error',
+    })
+  }
 }
 

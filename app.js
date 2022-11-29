@@ -13,10 +13,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 const user = require("./routes/user");
+const adminlogin = require("./routes/adminlogin");
 
 
 
 app.use('/', user);
+app.use('/', adminlogin);
  
  
 
