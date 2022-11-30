@@ -159,7 +159,7 @@ exports.login = async (req, res) => {
   const user = await User.findOne({
     $or: [{ mobile: mobile }, { password: password }],
   });
-  if (user?.status == true) {
+  if (user?.status == "true") {
     const validPass = await bcrypt.compare(password, user.password);
     if (validPass) {
       const token = jwt.sign(
@@ -178,7 +178,7 @@ exports.login = async (req, res) => {
         user: user,
       });
     }
-    } else if(user?.status == false){
+    } else if(user?.status == "false"){
         res.status(400).json({
           status: false,
           msg: "waiting for mobile verification",
@@ -196,10 +196,29 @@ exports.login = async (req, res) => {
 };
 }
 
-exports.editprofile = async (req, res)=>{
+exports.userlist = async(req, res)=>{
+  const findall= await User.find().sort({
+    sortorder:1,
+  });
+  if(findall){
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findall,
+    })
+  }else{
+    res.status(403).json({
+      status: false,
+      msg: "error",
+      error:"error",
+    });
+  }
+};
+
+exports.edituser = async (req, res)=>{
   const findandUpdateEntry= await User.findOneAndUpdate(
     {
-      _id: req.userId,
+      _id: req.params.id,
     },
     {$set: req.body},
     {new: true}
@@ -208,7 +227,7 @@ exports.editprofile = async (req, res)=>{
   if(findandUpdateEntry){
     res.status(200).json({
       status: true,
-      msg:'success',
+      msg:'success',  
       data: findandUpdateEntry,
     })
   } else{
@@ -220,3 +239,42 @@ exports.editprofile = async (req, res)=>{
   }
 }
 
+exports.dlt_user= async (req, res)=>{
+    try {
+      const deleteuser = await User.deleteOne({ _id: req.params.id});
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: deleteuser,
+      });
+    } catch (error) {
+      res.status(403).json({
+        stauts:false,
+        msg: "error",
+        error: error,
+      });
+    }
+};
+
+exports.user_true_false =async (req, res)=>{
+  const {status}  = req.body
+ const findupdate = await User.findOneAndUpdate(
+  { _id: req.params.id},
+  {$set :{status:status}},
+  {new:true}
+  );
+  if(findupdate){
+    res.status(200).json({
+      status:true,
+      msg:"success",
+      status:findupdate.status,
+    })
+  }else{
+    res.status(403).json({
+      status:false,
+      msg:"error",
+      error: error,
+    })
+  }
+
+}

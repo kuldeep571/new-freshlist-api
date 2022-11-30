@@ -16,7 +16,6 @@ const user = require("./routes/user");
 const adminlogin = require("./routes/adminlogin");
 
 
-
 app.use('/', user);
 app.use('/', adminlogin);
  

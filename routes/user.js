@@ -10,7 +10,10 @@ const {
   websignup,
   veryfyotp,
   login,
-  editprofile,
+  edituser,
+  userlist,
+  dlt_user,
+  user_true_false,
   sendotp,
   userVryfyotp,
   emailSend,
@@ -47,7 +50,10 @@ let uploads = multer({ storage: storage });
 router.post("/user/websignup", websignup);
 router.post("/user/veryfyotp", veryfyotp);
 router.post("/user/login", login);
-router.post("/user/editprofile", editprofile);
+router.get("/user/userlist", userlist);
+router.get("/user/edituser/:id", edituser);
+router.post("/user/user_true_false/:id", user_true_false);
+router.delete("/user/dlt_user/:id", dlt_user);
 // router.post("/user/sendotp", sendotp);
 
 

@@ -21,12 +21,32 @@ const adminSchema = new Schema(
       password: {
         type: String,
       },
-     
-    //   status:{
-    //     type:Boolean,
-    //     default:false,
-    //   }
 
+      cnfrmPassword: {
+        type: String,
+      },
+  
+      //  code: {
+      //  type: String,
+      //   default: 1234,
+      // },
+  
+      country :{
+        type:String,
+      },
+  
+      state:{
+        type:String,
+      },
+  
+      city:{
+        type:String,
+      },
+      
+      image:{
+        type: String,
+      },
+      
   },
   { timestamps: true }
 );

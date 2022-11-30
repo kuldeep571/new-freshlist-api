@@ -28,8 +28,8 @@ const customerSchema = new Schema(
       type: Number,
     },
     status:{
-      type:Boolean,
-      default:false,
+      type:String,
+      default:"false",
     }
 
   },

@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const key = "verysecretkey";
-//const nodemailer = require("nodemailer");
-//const { sendmail } = require("./mail");
+// const nodemailer = require("nodemailer");
+// const { sendmail } = require("./mail");
 
 exports.Addadmin = async (req, res)=>{
     const {
@@ -14,7 +14,6 @@ exports.Addadmin = async (req, res)=>{
         username,
         email,
         mobile,
-        image,
         password,
     } = req.body;
 
@@ -39,8 +38,7 @@ exports.Addadmin = async (req, res)=>{
         username: username,
         email: email,
         password:hashpassword,
-        mobile: mobile,
-        image: image
+        mobile: mobile
     })
 
   const findexist = await adminlogins.findOne({ email: email});
@@ -57,8 +55,7 @@ exports.Addadmin = async (req, res)=>{
         res.status(200).json({
           status: true,
           msg: "success",
-          data: addadmin
-          ,
+          data: addadmin,
         })
       )
       .catch((error) => {
@@ -109,7 +106,85 @@ exports.adminlogin = async (req, res) => {
         error: "error",
       });
     }
-  };
+  }
 
+exports.getoneadmin = async(req, res) => {
+  const findOne = await adminlogins.findOne({_id: req.params.id});
+  if(findOne){
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findOne,
+    });
+  }else{
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
+}
 
+exports.adminprofile = async (req, res) => {
+  const {
+    username,
+    email,
+    mobile,
+    password,
+    country ,
+    state,
+    city
+  } = req.body;
 
+  data = {};
+  if (username) {
+    data.username = username;
+  }
+  if (email) {
+    data.email = email;
+  }
+  if (mobile) {
+    data.mobile = mobile;
+  }
+  if (country ) {
+    data.country  = country ;
+  }
+  if (state) {
+    data.state = state;
+  }
+  if (city) {
+    data.city = city;
+  }
+  if (password) {
+    data.password = password;
+  }
+   
+  if (req.file) {
+    const response = await cloudinary.uploader.upload(req.file.path);
+    data.image = response.secure_url;
+    fs.unlinkSync(req.file.path);
+  }
+  if (data) {
+    const findandUpdateEntry = await adminlogins.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: data },
+      { new: true }
+    );
+  
+  if (findandUpdateEntry) {
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: findandUpdateEntry,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      status: "error",
+      error: "error",
+    });
+  }
+};
+}
