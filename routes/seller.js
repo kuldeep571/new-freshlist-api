@@ -7,13 +7,9 @@ const fs = require("fs");
 // const { tokenverify } = require("../functions/tokenverify");
 
 const {
-    Addadmin,
-    adminlogin,
-    adminprofile,
-    getoneadmin,
-    viewoneadmin,
-} = require("../controller/adminlogin");
-
+    addseller,
+  
+} = require("../controller/seller");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //console.log(file);
@@ -25,7 +21,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
-  },  
+  },
 });
 
 const fileFilter = (req, file, cb) => {
@@ -42,11 +38,9 @@ const fileFilter = (req, file, cb) => {
 
 let uploads = multer({ storage: storage });
 
+router.post("/admin/addseller", addseller);
 
-router.post("/admin/Addadmin", Addadmin);
-router.post("/admin/adminlogin", adminlogin);
-router.get("/admin/getoneadmin/:id", getoneadmin);
-router.post("/admin/adminprofile/:id",uploads.single("image"), adminprofile);
+// router.post("/user/sendotp", sendotp);
 
 
 module.exports = router;
