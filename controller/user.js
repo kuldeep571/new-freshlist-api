@@ -278,3 +278,25 @@ exports.user_true_false =async (req, res)=>{
   }
 
 }
+
+exports.getviewone = async (req, res)=>{
+    try {
+        const findone = await User.findOne({_id: req.params.id});
+        if(findone){
+          res.status(200).json({
+            status: false,
+            msg: "success",
+            data: findone,
+          })
+        }
+        else{
+          res.status(403).json({
+            status:false,
+            msg: "error",
+            error: "error",
+          })
+        }
+    } catch (error) {
+       console.log(error);
+    }
+}

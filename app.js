@@ -14,10 +14,12 @@ app.use(cors());
 
 const user = require("./routes/user");
 const adminlogin = require("./routes/adminlogin");
+const aboutus = require("./routes/aboutus");
 
 
 app.use('/', user);
 app.use('/', adminlogin);
+app.use('/', aboutus);
  
  
 

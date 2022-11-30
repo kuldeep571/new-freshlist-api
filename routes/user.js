@@ -14,6 +14,7 @@ const {
   userlist,
   dlt_user,
   user_true_false,
+  getviewone,
   sendotp,
   userVryfyotp,
   emailSend,
@@ -54,6 +55,7 @@ router.get("/user/userlist", userlist);
 router.get("/user/edituser/:id", edituser);
 router.post("/user/user_true_false/:id", user_true_false);
 router.delete("/user/dlt_user/:id", dlt_user);
+router.get("/user/getviewone/:id", getviewone);
 // router.post("/user/sendotp", sendotp);
 
 

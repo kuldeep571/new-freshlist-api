@@ -136,40 +136,40 @@ exports.adminprofile = async (req, res) => {
     city
   } = req.body;
 
-  data = {};
-  if (username) {
-    data.username = username;
-  }
-  if (email) {
-    data.email = email;
-  }
-  if (mobile) {
-    data.mobile = mobile;
-  }
-  if (country ) {
-    data.country  = country ;
-  }
-  if (state) {
-    data.state = state;
-  }
-  if (city) {
-    data.city = city;
-  }
-  if (password) {
-    data.password = password;
-  }
+  // data = {};
+  // if (username) {
+  //   data.username = username;
+  // }
+  // if (email) {
+  //   data.email = email;
+  // }
+  // if (mobile) {
+  //   data.mobile = mobile;
+  // }
+  // if (country ) {
+  //   data.country  = country ;
+  // }
+  // if (state) {
+  //   data.state = state;
+  // }
+  // if (city) {
+  //   data.city = city;
+  // }
+  // if (password) {
+  //   data.password = password;
+  // }
    
-  if (req.file) {
-    const response = await cloudinary.uploader.upload(req.file.path);
-    data.image = response.secure_url;
-    fs.unlinkSync(req.file.path);
-  }
-  if (data) {
+  // if (req.file) {
+  //   const response = await cloudinary.uploader.upload(req.file.path);
+  //   data.image = response.secure_url;
+  //   fs.unlinkSync(req.file.path);
+  // }
+ // if (data) {
     const findandUpdateEntry = await adminlogins.findOneAndUpdate(
       {
         _id: req.params.id,
       },
-      { $set: data },
+      { $set: req.body },
       { new: true }
     );
   
@@ -182,9 +182,9 @@ exports.adminprofile = async (req, res) => {
   } else {
     res.status(400).json({
       status: false,
-      status: "error",
+      msg: "error",
       error: "error",
     });
   }
 };
-}
+
