@@ -9,6 +9,8 @@ const key = "verysecretkey";
 //const { sendmail } = require("./mail");
 
 
+
+
 exports.websignup = async (req, res) => {
   let length = 6;
   let defaultotp = "123456";

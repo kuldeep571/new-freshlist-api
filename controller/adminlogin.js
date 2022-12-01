@@ -13,8 +13,11 @@ exports.Addadmin = async (req, res)=>{
         customerId,
         username,
         email,
-        mobile,
         password,
+        mobile,
+        country ,
+        state,
+        city,
     } = req.body;
 
   const salt = bcrypt.genSaltSync(saltRounds);
@@ -38,7 +41,10 @@ exports.Addadmin = async (req, res)=>{
         username: username,
         email: email,
         password:hashpassword,
-        mobile: mobile
+        mobile: mobile,
+        country: country,
+        state: state,
+        city: city,
     })
 
   const findexist = await adminlogins.findOne({ email: email});
@@ -126,15 +132,14 @@ exports.getoneadmin = async(req, res) => {
 }
 
 exports.adminprofile = async (req, res) => {
-  const {
-    username,
-    email,
-    mobile,
-    password,
-    country ,
-    state,
-    city
-  } = req.body;
+  // const {
+  //   username,
+  //   email,
+  //   mobile,
+  //   country ,
+  //   state,
+  //   city
+  // } = req.body;
 
   // data = {};
   // if (username) {

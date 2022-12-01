@@ -8,6 +8,12 @@ const key = "verysecretkey";
 //const nodemailer = require("nodemailer");
 //const { sendmail } = require("./mail");
 
+function generateAccessToken(seller_name) {
+    return jwt.sign(seller_name, process.env.TOKEN_SECRET, {
+      expiresIn: "1800h",
+    });
+  }
+
 exports.addseller= async (req, res)=>{
     const {firstname, lastname, email, password, cnfrmPassword, image, mobile, status, shop_name, shop_address }=req.body;
 
@@ -25,6 +31,8 @@ exports.addseller= async (req, res)=>{
         shop_address: shop_address,
         cnfrmPassword: cnfrmPassword,
     });
+    console.log("newsellerdata", newsellerdata)
+    //return false 
 
     if(req.file){
         const result = await cloudinary.uploader.upload(req.file.path);
@@ -40,11 +48,35 @@ exports.addseller= async (req, res)=>{
             status: false,
             msg: "Already Exists",
             data:{},
-        })
+        });
+        // console.log("newsellerdata", newsellerdata)
     }else{
         newsellerdata
-        console.log("newsellerdata", newsellerdata)
         .save()
+        .then((data)=>{
+            const token = jwt.sign(
+                {
+                  sellerId: result._id,
+                },
+                process.env.TOKEN_SECRET,
+                {
+                  expiresIn: 86400000,
+                }
+              );
+              res.header("auth-adtoken", token).status(200).json({
+                status: true,
+                token: token,
+                msg: "success",
+                user: result,
+                //designation: "seller",
+              });
+        })
+        .catch((error)=>{
+            res.status(403).json({
+                status: false,
+                msg: 'error',
+                error: error,
+            })
+        })
     }
-    // console.log("newsellerdata", newsellerdata);
 }
