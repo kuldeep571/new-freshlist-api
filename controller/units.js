@@ -64,6 +64,14 @@ exports.edit_units = async (req, res)=>{
     if(findandUpdateEntry){
         res.status(200).json({
             status:true,
+            msg:"success",
+            data:findandUpdateEntry,
+        })
+    }else{
+        res.status(400).json({
+            status:false,
+            msg:"error",
+            error: "error"
         })
     }
 }
@@ -80,6 +88,23 @@ exports.del_units= async (req, res)=>{
         res.status(400).json({
             status:"false",
             msg:"error",
+        })
+    }
+}
+
+exports.viewone_units = async (req, res)=>{
+    const findonedata = await units.findOne({_id: req.params.id})
+    if(findonedata){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data:findonedata,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
         })
     }
 }

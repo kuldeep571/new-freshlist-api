@@ -51,3 +51,75 @@ exports.addbrand= async (req, res)=>{
         }
     }
 }
+
+exports.brandlist= async (req, res)=>{
+    const findall = await brands.find().sort({sortorder:1})
+    if(findall){
+        res.status(200).json({
+            status:true,
+            msg:"success",
+            data:findall,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg:"error",
+            error: "error",
+        })
+    }
+}
+
+exports.del_brand= async (req, res)=>{
+    const delete_brands = await brands.deleteOne({_id: req.params.id})
+    if(delete_brands){
+        res.status(200).json({
+            statuts:true,
+            msg:"success",
+            data:delete_brands,
+        })
+    }else{
+        res.status(400).json({
+            status:false,
+            msg:"error",
+            error:"error"
+        })
+    }
+}
+
+exports.viewone_brand= async(req, res)=>{
+    const findonebrand = await brands.findOne({_id: req.params.id});
+    if(findonebrand){
+        res.status(200).json({
+            status:true,
+            msg:"success",
+            data:findonebrand,
+        })
+    }else{
+        res.status(400).json({
+            status:false,
+            msg:'error',
+            error: 'error',
+        })
+    }
+}
+
+exports.edit_brand = async (req, res)=>{
+    const updatebrand= await brands.findOneAndUpdate(
+        {_id: req.params.id},
+        {$set: req.body},
+        {new: true},
+    )
+    if(updatebrand){
+        res.status(200).json({
+            status:true,
+            msg: "success",
+            data:updatebrand,
+        })
+    }else{
+        res.status(400).json({
+            status:false,
+            msg:"error",
+            error: "error"
+        })
+    }
+}

@@ -6,6 +6,10 @@ const fs = require('fs');
 
 const {
     addbrand,
+    brandlist,
+    del_brand,
+    viewone_brand,
+    edit_brand,
 }=require('../controller/brand');
 
 
@@ -39,9 +43,10 @@ const storage = multer.diskStorage({
 
 
   router.post('/admin/addbrand', uploads.single("image"), addbrand);
-
-
-
+  router.get('/admin/brandlist', brandlist);
+  router.get('/admin/viewone_brand/:id', viewone_brand);
+  router.post('/admin/edit_brand/:id', edit_brand);
+  router.delete('/admin/del_brand/:id', del_brand);
 
 
 
