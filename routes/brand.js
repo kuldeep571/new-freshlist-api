@@ -1,18 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
 
 
 const {
-    addcategory,
-    getallcategory,
-    viewonecategory,
-    edit_category,
-    del_one_category,
-    category_true_false,
-}=require('../controller/category');
-
+    addbrand,
+}=require('../controller/brand');
 
 
 const storage = multer.diskStorage({
@@ -44,13 +38,9 @@ const storage = multer.diskStorage({
   let uploads = multer({ storage: storage });
 
 
+  router.post('/admin/addbrand', uploads.single("image"), addbrand);
 
-router.post('/admin/addcategory', uploads.single("image"), addcategory);
-router.get('/admin/getallcategory', getallcategory);
-router.get('/admin/viewonecategory/:id', viewonecategory);
-router.post('/admin/edit_category/:id', uploads.single("image"), edit_category);
-router.delete('/admin/del_one_category/:id', del_one_category);
-router.post('/admin/category_true_false/:id', category_true_false);
+
 
 
 

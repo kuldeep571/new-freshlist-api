@@ -183,3 +183,46 @@ exports.category_true_false= async(req, res)=>{
         })
     }
 }
+
+exports.edit_category= async(req, res)=>{
+    const {category_name, desc, image, status}=req.body;
+
+    data={};
+    if(category_name){
+        data.category_name = category_name;
+    }
+    if(desc){
+        data.desc = desc; 
+    }
+    if(image){
+        data.image = image;
+    }
+    if(status){
+        data.status= status;
+    }
+    if(req.file){
+        const responce = await cloudinary.uploader.upload(req.file.path);
+        data.image = responce.secure_url;
+        fs.unlinkSync(req.file.path);
+    }
+    if(data){
+        const findexist = await Category.findOneAndUpdate(
+            {$and: [{ id: req.sellerId }, { _id: req.params.id }],},
+            {$set: data},
+            {new:true}
+        );
+        if(findexist){
+            res.status(200).json({
+                status: true,
+                msg:"success",
+                data: findexist,
+            })
+        }else{
+            res.status(400).json({
+                status:false,
+                msg:"error",
+                error:"error",
+            })
+        }
+    }
+}

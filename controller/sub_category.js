@@ -5,13 +5,16 @@ require("dotenv").config();
 
 
 exports.addsubcategory= async (req, res)=>{
-    const {subcategory_name, desc, image}=req.body;
+    const {subcategory_name, desc, image, category}=req.body;
 
     const  newsubcategory = subproductcategories({
+
         subcategory_name: subcategory_name,
         desc: desc,
-        image: image
+        image: image,
+        category:category,
     });
+    console.log("nnn",newsubcategory)
     const findexist = await subproductcategories.findOne({subcategory_name: subcategory_name});
     console.log('findexist', findexist)
     if(findexist){
@@ -50,7 +53,7 @@ exports.addsubcategory= async (req, res)=>{
 exports.getalldata= async (req, res)=>{
     const findall = await subproductcategories.find().sort({
         sortorder:1
-    });
+    }).populate("category")
     if(findall){
         res.status(200).json({
             status:true,

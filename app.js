@@ -18,6 +18,8 @@ const aboutus = require("./routes/aboutus");
 const seller = require("./routes/seller");
 const category= require("./routes/category");
 const subcategory = require("./routes/sub_category");
+const brands = require("./routes/brand");
+const units = require("./routes/units");
 
 
 app.use('/', user);
@@ -26,6 +28,8 @@ app.use('/', aboutus);
 app.use('/', seller);
 app.use('/', category);
 app.use('/', subcategory);
+app.use('/', brands);
+app.use('/', units);
  
  
 

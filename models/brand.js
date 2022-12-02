@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Subcategoryschema = new Schema(
+const Brandschema = new Schema(
   {
-    subcategory_name: {
+    brand_name: {
         type: String,
     },
     desc: {
@@ -12,13 +12,12 @@ const Subcategoryschema = new Schema(
     image:{
        type: String,
     },
-    category:{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"Category",
+    status:{
+        type:String,
+        default:"Active",
     },
   },
   { timestamps: true }
 );
 
-
-module.exports = mongoose.model("subproductcategories", Subcategoryschema);
+module.exports = mongoose.model("brands", Brandschema);
