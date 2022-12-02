@@ -53,9 +53,4 @@ router.post('/admin/category_true_false/:id', category_true_false);
 
 
 
-
-
-
-
-
 module.exports = router;

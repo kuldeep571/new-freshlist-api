@@ -17,6 +17,7 @@ const adminlogin = require("./routes/adminlogin");
 const aboutus = require("./routes/aboutus");
 const seller = require("./routes/seller");
 const category= require("./routes/category");
+const subcategory = require("./routes/sub_category");
 
 
 app.use('/', user);
@@ -24,6 +25,7 @@ app.use('/', adminlogin);
 app.use('/', aboutus);
 app.use('/', seller);
 app.use('/', category);
+app.use('/', subcategory);
  
  
 
