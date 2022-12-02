@@ -47,7 +47,7 @@ const storage = multer.diskStorage({
   router.get('/admin/viewone_brand/:id', viewone_brand);
   router.post('/admin/edit_brand/:id', edit_brand);
   router.delete('/admin/del_brand/:id', del_brand);
-
+//console
 
 
 module.exports = router;
