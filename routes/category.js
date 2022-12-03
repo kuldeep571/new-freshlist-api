@@ -43,9 +43,15 @@ const storage = multer.diskStorage({
   
   let uploads = multer({ storage: storage });
 
+  let multipleUpload = uploads.fields([
+    { name: "image", maxCount: 1 },
+    { name: "thumbnail_img", maxCount: 1 },
+   
+  ]);
 
 
-router.post('/admin/addcategory', uploads.single("image"), addcategory);
+
+router.post('/admin/addcategory', multipleUpload, addcategory);
 router.get('/admin/getallcategory', getallcategory);
 router.get('/admin/viewonecategory/:id', viewonecategory);
 router.post('/admin/edit_category/:id', uploads.single("image"), edit_category);

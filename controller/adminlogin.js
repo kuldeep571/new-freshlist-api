@@ -1,12 +1,20 @@
 const adminlogins = require("../models/adminlogin");
 const cloudinary = require("cloudinary").v2;
-const fs = require("fs");
+const fs = require('fs');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const key = "verysecretkey";
 // const nodemailer = require("nodemailer");
 // const { sendmail } = require("./mail");
+
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 
 exports.Addadmin = async (req, res)=>{
     const {
@@ -132,44 +140,44 @@ exports.getoneadmin = async(req, res) => {
 }
 
 exports.adminprofile = async (req, res) => {
-  // const {
-  //   username,
-  //   email,
-  //   mobile,
-  //   country ,
-  //   state,
-  //   city
-  // } = req.body;
+  const {
+    username,
+    email,
+    mobile,
+    country ,
+    state,
+    city
+  } = req.body;
 
-  // data = {};
-  // if (username) {
-  //   data.username = username;
-  // }
-  // if (email) {
-  //   data.email = email;
-  // }
-  // if (mobile) {
-  //   data.mobile = mobile;
-  // }
-  // if (country ) {
-  //   data.country  = country ;
-  // }
-  // if (state) {
-  //   data.state = state;
-  // }
-  // if (city) {
-  //   data.city = city;
-  // }
-  // if (password) {
-  //   data.password = password;
-  // }
+  data = {};
+  if (username) {
+    data.username = username;
+  }
+  if (email) {
+    data.email = email;
+  }
+  if (mobile) {
+    data.mobile = mobile;
+  }
+  if (country ) {
+    data.country  = country ;
+  }
+  if (state) {
+    data.state = state;
+  }
+  if (city) {
+    data.city = city;
+  }
+  if (password) {
+    data.password = password;
+  }
    
-  // if (req.file) {
-  //   const response = await cloudinary.uploader.upload(req.file.path);
-  //   data.image = response.secure_url;
-  //   fs.unlinkSync(req.file.path);
-  // }
- // if (data) {
+  if (req.file) {
+    const response = await cloudinary.uploader.upload(req.file.path);
+    data.image = response.secure_url;
+    fs.unlinkSync(req.file.path);
+  }
+ if (data) {
     const findandUpdateEntry = await adminlogins.findOneAndUpdate(
       {
         _id: req.params.id,
@@ -191,5 +199,6 @@ exports.adminprofile = async (req, res) => {
       error: "error",
     });
   }
-};
+}
+}
 

@@ -1,12 +1,9 @@
 const Category = require('../models/category')
 const cloudinary= require('cloudinary').v2;
 const fs = require('fs');
-const { find } = require('../models/category');
 
 
 require("dotenv").config();
-
-
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -66,10 +63,15 @@ cloudinary.config({
 
 
 exports.addcategory= async (req, res) => {
-    const { category_name,desc,image} = req.body;
+    const { title, category_name, url, type, thumbnail_img, feature, desc, image} = req.body;
   
     const newCategory = new Category({
+        title:title,
         category_name:category_name,
+        url: url,
+        type:type,
+        thumbnail_img:thumbnail_img,
+        feature:feature,
         desc:desc,
         image:image
      });
@@ -82,14 +84,32 @@ exports.addcategory= async (req, res) => {
         data:{},
       })
      } else{
-     
-     if (req.file) {
-        const resp = await cloudinary.uploader.upload(req.file.path);
-        if (resp) {
-            newCategory.image = resp.secure_url;
-        fs.unlinkSync(req.file.path);
-      }
-      console.log("reqfile",req.file)
+        if (req.files.image[0].path) {
+            image_array = [];
+            for (let i = 0; i < req.files.image.length; i++) {
+              const resp = await cloudinary.uploader.upload(
+                req.files.image[i].path,  
+              );
+              fs.unlinkSync(req.files.image[i].path);
+              image_array.push(resp.secure_url);
+            }
+            newCategory.image = image_array;
+          }
+          if (req.files.thumbnail_img[0].path) {
+            thumbnail_img_array = [];
+            for (let i = 0; i < req.files.thumbnail_img.length; i++) {
+              const resp = await cloudinary.uploader.upload(
+                req.files.thumbnail_img[i].path,
+                { use_filename: true, unique_filename: false },
+                function (cb) {
+                  // console.log(cb);
+                }
+              );
+              fs.unlinkSync(req.files.thumbnail_img[i].path);
+              thumbnail_img_array.push(resp.secure_url);
+            }
+            newCategory.thumbnail_img = thumbnail_img_array;
+          }
       newCategory
          .save()
          .then((data)=>{
@@ -107,7 +127,6 @@ exports.addcategory= async (req, res) => {
             });
         });
       }
-    }
 }
 
 exports.getallcategory= async (req, res)=>{
@@ -207,7 +226,7 @@ exports.edit_category= async(req, res)=>{
     }
     if(data){
         const findexist = await Category.findOneAndUpdate(
-            {$and: [{ id: req.sellerId }, { _id: req.params.id }],},
+            { _id: req.params.id },
             {$set: data},
             {new:true}
         );

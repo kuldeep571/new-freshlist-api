@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 const categorySchema = new Schema(
   {
+    title:{
+      type:String,
+    },
     category_name: {
         type: String,
     },
@@ -10,7 +13,19 @@ const categorySchema = new Schema(
       type: String,
     },
     image:{
-       type: String,
+       type: Array,
+    },
+    thumbnail_img:{
+      type: Array,
+    },
+    type:{
+      type: String,
+    },
+    url:{
+      type: String,
+    },
+    feature:{
+      type: String,
     },
     status:{
         type:String,
