@@ -51,7 +51,7 @@ exports.addbrand= async (req, res)=>{
                 })
             })
             .catch((error)=>{
-                res.status(403).json({
+                res.status(400).json({
                     status:false,
                     msg: "error",
                     error: "error",
@@ -119,19 +119,15 @@ exports.edit_brand = async (req, res)=>{
     if(brand_name){
         data.brand_name = brand_name;
     }
-
     if(desc){
         data.desc = desc;
     }
-
     if(image){
         data.image = image;
     }
-
     if(status){
         data.status = status;
     }
-
     if(req.file){
         const result = await cloudinary.uploader.upload(req.file.path);
         data.image =  result.secure_url;
@@ -139,8 +135,8 @@ exports.edit_brand = async (req, res)=>{
     }
     if(data){
     const updatebrand= await brands.findOneAndUpdate(
-        {$and: [{ id: req.sellerId }, { _id: req.params.id }],},
-        {$set: req.data},
+        {_id: req.params.id},
+        {$set: data},
         {new: true},
     );
     if(updatebrand){

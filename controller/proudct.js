@@ -107,7 +107,7 @@ exports.del_product = async (req, res) => {
 }
 
 exports.edit_product = async (req, res) => {
-    const { product_name, description, type, model, min_selling_Q, max_selling_Q, reward_points, product_image, video_url, mrp, buying_price, m_margin, selling_price, m_customer } = req.body;
+    const { product_name, description, type, brand, model, quantity, gst_class, min_selling_Q, max_selling_Q, reward_points, product_image, video_url, metadata, meta_desc, product_search_tags, mrp, buying_price, m_margin, selling_price, m_customer, save_parsent, units_name } = req.body;
 
     data={};
     if(product_name){
@@ -119,8 +119,17 @@ exports.edit_product = async (req, res) => {
     if(type){
         data.type = type;
     }
+    if(brand){
+        data.brand = brand;
+    }
     if(model){
         data.model= model;
+    }
+    if(quantity){
+        data.quantity = quantity;
+    }
+    if(gst_class){
+        data.gst_class = gst_class;
     }
     if(min_selling_Q){
         data.min_selling_Q = min_selling_Q;
@@ -137,6 +146,15 @@ exports.edit_product = async (req, res) => {
     if(video_url){
         data.video_url= video_url;
     }
+    if(metadata){
+        data.metadata = metadata;
+    }
+    if(meta_desc){
+        data.meta_desc = meta_desc;
+    }
+    if(product_search_tags){
+        data.product_search_tags = product_search_tags;
+    }
     if(mrp){
         data.mrp= mrp;
     }
@@ -152,6 +170,12 @@ exports.edit_product = async (req, res) => {
     if(m_customer){
         data.m_customer = m_customer;
     }
+    if(save_parsent){
+        data.save_parsent = save_parsent;
+    }
+    if(units_name){
+        data.units_name = units_name;
+    }
 
     if(req.file){
         const result = await cloudinary.uploader.upload(req.file.path);
@@ -161,9 +185,38 @@ exports.edit_product = async (req, res) => {
     if(data){
         const findandUpdateEntry = await products.findOneAndUpdate(
             {_id: req.params.id},
-            {$set: req.body},
+            {$set: data},
             {new: true}
         );
+        if(findandUpdateEntry){
+            res.status(200).json({
+                status: true,
+                msg: "success",
+                data: findandUpdateEntry
+            })
+        }else{
+            res.status(400).json({
+                status: false,  
+                msg: "error",
+                error: error,
+            });
+        }
     }
-   
+}
+
+exports.viewone_product = async (req, res)=>{
+    const findexist = await products.findOne({_id: req.params.id})
+    if(findexist){
+        res.status(200).json({
+            status:true,
+            msg: "success",
+            data: findexist,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg:"error",
+            error: error,
+        })
+    }
 }

@@ -9,6 +9,7 @@ const{
     product_list,
     del_product,
     edit_product,
+    viewone_product,
 }=require('../controller/proudct');
 
 
@@ -52,8 +53,10 @@ router.post('/admin/addproduct',  uploads.single("product_image"), addproduct);
 
 router.get('/admin/product_list', product_list);
 
+router.get('/admin/viewone_product/:id', viewone_product);
+
 router.delete('/admin/del_product/:id', del_product);
 
-router.post('/admin/edit_product/:id', edit_product);
+router.post('/admin/edit_product/:id', uploads.single("product_image"), edit_product);
 
 module.exports = router;  
