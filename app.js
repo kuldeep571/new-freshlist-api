@@ -20,6 +20,9 @@ const category= require("./routes/category");
 const subcategory = require("./routes/sub_category");
 const brands = require("./routes/brand");
 const units = require("./routes/units");
+const product = require("./routes/product");
+const child_category = require("./routes/child_category");
+const language = require("./routes/language");
 
 
 app.use('/', user);
@@ -30,6 +33,9 @@ app.use('/', category);
 app.use('/', subcategory);
 app.use('/', brands);
 app.use('/', units);
+app.use('/', child_category);
+app.use('/', product);
+app.use('/', language);
  
  
 

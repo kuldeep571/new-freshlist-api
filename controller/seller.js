@@ -31,9 +31,7 @@ exports.addseller= async (req, res)=>{
         shop_address: shop_address,
         cnfrmPassword: cnfrmPassword,
     });
-    console.log("newsellerdata", newsellerdata)
-    //return false 
-
+    console.log("newsellerdata", newsellerdata);
     if(req.file){
         const result = await cloudinary.uploader.upload(req.file.path);
         newsellerdata.image = result.secure_url;
@@ -49,11 +47,10 @@ exports.addseller= async (req, res)=>{
             msg: "Already Exists",
             data:{},
         });
-        // console.log("newsellerdata", newsellerdata)
     }else{
         newsellerdata
         .save()
-        .then((data)=>{
+        .then((newsellerdata)=>{
             const token = jwt.sign(
                 {
                   sellerId: result._id,
@@ -67,8 +64,7 @@ exports.addseller= async (req, res)=>{
                 status: true,
                 token: token,
                 msg: "success",
-                user: result,
-                //designation: "seller",
+                data: newsellerdata,
               });
         })
         .catch((error)=>{

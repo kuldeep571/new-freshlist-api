@@ -25,6 +25,14 @@ exports.websignup = async (req, res) => {
     cnfrmPassword,
     status,
 
+    alt_mobile,
+    alt_email,
+    group,
+    latitude,
+    longitude,
+    name,
+    city
+
   } = req.body;
 
   const salt = bcrypt.genSaltSync(saltRounds);
@@ -53,9 +61,17 @@ exports.websignup = async (req, res) => {
     cnfrmPassword: hashpassword,
     type: type,
     status: status,
-    otp: defaultotp
+    otp: defaultotp,
+    alt_mobile:alt_mobile,
+    alt_email:alt_email,
+    group: group,
+    latitude: latitude,
+    longitude: longitude,
+    name: name,
+    city: city
+
   });
-  console.log("hhhh",newCustomer)
+  console.log("newcustomer data",newCustomer)
 
   let findexist= await User.findOne({mobile:req.body.mobile})
   if(findexist){

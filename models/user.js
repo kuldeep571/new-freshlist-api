@@ -30,7 +30,29 @@ const customerSchema = new Schema(
     status:{
       type:String,
       default:"false",
+    },
+    alt_mobile: {
+      type: Number,
+    },
+    alt_email: {
+      type: String,
+    },
+    group: {
+      type: String,
+    },
+    latitude:{
+      type: String,
+    },
+    longitude:{
+      type:String,
+    },
+    name:{
+      type: String,
+    },
+    city:{
+      type: String,
     }
+    
   },
   { timestamps: true }
 );
