@@ -136,7 +136,7 @@ exports.edit_brand = async (req, res)=>{
     const updatebrand= await brands.findOneAndUpdate(
         {_id: req.params.id},
         {$set: data},
-        {new: true},
+        {new: true}
     );
     if(updatebrand){
         res.status(200).json({
@@ -149,7 +149,7 @@ exports.edit_brand = async (req, res)=>{
             status:false,
             msg:"error",
             error: "error"
-        })
+        });
     }
 }
-}
+};

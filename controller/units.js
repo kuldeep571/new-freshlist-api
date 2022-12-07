@@ -2,22 +2,23 @@ const units = require('../models/units');
 
 
 exports.addunits= async (req, res)=>{
-    const {units_name, desc}=req.body;
+    const {units_name, desc, value}=req.body;
 
     const newunits = await units({
         units_name: units_name,
         desc: desc,
+        value: value,
     });
 
-    const findexist = await units.findOne({units_name: units_name});
-    if(findexist){
-        res.status(403).json({
-            status:false,
-            msg:"Allready exist",
-            data: {},
-        })
-    }
-    else{
+    // const findexist = await units.findOne({units_name: units_name});
+    // if(findexist){
+    //     res.status(403).json({
+    //         status:false,
+    //         msg:"Allready exist",
+    //         data: {},
+    //     })
+    // }
+    // else{
         newunits
         .save()
         .then((data)=>{
@@ -36,7 +37,7 @@ exports.addunits= async (req, res)=>{
         })
     }
     
-}
+// }
 
 exports.getall_units = async (req, res)=>{
     const findall = await units.find().sort({sortorder:1})
