@@ -52,7 +52,7 @@ router.post("/user/websignup", websignup);
 router.post("/user/veryfyotp", veryfyotp);
 router.post("/user/login", login);
 router.get("/user/userlist", userlist);
-router.get("/user/edituser/:id", edituser);
+router.post("/user/edituser/:id", edituser);
 router.post("/user/user_true_false/:id", user_true_false);
 router.delete("/user/dlt_user/:id", dlt_user);
 router.get("/user/getviewone/:id", getviewone);

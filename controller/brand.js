@@ -1,7 +1,6 @@
 const brands = require('../models/brand');
 const cloudinary= require('cloudinary').v2;
 const fs = require('fs');
-
 require("dotenv").config();
 
 
@@ -27,14 +26,14 @@ exports.addbrand= async (req, res)=>{
         status:status,
     })
     // console.log('newbrand', newbrand);
-    const findexist = await brands.findOne({brand_name: brand_name});
-    if(findexist){
-        res.status(403).json({
-            status:true,
-            msg:"Allready exist",
-            data: {},
-        })
-    } else{
+    // const findexist = await brands.findOne({brand_name: brand_name});
+    // if(findexist){
+    //     res.status(403).json({
+    //         status:true,
+    //         msg:"Allready exist",
+    //         data: {},
+    //     })
+    // } else{
         if(req.file){
             const result = await cloudinary.uploader.upload(req.file.path);
             if(result){
@@ -54,12 +53,12 @@ exports.addbrand= async (req, res)=>{
                 res.status(400).json({
                     status:false,
                     msg: "error",
-                    error: "error",
+                    error: error,
                 })
             })
         }
     }
-}
+// }
 
 exports.brandlist= async (req, res)=>{
     const findall = await brands.find().sort({sortorder:1})

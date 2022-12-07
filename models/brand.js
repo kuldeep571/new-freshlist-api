@@ -16,6 +16,9 @@ const Brandschema = new Schema(
         type:String,
         default:"Active",
     },
+    data:{
+      type: String,
+    },
   },
   { timestamps: true }
 );
