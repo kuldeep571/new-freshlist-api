@@ -23,6 +23,9 @@ const units = require("./routes/units");
 const product = require("./routes/product");
 const child_category = require("./routes/child_category");
 const language = require("./routes/language");
+const order = require("./routes/order");
+const color = require("./routes/color");
+const size = require("./routes/size");
 
 
 app.use('/', user);
@@ -36,8 +39,11 @@ app.use('/', units);
 app.use('/', child_category);
 app.use('/', product);
 app.use('/', language);
- 
- 
+app.use('/', order);
+app.use('/', color);
+app.use('/', size);
+
+
 
 app.get("/", (req, res) => {
   res.send("Hello World!!!!");

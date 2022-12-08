@@ -12,12 +12,12 @@ const productSchema = new Schema(
     description: {
         type: String,
     },
-    type: {
+    type:{
       type: String,
     },
     brand: {
-        type:String,
-        default:"Active",
+        type: Schema.Types.ObjectId,
+        ref:"brands",
     },
     model:{
        type: String,
@@ -53,12 +53,12 @@ const productSchema = new Schema(
         type:String,
     },
     category:{
-        type:mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:"Category",
     },
     sub_category:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"subproductcategories"
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"subproductcategories",
     },
     mrp:{
         type:Number,
@@ -79,8 +79,19 @@ const productSchema = new Schema(
         type:Number,
     },
     units_name:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"brands",
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"units",
+    },
+    stock:{
+        type: Number,
+    },
+    color :{
+        type : mongoose.Schema.Types.ObjectId,
+        ref:"color",
+    },
+    size :{
+        type : mongoose.Schema.Types.ObjectId,
+        ref:"sizes"
     },
   },
   { timestamps: true }

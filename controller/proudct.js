@@ -1,14 +1,13 @@
 const products = require('../models/product');
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
-const product = require('../models/product');
 require("dotenv").config();
 
 exports.addproduct = async (req, res) => {
 
     const { product_name, description, type, brand, model, quantity, gst_class, min_selling_Q, max_selling_Q, reward_points, product_image, video_url, metadata, meta_desc, product_search_tags, category, sub_category
         ,
-        mrp, buying_price, m_margin, selling_price, units_name, m_customer, save_parsent } = req.body;
+        mrp, buying_price, m_margin, selling_price, units_name, m_customer, save_parsent, stock, color, size} = req.body;
 
     const newproducts = new products({
         product_name: product_name,
@@ -35,6 +34,9 @@ exports.addproduct = async (req, res) => {
         selling_price: selling_price,
         save_parsent: save_parsent,
         units_name: units_name,
+        stock: stock,
+        color: color,
+        size: size,
     })
     // console.log('result', newproducts);
     const findexist = await products.findOne({ product_name: product_name });
@@ -73,7 +75,14 @@ exports.addproduct = async (req, res) => {
 
 
 exports.product_list = async (req, res) => {
-    const findall = await product.find().sort({ sortorderd: 1 });
+    const findall = await products.find()
+    .sort({ sortorderd: 1})
+    .populate("brand")
+    .populate("units_name")
+    .populate("category")
+    .populate("sub_category")
+    .populate("color")
+    .populate("size")
     if (findall) {
         res.status(200).json({
             status: true,
@@ -219,4 +228,4 @@ exports.viewone_product = async (req, res)=>{
             error: error,
         })
     }
-}
+}   

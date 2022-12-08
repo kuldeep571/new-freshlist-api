@@ -15,8 +15,8 @@ const Brandschema = new Schema(
     status:{
         type:String,
         default:"Active",
-        // active: "Active",
-        deactive: "Inactive",
+        // // active: "Active",
+        // deactive: "Inactive",
     },
     data:{
       type: String,

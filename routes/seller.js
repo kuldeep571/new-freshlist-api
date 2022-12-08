@@ -3,19 +3,23 @@ const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
 
-// const { verifytoken } = require("../functions/verifytoken");
-// const { tokenverify } = require("../functions/tokenverify");
 
 const {
     addseller,
+    getallseller,
+    viewone_seller,
+    del_seller,
+    edit_seller,
   
 } = require("../controller/seller");
+
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //console.log(file);
-    let path = `./uploadesimages`;
-    if (!fs.existsSync("uploadesimages")) {
-      fs.mkdirSync("uploadesimages");
+    let path = `./uploads`;
+    if (!fs.existsSync("uploads")) {
+      fs.mkdirSync("uploads");
     }
     cb(null, path);
   },
@@ -40,8 +44,12 @@ let uploads = multer({ storage: storage });
 
 router.post("/admin/addseller",  uploads.single("image"), addseller);
 
-// router.post("/user/sendotp", sendotp);
+router.get("/admin/getallseller", getallseller);
 
+router.get("/admin/viewone_seller/:id", viewone_seller);
 
+router.delete("/admin/del_seller/:id", del_seller);
+
+router.post("/admin/edit_seller/:id",  uploads.single("image"), edit_seller);
 module.exports = router;
  
