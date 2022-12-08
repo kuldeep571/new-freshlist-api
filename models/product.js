@@ -63,6 +63,12 @@ const productSchema = new Schema(
     mrp:{
         type:Number,
     },
+    buying_price1:{
+        type:Number,
+    },
+    m_margin1:{
+        type:Number,
+    },
     buying_price:{
         type:Number,
     },

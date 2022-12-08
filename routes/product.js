@@ -49,7 +49,7 @@ const storage = multer.diskStorage({
   // ]);
 
 
-router.post('/admin/addproduct',  uploads.single("product_image"), addproduct);
+router.post('/admin/addproduct', uploads.single("product_image"), addproduct);
 
 router.get('/admin/product_list', product_list);
 

@@ -18,6 +18,12 @@ const categorySchema = new Schema(
     thumbnail_img:{
       type: Array,
     },
+    web_banner:{
+      type: Array,
+    },
+    app_banner:{
+      type: Array,
+    },
     type:{
       type: String,
     },

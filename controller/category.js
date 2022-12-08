@@ -63,7 +63,7 @@ cloudinary.config({
 
 
 exports.addcategory= async (req, res) => {
-    const { title, category_name, url, type, thumbnail_img, feature, desc, image} = req.body;
+    const { title, category_name, url, type, thumbnail_img, feature, desc, image, web_banner, app_banner} = req.body;
   
     const newCategory = new Category({
         title:title,
@@ -73,7 +73,9 @@ exports.addcategory= async (req, res) => {
         thumbnail_img:thumbnail_img,
         feature:feature,
         desc:desc,
-        image:image
+        image:image,
+        web_banner: web_banner,
+        app_banner: app_banner,  
      });
      const findexist = await Category.findOne({ category_name: category_name });
      if (findexist) {
@@ -111,17 +113,31 @@ exports.addcategory= async (req, res) => {
             newCategory.thumbnail_img = thumbnail_img_array;
           }
           if (req.files) {
-            if (req.files.cat_img[0].path) {
+            if (req.files.web_banner[0].path) {
               alluploads = [];
-              for (let i = 0; i < req.files.cat_img.length; i++) {
+              for (let i = 0; i < req.files.web_banner.length; i++) {
                 const resp = await cloudinary.uploader.upload(
-                  req.files.cat_img[i].path,
+                  req.files.web_banner[i].path,
                   { use_filename: true, unique_filename: false }
                 );
-                fs.unlinkSync(req.files.cat_img[i].path);
+                fs.unlinkSync(req.files.web_banner[i].path);
                 alluploads.push(resp.secure_url);
               }
-              newCategory.cat_img = alluploads;
+              newCategory.web_banner = alluploads;
+            }
+          }
+          if (req.files) {
+            if (req.files.app_banner[0].path) {
+              alluploads = [];
+              for (let i = 0; i < req.files.app_banner.length; i++) {
+                const resp = await cloudinary.uploader.upload(
+                  req.files.app_banner[i].path,
+                  { use_filename: true, unique_filename: false }
+                );
+                fs.unlinkSync(req.files.app_banner[i].path);
+                alluploads.push(resp.secure_url);
+              }
+              newCategory.app_banner = alluploads;
             }
           }
       newCategory

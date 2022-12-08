@@ -7,7 +7,7 @@ exports.addproduct = async (req, res) => {
 
     const { product_name, description, type, brand, model, quantity, gst_class, min_selling_Q, max_selling_Q, reward_points, product_image, video_url, metadata, meta_desc, product_search_tags, category, sub_category
         ,
-        mrp, buying_price, m_margin, selling_price, units_name, m_customer, save_parsent, stock, color, size} = req.body;
+        mrp, buying_price, m_margin, buying_price1, m_margin1, selling_price, units_name, m_customer, save_parsent, stock, color, size} = req.body;
 
     const newproducts = new products({
         product_name: product_name,
@@ -37,7 +37,10 @@ exports.addproduct = async (req, res) => {
         stock: stock,
         color: color,
         size: size,
+        buying_price1: buying_price1,
+        m_margin1: m_margin1,
     })
+    
     // console.log('result', newproducts);
     const findexist = await products.findOne({ product_name: product_name });
     if (findexist) {

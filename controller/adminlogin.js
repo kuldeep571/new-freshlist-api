@@ -86,7 +86,7 @@ exports.Addadmin = async (req, res) => {
 exports.adminlogin = async (req, res) => {
   const { email, password } = req.body;
   const user = await adminlogins.findOne({
-    $or: [{ email: email }, { password: password }],
+    $or: [{ email: email }, {password: password }],
   });
   if (user) {
     const validPass = await bcrypt.compare(password, user.password);
@@ -172,9 +172,9 @@ exports.adminprofile = async (req, res) => {
   if (image) {
     data.image = image;
   }
-  if (password) {
-    data.password = password;
-  }
+  // if (password) {
+  //   data.password = password;
+  // }
 
   if (req.file) {
     const response = await cloudinary.uploader.upload(req.file.path);

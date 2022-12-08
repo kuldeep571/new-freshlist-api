@@ -46,6 +46,8 @@ const storage = multer.diskStorage({
   let multipleUpload = uploads.fields([
     { name: "image", maxCount: 1 },
     { name: "thumbnail_img", maxCount: 1 },
+    { name: "web_banner", maxCount: 1 },
+    { name: "app_banner", maxCount: 1 },
    
   ]);
 
