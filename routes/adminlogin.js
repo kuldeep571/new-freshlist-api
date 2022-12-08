@@ -11,15 +11,14 @@ const {
     adminlogin,
     adminprofile,
     getoneadmin,
-    viewoneadmin,
 } = require("../controller/adminlogin");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     //console.log(file);
-    let path = `./uploadesimages`;
-    if (!fs.existsSync("uploadesimages")) {
-      fs.mkdirSync("uploadesimages");
+    let path = `./uploads`;
+    if (!fs.existsSync("uploads")) {
+      fs.mkdirSync("uploads");
     }
     cb(null, path);
   },

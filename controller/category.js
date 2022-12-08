@@ -110,6 +110,20 @@ exports.addcategory= async (req, res) => {
             }
             newCategory.thumbnail_img = thumbnail_img_array;
           }
+          if (req.files) {
+            if (req.files.cat_img[0].path) {
+              alluploads = [];
+              for (let i = 0; i < req.files.cat_img.length; i++) {
+                const resp = await cloudinary.uploader.upload(
+                  req.files.cat_img[i].path,
+                  { use_filename: true, unique_filename: false }
+                );
+                fs.unlinkSync(req.files.cat_img[i].path);
+                alluploads.push(resp.secure_url);
+              }
+              newCategory.cat_img = alluploads;
+            }
+          }
       newCategory
          .save()
          .then((data)=>{
