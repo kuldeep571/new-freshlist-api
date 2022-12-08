@@ -34,13 +34,21 @@ exports.addbrand= async (req, res)=>{
     //         data: {},
     //     })
     // } else{
-        if(req.file){
-            const result = await cloudinary.uploader.upload(req.file.path);
-            if(result){
-                newbrand.image = result.secure_url;
-                fs.unlinkSync(req.file.path);
+        if (req.files) {
+            if (req.files.image[0].path) {
+                alluploads = [];
+              for (let i = 0; i < req.files.image.length; i++) {
+                  const resp = await cloudinary.uploader.upload(
+                      req.files.image[i].path,
+                      { use_filename: true, unique_filename: false }
+                      );
+                      fs.unlinkSync(req.files.image[i].path);
+                      alluploads.push(resp.secure_url);
+                    }
+                    newbrand.image = alluploads;
+                }
             }
-            newbrand
+                newbrand
             .save()
             .then((data)=>{
                 res.status(200).json({
@@ -56,7 +64,6 @@ exports.addbrand= async (req, res)=>{
                     error: error,
                 })
             })
-        }
     }
 // }
 
