@@ -29,7 +29,8 @@ exports.websignup = async (req, res) => {
     latitude,
     longitude,
     name,
-    city
+    city,
+    door_number
 
   } = req.body;
 
@@ -66,7 +67,9 @@ exports.websignup = async (req, res) => {
     latitude: latitude,
     longitude: longitude,
     name: name,
-    city: city
+    city: city,
+    door_number: door_number,
+
 
   });
   console.log("newcustomer data",newCustomer)
@@ -136,6 +139,8 @@ exports.websignup = async (req, res) => {
 // }
 
 exports.veryfyotp =async(req, res)=>{
+  let length = 6;
+  let defaultotp = "123456";
     const{mobile, otp}= req.body;
     const getuser= await User.findOne({mobile:mobile})
     if(getuser){  

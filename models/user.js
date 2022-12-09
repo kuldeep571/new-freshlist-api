@@ -51,6 +51,9 @@ const customerSchema = new Schema(
     },
     city:{
       type: String,
+    },
+    door_number:{
+      type: String,
     }
     
   },
