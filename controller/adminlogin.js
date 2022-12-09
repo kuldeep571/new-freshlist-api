@@ -147,7 +147,8 @@ exports.adminprofile = async (req, res) => {
     country,
     state,
     city,
-    image
+    image,
+    password,
   } = req.body;
 
   data = {};
@@ -172,15 +173,29 @@ exports.adminprofile = async (req, res) => {
   if (image) {
     data.image = image;
   }
-  // if (password) {
-  //   data.password = password;
-  // }
+  if (password) {
+    data.password = password;
+  }
 
   if (req.file) {
     const response = await cloudinary.uploader.upload(req.file.path);
     data.image = response.secure_url;
     fs.unlinkSync(req.file.path);
   }
+  // if (req.files) {
+  //   if (req.files.image[0].path) {
+  //     alluploads = [];
+  //     for (let i = 0; i < req.files.image.length; i++) {
+  //       const resp = await cloudinary.uploader.upload(
+  //         req.files.image[i].path,
+  //         { use_filename: true, unique_filename: false }
+  //       );
+  //       fs.unlinkSync(req.files.image[i].path);
+  //       alluploads.push(resp.secure_url);
+  //     }
+  //     data.image = alluploads;
+  //   }
+  // }
   if (data) {
     const findandUpdateEntry = await adminlogins.findOneAndUpdate(
       {

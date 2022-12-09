@@ -25,6 +25,7 @@ const language = require("./routes/language");
 const order = require("./routes/order");
 const color = require("./routes/color");
 const size = require("./routes/size");
+const addbatch = require("./routes/add_batch");
 
 
 app.use('/', user);
@@ -41,6 +42,9 @@ app.use('/', language);
 app.use('/', order);
 app.use('/', color);
 app.use('/', size);
+app.use('/', addbatch);
+
+
 
 
 
