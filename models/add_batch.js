@@ -16,11 +16,15 @@ const addbatchSchema = new Schema(
        type: String,
     },
     stock:{
-      type: String,
+      type: Number,
     },
     notify:{
-      type: String,
+      type: Number,
     },
+    status:{
+      type: String,
+      default: "Active",
+    }
 },
 { timestamps: true }
 );

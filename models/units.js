@@ -12,6 +12,10 @@ const unitsSchema = new Schema(
     value:{
         type:Number,
     },
+    status:{
+        type:String,
+        default:"Active",
+    },
 },
 {timestamps:true}
 

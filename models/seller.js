@@ -29,7 +29,7 @@ const customerSchema = new Schema(
     },
     status:{
       type:String,
-      default:"false",
+      default:"Active",
     },
     shop_name:{
         type:String,

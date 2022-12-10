@@ -5,7 +5,7 @@ require("dotenv").config();
 
 
 exports.addsubcategory= async (req, res)=>{
-    const {subcategory_name, desc, image, category}=req.body;
+    const {subcategory_name, desc, image, category, status}=req.body;
 
     const  newsubcategory = subproductcategories({
 
@@ -13,6 +13,7 @@ exports.addsubcategory= async (req, res)=>{
         desc: desc,
         image: image,
         category:category,
+        status: status,
     });
     console.log("nnn",newsubcategory)
     const findexist = await subproductcategories.findOne({subcategory_name: subcategory_name});

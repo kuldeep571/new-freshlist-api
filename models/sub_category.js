@@ -16,6 +16,10 @@ const Subcategoryschema = new Schema(
       type:mongoose.Schema.Types.ObjectId,
       ref:"Category",
     },
+    status:{
+      type:String,
+      default:"Active",
+    },
   },
   { timestamps: true }
 );

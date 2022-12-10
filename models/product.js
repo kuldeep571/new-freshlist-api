@@ -97,8 +97,12 @@ const productSchema = new Schema(
     },
     size :{
         type : mongoose.Schema.Types.ObjectId,
-        ref:"sizes"
+        ref:"sizes",
     },
+    status:{
+        type: String,
+        default: "Active",
+    }
   },
   { timestamps: true }
 );

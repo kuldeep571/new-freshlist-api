@@ -2,12 +2,13 @@ const units = require('../models/units');
 
 
 exports.addunits= async (req, res)=>{
-    const {units_name, desc, value}=req.body;
+    const {units_name, desc, value, status}=req.body;
 
     const newunits = await units({
         units_name: units_name,
         desc: desc,
         value: value,
+        status: status,
     });
 
     // const findexist = await units.findOne({units_name: units_name});
@@ -16,7 +17,7 @@ exports.addunits= async (req, res)=>{
     //         status:false,
     //         msg:"Allready exist",
     //         data: {},
-    //     })
+    //     })s
     // }
     // else{
         newunits

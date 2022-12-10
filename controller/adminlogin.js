@@ -145,6 +145,7 @@ exports.getoneadmin = async (req, res) => {
 }
 
 exports.adminprofile = async (req, res) => {
+
   const {
     username,
     email,
@@ -153,7 +154,7 @@ exports.adminprofile = async (req, res) => {
     state,
     city,
     image,
-    password,
+    // password,
   } = req.body;
 
   data = {};
@@ -178,9 +179,9 @@ exports.adminprofile = async (req, res) => {
   if (image) {
     data.image = image;
   }
-  if (password) {
-    data.password = password;
-  }
+  // if (password) {
+  //   data.password = password;
+  // }
 
   if (req.file) {
     const response = await cloudinary.uploader.upload(req.file.path);

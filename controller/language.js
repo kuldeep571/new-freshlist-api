@@ -13,11 +13,12 @@ cloudinary.config({
 
 
 exports.add_language = async (req, res)=>{
-    const {lang_name, image}=req.body;
+    const {lang_name, image, status}=req.body;
 
     const newlanguage = new language({
         lang_name:lang_name,
         image: image,
+        status: status,
     })
     // const findexist = await language.findOne({lang_name: lang_name});
     // if(findexist){
@@ -132,4 +133,3 @@ exports.viewone_language = async (req, res)=>{
         })
     }
 }
-

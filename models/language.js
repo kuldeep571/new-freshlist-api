@@ -10,6 +10,10 @@ const languageSchema = new Schema(
         image:{
             type: Array,
         },
+        status:{
+            type: String,
+            default: "Active",
+        }
     },
     {timestamps: true}
 );
