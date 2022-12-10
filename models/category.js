@@ -12,6 +12,9 @@ const categorySchema = new Schema(
     desc: {
       type: String,
     },
+    parent:{
+      type: String,
+    },
     image:{
        type: Array,
     },
@@ -35,7 +38,7 @@ const categorySchema = new Schema(
     },
     status:{
         type:String,
-        default: "false",
+        default: "Enable",
     },
   },
   { timestamps: true }

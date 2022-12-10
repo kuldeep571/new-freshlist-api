@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const addbatchSchema = new Schema(
   {
-    batch_name:{
-      type:String,
+    batch_no:{
+      type:Number,
     },
     rack_no: {
-        type: String,
+        type: Number,
     },
     shelf_life: {
       type: String,
@@ -25,4 +25,4 @@ const addbatchSchema = new Schema(
 { timestamps: true }
 );
 
-module.exports = mongoose.model("addbatch", addbatchSchema);
+module.exports = mongoose.model("addbatches", addbatchSchema);

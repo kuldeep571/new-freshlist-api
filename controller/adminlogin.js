@@ -8,6 +8,11 @@ const key = "verysecretkey";
 // const nodemailer = require("nodemailer");
 // const { sendmail } = require("./mail");
 
+const validatePassword = (password, dbpassword) => {
+  bcrypt.compareSync(password, dbpassword);
+  return true;
+};
+
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,

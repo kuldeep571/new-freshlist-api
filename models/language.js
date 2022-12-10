@@ -4,8 +4,11 @@ const Schema = mongoose.Schema;
 
 const languageSchema = new Schema(
     {
-        language_name:{
+        lang_name:{
             type: String,
+        },
+        image:{
+            type: Array,
         },
     },
     {timestamps: true}

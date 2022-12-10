@@ -26,6 +26,7 @@ const order = require("./routes/order");
 const color = require("./routes/color");
 const size = require("./routes/size");
 const addbatch = require("./routes/add_batch");
+const country_code = require("./routes/country_code");
 
 
 app.use('/', user);
@@ -43,6 +44,7 @@ app.use('/', order);
 app.use('/', color);
 app.use('/', size);
 app.use('/', addbatch);
+app.use('/', country_code);
 
 
 

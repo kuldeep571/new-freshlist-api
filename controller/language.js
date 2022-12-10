@@ -1,20 +1,46 @@
 const language = require('../models/language');
+const cloudinary= require('cloudinary').v2;
+const fs = require('fs');
+require("dotenv").config();
+
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+
 
 
 exports.add_language = async (req, res)=>{
-    const {language_name}=req.body;
+    const {lang_name, image}=req.body;
 
     const newlanguage = new language({
-        language_name:language_name,
+        lang_name:lang_name,
+        image: image,
     })
-    const findexist = await language.findOne({language_name: language_name});
-    if(findexist){
-        res.status(403).json({
-            status: false,
-            msg: "Allready exist",
-            data: {},
-        })
-    }else{
+    // const findexist = await language.findOne({lang_name: lang_name});
+    // if(findexist){
+    //     res.status(403).json({
+    //         status: false,
+    //         msg: "Allready exist",
+    //         data: {},
+    //     })
+    // }else{
+        if (req.files) {
+            if (req.files.image[0].path) {
+              alluploads = [];
+              for (let i = 0; i < req.files.image.length; i++) {
+                const resp = await cloudinary.uploader.upload(
+                  req.files.image[i].path,
+                  { use_filename: true, unique_filename: false }
+                );
+                fs.unlinkSync(req.files.image[i].path);
+                alluploads.push(resp.secure_url);
+              }
+              newlanguage.image = alluploads;
+            }
+          }
         newlanguage
         .save()
         .then((data)=>{
@@ -32,7 +58,7 @@ exports.add_language = async (req, res)=>{
             })
         })
     }
-}
+// }
 
 exports.language_list = async (req, res)=>{
     const findall = await language.find().sort({sortorder:1});

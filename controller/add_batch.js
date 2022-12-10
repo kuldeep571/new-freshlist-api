@@ -1,11 +1,11 @@
-const addbatch = require("../models/add_batch");
+const addbatches = require("../models/add_batch");
 
 
 exports.addbatch = async (req, res)=>{
-    const {batch, rack_no, shelf_life, expiry_date, stock, notify}=req.body;
+    const {batch_no, rack_no, shelf_life, expiry_date, stock, notify}=req.body;
 
-    const newaddbatch = new addbatch({
-        batch_name: batch_name,
+    const newaddbatch = new addbatches({
+        batch_no: batch_no,
         rack_no: rack_no,
         shelf_life: shelf_life,
         expiry_date: expiry_date,
@@ -13,7 +13,7 @@ exports.addbatch = async (req, res)=>{
         notify: notify,
     });
 
-    const findexist = await addbatch.findOne({batch_name: bacth_name})
+    const findexist = await addbatches.findOne({batch_no: batch_no})
     if(findexist){
         res.status(403).json({
             status: false,

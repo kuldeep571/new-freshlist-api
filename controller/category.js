@@ -63,17 +63,18 @@ cloudinary.config({
 
 
 exports.addcategory= async (req, res) => {
-    const { title, category_name, url, type, thumbnail_img, feature, desc, image, web_banner, app_banner} = req.body;
+    const { title, category_name, url, parent, type, thumbnail_img, feature, desc, image, web_banner, app_banner} = req.body;
   
     const newCategory = new Category({
         title:title,
         category_name:category_name,
         url: url,
-        type:type,
-        thumbnail_img:thumbnail_img,
-        feature:feature,
-        desc:desc,
-        image:image,
+        parent: parent,
+        type: type,
+        thumbnail_img: thumbnail_img,
+        feature: feature,
+        desc: desc,
+        image: image,
         web_banner: web_banner,
         app_banner: app_banner,  
      });
