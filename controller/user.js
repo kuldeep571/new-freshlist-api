@@ -50,9 +50,10 @@ exports.websignup = async (req, res) => {
     return random_string;
   }
 
+  if(password == cnfrmPassword){
+  
   const newCustomer = new User({
     customerId: random_string,
-    // added_by :req.sellerId,
     username: username,
     email: email,
     mobile: mobile,
@@ -69,12 +70,8 @@ exports.websignup = async (req, res) => {
     name: name,
     city: city,
     door_number: door_number,
-
-
   });
-  console.log("newcustomer data",newCustomer)
-
-  let findexist= await User.findOne({mobile:req.body.mobile})
+  let findexist = await User.findOne({mobile:req.body.mobile})
   if(findexist){
   res.json({
   status: "success",
@@ -87,6 +84,7 @@ exports.websignup = async (req, res) => {
   } else {
     newCustomer
     .save()
+  
     .then((data) => {
       res.json({
         status: "success",
@@ -104,6 +102,16 @@ exports.websignup = async (req, res) => {
         });
       });
   }
+}else{
+  res.status(403).json({
+    status: false,
+    msg:"password is not match",
+  })
+}
+  // console.log("newcustomer data",newCustomer)
+  
+
+ 
 };
 
 // exports.sendotpuser = async (req, res) => {

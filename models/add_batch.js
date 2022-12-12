@@ -6,21 +6,27 @@ const addbatchSchema = new Schema(
     batch_no:{
       type:Number,
     },
+
     rack_no: {
         type: Number,
     },
-    shelf_life: {
+
+    shelf_life:{
       type: String,
     },
+
     expiry_date:{
        type: String,
     },
+
     stock:{
       type: Number,
     },
+
     notify:{
       type: Number,
     },
+    
     status:{
       type: String,
       default: "Active",
