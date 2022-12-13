@@ -109,3 +109,24 @@ exports.del_hub = async (req, res)=>{
         })
     }
 }
+
+exports.edit_hub = async (req, res)=>{
+    const updatedata = await createhub.findOneAndUpdate(
+        {_id: req.params.id},
+        {$set: req.body},
+        {new: true}
+    )
+    if(updatedata){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: updatedata,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
+        })
+    }
+}
