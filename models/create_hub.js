@@ -22,10 +22,12 @@ const newhubSchema = new Schema(
         type:String,
     },
     category:{
-        type:String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Category",
     },
     sub_category:{
-        type:String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"subproductcategories",
     },
     status:{
         type:String,
@@ -36,6 +38,4 @@ const newhubSchema = new Schema(
 
 );
 
-
-
-module.exports = mongoose.model("Newhub", newhubSchema);
+module.exports = mongoose.model("createhubs", newhubSchema);

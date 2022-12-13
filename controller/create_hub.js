@@ -1,10 +1,19 @@
-const Newhub = require('../models/create_hub');
+const createhub = require('../models/create_hub');
 
 
 exports.addhub= async (req, res)=>{
-    const {name, desc, mobile, email, address, delivery_zone, category, sub_category, status}=req.body;
+    const {
+        name,
+        desc, 
+        mobile, 
+        email, 
+        address, 
+        delivery_zone, 
+        category, 
+        sub_category, 
+        status}=req.body;
 
-    const newhubdata = await Newhub({
+    const newhubdata = await createhub({
         name: name,
         desc: desc,
         mobile: mobile,
@@ -16,7 +25,7 @@ exports.addhub= async (req, res)=>{
         status: status,
     });
 
-    const findexist = await Newhub.findOne({email: email});
+    const findexist = await createhub.findOne({email: email});
     if(findexist){
         res.status(403).json({
             status:false,
@@ -33,7 +42,6 @@ exports.addhub= async (req, res)=>{
                 msg: "success",
                 data: data,
             })
-            console.log('newhubdata', newhubdata)
         })
         .catch((error)=>{
             res.status(400).json({
@@ -43,4 +51,48 @@ exports.addhub= async (req, res)=>{
             })
         })
     }
+}
+
+exports.hublist = async (req, res)=>{
+    const findexist = await createhub.find()
+    .sort({sortorder:1})
+    .populate("category")
+    .populate("sub_category")
+
+    if(findexist){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: findexist,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
+        })
+    }
+}
+
+exports.viewone_hub = async (req, res)=>{
+    const findsingle = await createhub.findOne({_id: req.params.id})
+    .populate("category")
+    .populate("sub_category")
+    if(findsingle){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: findsingle,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
+        })
+    }
+}
+
+exports.del_hub = async (req, res)=>{
+    
 }
