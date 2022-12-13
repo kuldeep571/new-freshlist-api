@@ -98,7 +98,7 @@ exports.del_hub = async (req, res)=>{
     if(deleteone){
         res.status(200).json({
             status: true,
-            msg: "success",
+            msg: "success delete",
             data: deleteone,
         })
     }else{
