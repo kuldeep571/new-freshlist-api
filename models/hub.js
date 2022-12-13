@@ -1,20 +1,19 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const unitsSchema = new Schema(
+const hubSchema = new Schema(
 {   
-    units_name:{
+    name:{
         type:String,
     },
     desc:{
         type:String,
     },
-    value:{
+    mobile:{
         type:Number,
     },
-    status:{
+    address:{
         type:String,
-        default:"Active",
     },
 },
 {timestamps:true}
@@ -23,4 +22,4 @@ const unitsSchema = new Schema(
 
 
 
-module.exports = mongoose.model("units", unitsSchema);
+module.exports = mongoose.model("hub", hubSchema);

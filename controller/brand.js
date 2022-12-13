@@ -40,7 +40,7 @@ exports.addbrand= async (req, res)=>{
               for (let i = 0; i < req.files.image.length; i++) {
                   const resp = await cloudinary.uploader.upload(
                       req.files.image[i].path,
-                      { use_filename: true, unique_filename: false }
+                      { use_filename: true, unique_filename: false }    
                       );
                       fs.unlinkSync(req.files.image[i].path);
                       alluploads.push(resp.secure_url);
