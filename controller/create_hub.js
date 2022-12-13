@@ -94,5 +94,18 @@ exports.viewone_hub = async (req, res)=>{
 }
 
 exports.del_hub = async (req, res)=>{
-    
+    const deleteone = await createhub.deleteOne({_id: req.params.id});
+    if(deleteone){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: deleteone,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
+        })
+    }
 }
