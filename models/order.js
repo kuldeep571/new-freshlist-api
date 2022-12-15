@@ -1,20 +1,44 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const unitsSchema = new Schema(
+const orderSchema = new Schema(
 {   
-    units_name:{
+    order_id:{
         type:String,
     },
-    desc:{
+    orderd_from:{
         type:String,
     },
-    value:{
-        type:Number,
+    order_zone:{
+        type:String,
+    },
+    billing_add:{
+        type:String,
+    },
+    delivery_add:{
+        type:String,
+    },
+    date:{
+        type:String,
+    },
+    delivery_date:{
+        type:String,
+    },
+    time_slot:{
+        type:String,
+    },
+    items:{
+        type:String,
+    }, 
+    assing_drive:{
+        type:String,
+    },
+    notify_customer:{
+        type:String,
     },
     status:{
         type:String,
-        default:"Active",
+        default:"Order Placed",
     },
 },
 {timestamps:true}
@@ -22,5 +46,4 @@ const unitsSchema = new Schema(
 );
 
 
-
-module.exports = mongoose.model("units", unitsSchema);
+module.exports = mongoose.model("orderproduct", orderSchema);

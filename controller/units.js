@@ -10,7 +10,6 @@ exports.addunits= async (req, res)=>{
         value: value,
         status: status,
     });
-
     // const findexist = await units.findOne({units_name: units_name});
     // if(findexist){
     //     res.status(403).json({

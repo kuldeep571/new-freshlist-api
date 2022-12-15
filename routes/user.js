@@ -15,10 +15,12 @@ const {
   dlt_user,
   user_true_false,
   getviewone,
-  sendotp,
+
   userVryfyotp,
   emailSend,
-  verifyotp,
+  sendotp,
+  verifyotps,
+  adduser,
 } = require("../controller/user");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -48,15 +50,22 @@ const fileFilter = (req, file, cb) => {
 
 let uploads = multer({ storage: storage });
 
-router.post("/user/websignup", websignup);
-router.post("/user/veryfyotp", veryfyotp);
+// router.post("/user/websignup", websignup);
+// router.post("/user/veryfyotp", veryfyotp);
 router.post("/user/login", login);
 router.get("/user/userlist", userlist);
 router.post("/user/edituser/:id", edituser);
 router.post("/user/user_true_false/:id", user_true_false);
 router.delete("/user/dlt_user/:id", dlt_user);
 router.get("/user/getviewone/:id", getviewone);
-// router.post("/user/sendotp", sendotp);
+
+
+
+router.post("/user/sendotp", sendotp);
+
+router.get("/user/verifyotps", verifyotps);
+
+router.post("/user/adduser", adduser);
 
 
 module.exports = router;

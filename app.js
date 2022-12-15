@@ -22,13 +22,13 @@ const units = require("./routes/units");
 const product = require("./routes/product");
 const child_category = require("./routes/child_category");
 const language = require("./routes/language");
-const order = require("./routes/order");
 const color = require("./routes/color");
 const size = require("./routes/size");
 const addbatch = require("./routes/add_batch");
 const country_code = require("./routes/country_code");
 const banner = require("./routes/banner");
 const create_hub = require("./routes/create_hub");
+const order = require("./routes/order");
 
 
 
@@ -49,6 +49,7 @@ app.use('/', addbatch);
 app.use('/', country_code);
 app.use('/', banner);
 app.use('/', create_hub);
+app.use('/', order);
 
 
 
