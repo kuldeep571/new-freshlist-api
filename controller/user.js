@@ -331,8 +331,6 @@ exports.getviewone = async (req, res) => {
 }
 
 
-
-
 exports.sendotp = async (req, res) => {
   let length = 6;
   let defaultotp = "123456";
