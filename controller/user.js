@@ -336,7 +336,6 @@ exports.sendotp = async (req, res) => {
   let defaultotp = "123456";
 
   const { mobile } = req.body;
-
   const newUser = new User({
     mobile: mobile,
     otp: defaultotp
@@ -370,8 +369,6 @@ exports.sendotp = async (req, res) => {
 }
 
 
-
-
 exports.userRegister = async (req, res) => {
   const findandUpdateEntry = await User.findOneAndUpdate(
       {
@@ -401,13 +398,14 @@ exports.verifyotps = async (req, res) => {
   let defaultotp = "123456";
   const { mobile, otp } = req.body;
   if (otp == 123456) {
-    const findone = await User.findOne({ mobile: mobile });
+    const findone = await User.findOne({ mobile: mobile});
     if (findone) {
       res.status(200).json({
         status: true,
         msg: "otp verified please register",
         mobile: mobile,
         otp: defaultotp,
+        _id: findone._id
       });
     }
   } else {
@@ -441,9 +439,6 @@ exports.userRegister = async(req,res) =>{
     })
   }
 }
-
- 
-
 
 
 
