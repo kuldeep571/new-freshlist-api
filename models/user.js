@@ -54,8 +54,10 @@ const customerSchema = new Schema(
     },
     door_number:{
       type: String,
-    }
-    
+    },
+    captcha:{
+      type: String,
+    },
   },
   { timestamps: true }
 );

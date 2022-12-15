@@ -20,7 +20,8 @@ const {
   emailSend,
   sendotp,
   verifyotps,
-  adduser,
+  // adduser,
+  userRegister,
 } = require("../controller/user");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -65,7 +66,9 @@ router.post("/user/sendotp", sendotp);
 
 router.get("/user/verifyotps", verifyotps);
 
-router.post("/user/adduser", adduser);
+// router.post("/user/adduser", adduser);
+
+router.post("/user/userRegister/:id", userRegister);
 
 
 module.exports = router;
