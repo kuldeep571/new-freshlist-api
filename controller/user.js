@@ -370,32 +370,10 @@ exports.sendotp = async (req, res) => {
 }
 
 
-exports.verifyotps = async (req, res) => {
-  let length = 6;
-  let defaultotp = "123456";
-  const { mobile, otp } = req.body;
-  const getuser = await User.findOne({ mobile: mobile })
-  if (getuser) {
-    if (otp == 123456) {
-      
-          res.status(200).send({
-            status: true,
-            msg: "otp verified",
-            otp: otp,
-            _id: getuser._id,
-            mobile: getuser.mobile
-          })
-        }
-    } else {
-      res.status(200).json({
-        status: false,
-        msg: "incurrect otp",
-      })
-    }
-  }
 
-  exports.userRegister = async (req, res) => {
-    const findandUpdateEntry = await User.findOneAndUpdate(
+
+exports.userRegister = async (req, res) => {
+  const findandUpdateEntry = await User.findOneAndUpdate(
       {
         _id: req.params.id,
       },
@@ -418,151 +396,162 @@ exports.verifyotps = async (req, res) => {
     }
   }
 
-// exports.verifyotps = async (req, res) => {
-//   let length = 6;
-//   let defaultotp = "123456";
-//   const { mobile, otp } = req.body;
-//   if (otp == 123456) {
-//     const findone = await User.findOne({ mobile: mobile });
-//     if (findone) {
-//       res.status(200).json({
-//         status: true,
-//         msg: "user already exist",
-//         alreadyexist: true,
-//         mobile: mobile,
-//         otp: defaultotp,
-//       });
-//     } else {
-//       res.status(200).json({
-//         status: true,
-//         msg: "otp verified please register ",
-//         alreadyexist: false,
-//         mobile: mobile,
-//         otp: defaultotp,
-//       });
-//     }
-//   } else {
-//     res.status(400).json({
-//       status: false,
-//       msg: "Incorrect Otp",
-//     });
-//   }
-// };
+exports.verifyotps = async (req, res) => {
+  let length = 6;
+  let defaultotp = "123456";
+  const { mobile, otp } = req.body;
+  if (otp == 123456) {
+    const findone = await User.findOne({ mobile: mobile });
+    if (findone) {
+      res.status(200).json({
+        status: true,
+        msg: "otp verified please register",
+        mobile: mobile,
+        otp: defaultotp,
+      });
+    }
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "Incorrect Otp",
+    });
+  }
+}
 
-
-
-
-// exports.userRegister = async(req,res) =>{
-//   const {status} = req.body
-//   const userdetail = await User.findOneAndUpdate(
-//     {
-//   _id:req.params.id
-//   },
-//   {$set :req.body,status:"true"},
-//   {new:true}
-//   )
-//   if(userdetail){
-//     res.status(200).json({
-//       status: true,
-//       msg: "success",
-//       data: userdetail,
-//     })
-//   }else{
-//     res.status(400).json({
-//       status:false,
-//       msg: "error",
-//       error:"error",
-//     })
-//   }
-// }
+exports.userRegister = async(req,res) =>{
+  const {status} = req.body
+  const userdetail = await User.findOneAndUpdate(
+    {
+  _id:req.params.id
+  },
+  {$set :req.body,status:"true"},
+  {new:true}
+  )
+  if(userdetail){
+    res.status(200).json({
+      status: true,
+      msg: "success",
+      data: userdetail,
+    })
+  }else{
+    res.status(400).json({
+      status:false,
+      msg: "error",
+      error:"error",
+    })
+  }
+}
 
  
 
 
 
 
-// exports.adduser = async (req, res) => {
-//   const {
-//     customerId,
-//     username,
-//     email,
-//     mobile,
-//     password,
-//     type,
-//     cnfrmPassword,
-//     status,
-//     alt_mobile,
-//     alt_email,
-//     group,
-//     latitude,
-//     longitude,
-//     name,
-//     city,
-//     door_number
+exports.adduser = async (req, res) => {
+  const {
+    customerId,
+    username,
+    email,
+    mobile,
+    password,
+    type,
+    cnfrmPassword,
+    status,
+    alt_mobile,
+    alt_email,
+    group,
+    latitude,
+    longitude,
+    name,
+    city,
+    door_number
 
-//   } = req.body;
+  } = req.body;
 
-//   const salt = bcrypt.genSaltSync(saltRounds);
-//     const hashpassword = bcrypt.hashSync(password, salt);
+  const salt = bcrypt.genSaltSync(saltRounds);
+    const hashpassword = bcrypt.hashSync(password, salt);
   
-//     create_random_string(6);
-//     function create_random_string(string_length) {
-//       (random_string = ""),
-//         (characters =
-//           "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz");
-//       for (var i, i = 0; i < string_length; i++) {
-//         random_string += characters.charAt(
-//           Math.floor(Math.random() * characters.length)
-//         );
-//       }
-//       return random_string;
-//     }
+    create_random_string(6);
+    function create_random_string(string_length) {
+      (random_string = ""),
+        (characters =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz");
+      for (var i, i = 0; i < string_length; i++) {
+        random_string += characters.charAt(
+          Math.floor(Math.random() * characters.length)
+        );
+      }
+      return random_string;
+    }
 
-//   const newUser = new User({
-//     customerId: random_string,
-//     username: username,
-//     email: email,
-//     mobile: mobile,
-//     password: hashpassword,
-//     cnfrmPassword: hashpassword,
-//     type: type,
-//     // status: status,
-//     alt_mobile: alt_mobile,
-//     alt_email: alt_email,
-//     group: group,
-//     latitude: latitude,
-//     longitude: longitude,
-//     name: name,
-//     city: city,
-//     door_number: door_number,
-//   });
-//   console.log("newUser", newUser)
-//   // return false
+  const newUser = new User({
+    customerId: random_string,
+    username: username,
+    email: email,
+    mobile: mobile,
+    password: hashpassword,
+    cnfrmPassword: hashpassword,
+    type: type,
+    // status: status,
+    alt_mobile: alt_mobile,
+    alt_email: alt_email,
+    group: group,
+    latitude: latitude,
+    longitude: longitude,
+    name: name,
+    city: city,
+    door_number: door_number,
+  });
+  console.log("newUser", newUser)
+  // return false
 
-//   const findexist = await User.findOne({ email: email });
-//   if (findexist) {
-//     res.status(400).json({
-//       status: false,
-//       msg: "Already Exists",
-//       data: {},
-//     });
-//   }
-//   else {
-//     newUser
-//       .save()
-//       .then((data) => {
-//         res.status(200).json({
-//           status: true,
-//           msg: "success",
-//           data: data,
-//         });
+  const findexist = await User.findOne({ email: email });
+  if (findexist) {
+    res.status(400).json({
+      status: false,
+      msg: "Already Exists",
+      data: {},
+    });
+  }
+  else {
+    newUser
+      .save()
+      .then((data) => {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({
+          status: false,
+          msg: "error",
+          error: error,
+        });
+      });
+  }
+}
+
+// exports.verifyotps = async (req, res) => {
+//   let length = 6;
+//   let defaultotp = "123456";
+//   const { mobile, otp } = req.body;
+//   const getuser = await User.findOne({ mobile: mobile })
+//   if (getuser) {
+//     if (otp == 123456) {
+//           res.status(200).json({
+//             status: true,
+//             msg: "otp verified",
+//             otp: defaultotp,
+//             _id: getuser._id,
+//             mobile: getuser.mobile
+//           })
+//         }
+//     } else {
+//       res.status(400).json({
+//         status: false,
+//         msg: "incurrect otp",
 //       })
-//       .catch((error) => {
-//         res.status(400).json({
-//           status: false,
-//           msg: "error",
-//           error: error,
-//         });
-//       });
+//     }
 //   }
-// }
