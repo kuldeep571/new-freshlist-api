@@ -64,7 +64,7 @@ router.get("/user/getviewone/:id", getviewone);
 
 router.post("/user/sendotp", sendotp);
 
-router.get("/user/verifyotps", verifyotps);
+router.post("/user/verifyotps", verifyotps);
 
 // router.post("/user/adduser", adduser);
 
