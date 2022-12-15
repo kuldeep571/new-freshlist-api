@@ -369,29 +369,29 @@ exports.sendotp = async (req, res) => {
 }
 
 
-exports.userRegister = async (req, res) => {
-  const findandUpdateEntry = await User.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      { $set: req.body,status:"true" },
-      { new: true }
-    );
+// exports.userRegister = async (req, res) => {
+//   const findandUpdateEntry = await User.findOneAndUpdate(
+//       {
+//         _id: req.params.id,
+//       },
+//       { $set: req.body,status:"true" },
+//       { new: true }
+//     );
   
-    if (findandUpdateEntry) {
-      res.status(200).json({
-        status: true,
-        msg: 'success',
-        data: findandUpdateEntry,
-      })
-    } else {
-      res.status(400).json({
-        status: false,
-        status: error,
-        msg: 'error',
-      })
-    }
-  }
+//     if (findandUpdateEntry) {
+//       res.status(200).json({
+//         status: true,
+//         msg: 'success',
+//         data: findandUpdateEntry,
+//       })
+//     } else {
+//       res.status(400).json({
+//         status: false,
+//         msg: 'error',
+//         error: "error",
+//       })
+//     }
+//   }
 
 exports.verifyotps = async (req, res) => {
   let length = 6;
