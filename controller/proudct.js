@@ -1,4 +1,6 @@
 const products = require('../models/product');
+const subproductcategories = require('../models/sub_category');
+
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
 require("dotenv").config();
@@ -232,3 +234,23 @@ exports.viewone_product = async (req, res)=>{
         })
     }
 }   
+
+exports.productby_category = async(req, res)=>{
+    let finddata = await subproductcategories.find({category: req.params.id})
+    .sort({sortoredr:1})
+    .populate("category")
+    .then((finddata)=>{
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: finddata,
+        })
+    })
+    .catch((error)=>{
+        res.status(400).json({
+            status: false,
+            msg:"error",
+            error: error,
+        })
+    })
+}

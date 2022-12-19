@@ -183,47 +183,47 @@ const key = "verysecretkey";
 // }
 
 
-exports.login = async (req, res) => {
-  const { mobile, email, password } = req.body;
-  const user = await User.findOne({
-    $or: [{ mobile: mobile }, { password: password }],
-  });
-  if (user?.status == "true") {
-    const validPass = await bcrypt.compare(password, user.password);
-    if (validPass) {
-      const token = jwt.sign(
-        {
-          userId: user._id,
-        },
-        process.env.TOKEN_SECRET,
-        {
-          expiresIn: 86400000,
-        }
-      );
-      res.header("auth-token", token).status(200).send({
-        status: true,
-        token: token,
-        msg: "login success",
-        user: user,
-      });
-    }
-  } else if (user?.status == "false") {
-    res.status(400).json({
-      status: false,
-      msg: "waiting for mobile verification",
-      error: "error",
-    });
-  }
+// exports.login = async (req, res) => {
+//   const { mobile, email, password } = req.body;
+//   const user = await User.findOne({
+//     $or: [{ mobile: mobile }, { password: password }],
+//   });
+//   if (user?.status == "true") {
+//     const validPass = await bcrypt.compare(password, user.password);
+//     if (validPass) {
+//       const token = jwt.sign(
+//         {
+//           userId: user._id,
+//         },
+//         process.env.TOKEN_SECRET,
+//         {
+//           expiresIn: 86400000,
+//         }
+//       );
+//       res.header("auth-token", token).status(200).send({
+//         status: true,
+//         token: token,
+//         msg: "login success",
+//         user: user,
+//       });
+//     }
+//   } else if (user?.status == "false") {
+//     res.status(400).json({
+//       status: false,
+//       msg: "waiting for mobile verification",
+//       error: "error",
+//     });
+//   }
 
-  else {
-    res.status(400).json({
-      status: false,
-      msg: "error",
-      error: "error",
-    });
+//   else {
+//     res.status(400).json({
+//       status: false,
+//       msg: "error",
+//       error: "error",
+//     });
 
-  };
-}
+//   };
+// }
 
 exports.userlist = async (req, res) => {
   const findall = await User.find().sort({
@@ -369,30 +369,6 @@ exports.sendotp = async (req, res) => {
 }
 
 
-// exports.userRegister = async (req, res) => {
-//   const findandUpdateEntry = await User.findOneAndUpdate(
-//       {
-//         _id: req.params.id,
-//       },
-//       { $set: req.body,status:"true" },
-//       { new: true }
-//     );
-  
-//     if (findandUpdateEntry) {
-//       res.status(200).json({
-//         status: true,
-//         msg: 'success',
-//         data: findandUpdateEntry,
-//       })
-//     } else {
-//       res.status(400).json({
-//         status: false,
-//         msg: 'error',
-//         error: "error",
-//       })
-//     }
-//   }
-
 exports.verifyotps = async (req, res) => {
   let length = 6;
   let defaultotp = "123456";
@@ -416,13 +392,18 @@ exports.verifyotps = async (req, res) => {
   }
 }
 
+
+
 exports.userRegister = async(req,res) =>{
-  const {status} = req.body
+  const {status,password} = req.body
+  const salt = bcrypt.genSaltSync(saltRounds);
+   const hashpassword = bcrypt.hashSync(password, salt);
+
   const userdetail = await User.findOneAndUpdate(
     {
   _id:req.params.id
   },
-  {$set :req.body,status:"true"},
+  {$set :req.body,status:"true",password:hashpassword,cnfrmPassword:hashpassword},
   {new:true}
   )
   if(userdetail){
@@ -439,7 +420,6 @@ exports.userRegister = async(req,res) =>{
     })
   }
 }
-
 
 
 exports.adduser = async (req, res) => {
@@ -528,25 +508,44 @@ exports.adduser = async (req, res) => {
   }
 }
 
-// exports.verifyotps = async (req, res) => {
-//   let length = 6;
-//   let defaultotp = "123456";
-//   const { mobile, otp } = req.body;
-//   const getuser = await User.findOne({ mobile: mobile })
-//   if (getuser) {
-//     if (otp == 123456) {
-//           res.status(200).json({
-//             status: true,
-//             msg: "otp verified",
-//             otp: defaultotp,
-//             _id: getuser._id,
-//             mobile: getuser.mobile
-//           })
-//         }
-//     } else {
-//       res.status(400).json({
-//         status: false,
-//         msg: "incurrect otp",
-//       })
-//     }
-//   }
+exports.login = async (req, res) => {
+  const { mobile, email, password } = req.body;
+  const user = await User.findOne({
+    $or: [{ mobile: mobile }, { password: password }],
+  });
+  console.log("data", user)
+  if (user?.status == "true") {
+    const validPass = await bcrypt.compare(password, user.password);
+    // console.log(validPass)
+    if (validPass) {
+      const token = jwt.sign(
+        {
+          userId: user._id,
+        },
+        process.env.TOKEN_SECRET,
+        {
+          expiresIn: 86400000,
+        }
+      );
+      res.status(200).json({
+        status: true,
+        token: token,
+        msg: "login success",
+        user: user,
+      });
+    }
+  } else if (user?.status == "false") {
+    res.status(400).json({
+      status: false,
+      msg: "waiting for mobile verification",
+      error: "error",
+    });
+  }
+  else {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  };
+}

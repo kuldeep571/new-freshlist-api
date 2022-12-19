@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema(
 {   
-    order_id:{
+    orderId:{
+        type:String,
+    },
+    phone_no:{
         type:String,
     },
     orderd_from:{

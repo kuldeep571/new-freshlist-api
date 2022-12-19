@@ -1,11 +1,14 @@
 const orderproduct = require('../models/order');
+const { v4: uuidv4 } = require("uuid");
+
 
 
 exports.addorder = async (req, res)=>{
 
     const {
-        order_id,
+        orderId,
         orderd_from,
+        phone_no,
         order_zone,
         billing_add,
         delivery_add,
@@ -19,8 +22,9 @@ exports.addorder = async (req, res)=>{
     }=req.body;
 
     const neworder = new orderproduct({
-        order_id: order_id,
+        orderId: uuidv4(),
         orderd_from: orderd_from,
+        phone_no: phone_no,
         order_zone: order_zone,
         billing_add: billing_add,
         delivery_add: delivery_add,
@@ -33,7 +37,7 @@ exports.addorder = async (req, res)=>{
         status: status
     })
     
-    const findexist = await orderproduct.findOne({order_id: order_id })
+    const findexist = await orderproduct.findOne({orderId: orderId })
 
     if(findexist){
         res.status(403).json({
