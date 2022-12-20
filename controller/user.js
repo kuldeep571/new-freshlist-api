@@ -534,6 +534,12 @@ exports.login = async (req, res) => {
         msg: "login success",
         user: user,
       });
+    }else{
+      res.status(400).json({
+        status: false,
+        msg: "password is incorrect ",
+        error: "error",
+      })
     }
   } else if (user?.status == "false") {
     res.status(400).json({
@@ -545,7 +551,7 @@ exports.login = async (req, res) => {
   else {
     res.status(400).json({
       status: false,
-      msg: "error",
+      msg: "Email and password is incorrect",
       error: "error",
     });
   };
