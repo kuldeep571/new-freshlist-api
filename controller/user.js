@@ -397,8 +397,9 @@ exports.verifyotps = async (req, res) => {
 exports.userRegister = async(req,res) =>{
   const {status,password} = req.body
   const salt = bcrypt.genSaltSync(saltRounds);
-   const hashpassword = bcrypt.hashSync(password, salt);
+  const hashpassword = bcrypt.hashSync(password, salt);
 
+  
   const userdetail = await User.findOneAndUpdate(
     {
   _id:req.params.id
@@ -516,6 +517,7 @@ exports.login = async (req, res) => {
   console.log("data", user)
   if (user?.status == "true") {
     const validPass = await bcrypt.compare(password, user.password);
+    console.log("data", validPass);
     if (validPass) {
       const token = jwt.sign(
         {

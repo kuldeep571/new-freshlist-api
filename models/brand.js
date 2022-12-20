@@ -8,6 +8,7 @@ const Brandschema = new Schema(
     },
     desc: {
       type: String,
+      // required: true,
     },
     image:{
        type: Array,

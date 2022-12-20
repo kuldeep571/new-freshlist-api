@@ -31,6 +31,7 @@ const create_hub = require("./routes/create_hub");
 const order = require("./routes/order");
 const shop_wishlist = require("./routes/shop_wishlist");
 const shop_cart = require("./routes/shop_cart");
+const blog = require("./routes/blog");
 
 
 
@@ -54,6 +55,7 @@ app.use('/', create_hub);
 app.use('/', order);
 app.use('/', shop_wishlist);
 app.use('/', shop_cart);
+app.use('/', blog);
 
 
 
