@@ -515,7 +515,7 @@ exports.login = async (req, res) => {
     $or: [{ mobile: mobile }, { password: password }],
   });
   console.log("data", user)
-  if (user?.status == "true") {
+  if (user?.status == "true"){
     const validPass = await bcrypt.compare(password, user.password);
     console.log("data", validPass);
     if (validPass) {
