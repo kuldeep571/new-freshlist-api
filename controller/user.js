@@ -516,7 +516,6 @@ exports.login = async (req, res) => {
   console.log("data", user)
   if (user?.status == "true") {
     const validPass = await bcrypt.compare(password, user.password);
-    // console.log(validPass)
     if (validPass) {
       const token = jwt.sign(
         {
@@ -549,3 +548,4 @@ exports.login = async (req, res) => {
     });
   };
 }
+

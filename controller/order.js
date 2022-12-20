@@ -17,7 +17,7 @@ exports.addorder = async (req, res)=>{
         time_slot,
         items,
         assing_drive,
-        notify_customer,
+        notifyby_email,
         status
     }=req.body;
 
@@ -33,7 +33,7 @@ exports.addorder = async (req, res)=>{
         time_slot: time_slot,
         items: items,
         assing_drive: assing_drive,
-        notify_customer: notify_customer,
+        notifyby_email: notifyby_email,
         status: status
     })
     

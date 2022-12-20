@@ -18,6 +18,6 @@ router.get('/admin/allorder_list', allorder_list);
 
 router.get('/admin/viewone_order/:id', viewone_order);
 
-router.delete('/admin/del_order/:id', del_order);
+router.delete('/admin/del_order/:id', del_order);   
 
 module.exports = router;

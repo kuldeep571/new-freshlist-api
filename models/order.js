@@ -7,7 +7,7 @@ const orderSchema = new Schema(
         type:String,
     },
     phone_no:{
-        type:String,
+        type:Number,
     },
     orderd_from:{
         type:String,
@@ -36,7 +36,7 @@ const orderSchema = new Schema(
     assing_drive:{
         type:String,
     },
-    notify_customer:{
+    notifyby_email:{
         type:String,
     },
     status:{
