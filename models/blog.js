@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const newblogSchema = new Schema(
     {
         thumbnail_img:{
-            type: Array,
+            type: String,
         },
         title:{
             type: String,
@@ -16,10 +16,10 @@ const newblogSchema = new Schema(
         date:{
             type: String,
         },
-        status:{
-            type:String,
-            default:"Active",
-        },
+        // status:{
+        //     type:String,
+        //     default:"Active",
+        // },
     },
     {timestamps: true},
 )
