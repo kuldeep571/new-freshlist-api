@@ -102,7 +102,13 @@ const productSchema = new Schema(
     status:{
         type: String,
         default: "Active",
-    }
+    },
+    bundle:{
+        type:String,
+    },
+    fix_price:{
+        type: String,
+    },
   },
   { timestamps: true }
 );

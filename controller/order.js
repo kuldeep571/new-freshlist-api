@@ -7,6 +7,11 @@ exports.addorder = async (req, res)=>{
 
     const {
         orderId,
+        name,
+        delivery_slot,
+        product,
+        attribute,
+        quantity,
         orderd_from,
         phone_no,
         order_zone,
@@ -22,14 +27,14 @@ exports.addorder = async (req, res)=>{
     }=req.body;
 
     const neworder = new orderproduct({
-        orderId: uuidv4(),
+        orderId: "#ORDC" + Date.now(),
         orderd_from: orderd_from,
         phone_no: phone_no,
         order_zone: order_zone,
         billing_add: billing_add,
         delivery_add: delivery_add,
         date: date,
-        delivery_date: delivery_date,
+        delivery_date: new Date().toLocaleDateString(),
         time_slot: time_slot,
         items: items,
         assing_drive: assing_drive,
@@ -113,6 +118,27 @@ exports.del_order = async (req, res)=>{
             status: false,
             msg: "error",
             error: error,
+        })
+    }
+}
+
+exports.edit_order = async(req, res)=>{
+    const updateone = await orderproduct.findOneAndUpdate(
+        {_id: req.params.id},
+        {$set: req.body},
+        {new: true},
+    )
+    if(updateone){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: updateone,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
         })
     }
 }

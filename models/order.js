@@ -6,6 +6,21 @@ const orderSchema = new Schema(
     orderId:{
         type:String,
     },
+    name:{
+        type: String,
+    },
+    delivery_slot:{
+        type: String,
+    },
+    product:{
+        type:String,
+    },
+    attribute:{
+        type: String,
+    },
+    quantity:{
+        type: String,
+    },
     phone_no:{
         type:Number,
     },

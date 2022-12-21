@@ -8,6 +8,7 @@ const {
     allorder_list,
     viewone_order,
     del_order,
+    edit_order,
   
 }=require('../controller/order');
 
@@ -19,5 +20,7 @@ router.get('/admin/allorder_list', allorder_list);
 router.get('/admin/viewone_order/:id', viewone_order);
 
 router.delete('/admin/del_order/:id', del_order);   
+
+router.post('/admin/edit_order/:id', edit_order);   
 
 module.exports = router;
