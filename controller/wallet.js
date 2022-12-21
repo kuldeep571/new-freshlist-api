@@ -14,7 +14,7 @@ exports.addwallet = async (req, res) => {
 
     const newdata = await wallet({
         mobile_no: mobile_no,
-        orderId: uuidv4(),
+        orderId: "#ORDC" + Date.now(),
         name: name,
         payment_type: payment_type,
         amount: amount,

@@ -17,7 +17,7 @@ exports.addorder = async (req, res)=>{
         order_zone,
         billing_add,
         delivery_add,
-        date,
+        order_date,
         delivery_date,
         time_slot,
         items,
@@ -29,11 +29,16 @@ exports.addorder = async (req, res)=>{
     const neworder = new orderproduct({
         orderId: "#ORDC" + Date.now(),
         orderd_from: orderd_from,
+        name: name,
+        delivery_slot: delivery_slot,
+        product: product,
+        attribute:attribute,
+        quantity:quantity,
         phone_no: phone_no,
         order_zone: order_zone,
         billing_add: billing_add,
         delivery_add: delivery_add,
-        date: date,
+        order_date: order_date,
         delivery_date: new Date().toLocaleDateString(),
         time_slot: time_slot,
         items: items,
@@ -72,6 +77,8 @@ exports.addorder = async (req, res)=>{
 
 exports.allorder_list = async (req, res)=>{
     const getalldata = await orderproduct.find().sort({sortorder: 1})
+    .populate("product")
+    .populate("attribute")
     if(getalldata){
         res.status(200).json({
             status: true,

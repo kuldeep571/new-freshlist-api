@@ -13,10 +13,12 @@ const orderSchema = new Schema(
         type: String,
     },
     product:{
-        type:String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"products",
     },
     attribute:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"units",
     },
     quantity:{
         type: String,
@@ -36,7 +38,7 @@ const orderSchema = new Schema(
     delivery_add:{
         type:String,
     },
-    date:{
+    order_date:{
         type:String,
     },
     delivery_date:{
