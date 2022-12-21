@@ -2,7 +2,6 @@ const wallet = require('../models/wallet');
 const { v4: uuidv4 } = require("uuid");
 
 
-
 exports.addwallet = async (req, res) => {
     const {
         mobile_no,
