@@ -56,3 +56,57 @@ exports.get_wallet = async (req, res)=>{
     }
 }
 
+exports.viewone_wallet = async(req, res)=>{
+    const finddata = await wallet.findOne({_id: req.params.id})
+    if(finddata){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data:finddata,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error:"error",
+        })
+    }
+}
+
+exports.del_wallet = async(req, res)=>{
+    const deletedata = await wallet.deleteOne({_id: req.params.id})
+    if(deletedata){
+        res.status(200).json({
+            status: true,
+            msg: "error",
+            data: deletedata,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+        })
+    }
+}
+
+
+exports.edit_wallet = async (req, res)=>{
+    const findupdate = await wallet.findOneAndUpdate(
+        {_id: req.params.id},
+        {$set: req.body},
+        {new: true}
+    );
+    if(findupdate){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: findupdate,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: error,
+        })
+    }
+}
