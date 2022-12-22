@@ -8,6 +8,7 @@ const {
     getall_drive,
     viewone_drive,
     del_drive,
+    edit_drive,
 }=require('../controller/assing_drive');
 
 const storage = multer.diskStorage({
@@ -53,6 +54,8 @@ router.get('/admin/getall_drive', getall_drive)
 router.get('/admin/viewone_drive/:id', viewone_drive)
 
 router.delete('/admin/del_drive/:id', del_drive)
+
+router.post('/admin/edit_drive/:id', multipleUpload, edit_drive)
 
 
 
