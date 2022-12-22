@@ -15,6 +15,7 @@ exports.addbrand= async (req, res)=>{
     const{
         brand_name,
         desc,
+        discount,
         image,
         status,
     }=req.body;
@@ -22,6 +23,7 @@ exports.addbrand= async (req, res)=>{
     const newbrand = new brands({
         brand_name: brand_name, 
         desc: desc,
+        discount: discount,
         image: image,
         status:status,
     })

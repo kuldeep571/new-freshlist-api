@@ -13,6 +13,9 @@ const Brandschema = new Schema(
     image:{
        type: Array,
     },
+    discount:{
+      type: String,
+    },
     status:{
         type:String,
         default:"Active",

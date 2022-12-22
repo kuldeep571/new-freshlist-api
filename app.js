@@ -33,6 +33,7 @@ const shop_wishlist = require("./routes/shop_wishlist");
 const shop_cart = require("./routes/shop_cart");
 const blog = require("./routes/blog");
 const wallet = require("./routes/wallet");
+const assing_drive = require("./routes/assing_drive");
 
 
 
@@ -58,6 +59,7 @@ app.use('/', shop_wishlist);
 app.use('/', shop_cart);
 app.use('/', blog);
 app.use('/', wallet);
+app.use('/', assing_drive);
 
 
 
