@@ -34,6 +34,8 @@ const shop_cart = require("./routes/shop_cart");
 const blog = require("./routes/blog");
 const wallet = require("./routes/wallet");
 const assing_drive = require("./routes/assing_drive");
+const vendor = require("./routes/vendor");
+const attribute = require("./routes/attribute");
 
 
 
@@ -60,6 +62,8 @@ app.use('/', shop_cart);
 app.use('/', blog);
 app.use('/', wallet);
 app.use('/', assing_drive);
+app.use('/', vendor);
+app.use('/', attribute);
 
 
 

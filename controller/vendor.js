@@ -1,0 +1,1 @@
+const vendor = require('../models/vendor');
