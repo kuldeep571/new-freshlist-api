@@ -35,10 +35,14 @@ const newvendorSchema = Schema(
             type: Array,
         },
         shop_banner:{
-            type: Array
+            type: Array,
+        },
+        status:{
+            type:String,
+            default: "Active",
         },
     },
     {timestamps: true},
 )
 
-module.exports = mongoose.model("", newvendorSchema);
+module.exports = mongoose.model("vendor", newvendorSchema);

@@ -1,5 +1,6 @@
 const attribute = require('../models/attribute');
 
+
 exports.add_attribute = async (req, res) => {
     const { attribute_name } = req.body;
 
@@ -74,7 +75,6 @@ exports.viewone_attribute = async(req, res)=>{
         })
     }
 }
-
 
 exports.edit_attribute = async(req, res)=>{
     try {
