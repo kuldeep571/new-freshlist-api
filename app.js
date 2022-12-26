@@ -36,11 +36,15 @@ const wallet = require("./routes/wallet");
 const assing_drive = require("./routes/assing_drive");
 const vendor = require("./routes/vendor");
 const attribute = require("./routes/attribute");
+const selse = require("./routes/selse");
+const pincode = require("./routes/pincode");
+const vehicle = require("./routes/vehicle");
 
 
 
 app.use('/', user);
 app.use('/', adminlogin);
+
 app.use('/', aboutus);
 app.use('/', seller);
 app.use('/', category);
@@ -64,6 +68,9 @@ app.use('/', wallet);
 app.use('/', assing_drive);
 app.use('/', vendor);
 app.use('/', attribute);
+app.use('/', selse);
+app.use('/', pincode);
+app.use('/', vehicle);
 
 
 

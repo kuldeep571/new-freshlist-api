@@ -53,15 +53,21 @@ const orderSchema = new Schema(
     assing_drive:{
         type:String,
     },
-    notifyby_email:{
+    notify:{
         type:String,
+    },
+    previous_add:{
+        type: String,
+    },
+    new_address:{
+        type: String,
     },
     status:{
         type:String,
         default:"Order Placed",
     },
 },
-{timestamps:true}
+{timestamps:true},
 
 );
 

@@ -88,7 +88,7 @@ exports.edit_attribute = async(req, res)=>{
             msg: "success",
             data: updatedata,
         })
-    } catch (error) {
+    }catch (error) {
         res.status(400).json({
             status: false,
             msg: "error",

@@ -34,7 +34,7 @@ exports.addblog = async (req, res)=>{
         newaddblog.save()
         .then((newaddblog)=>{
             res.status(200).json({
-                status: true,
+                status: true,   
                 msg: "success",
                 data: newaddblog,
             })
