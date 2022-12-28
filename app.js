@@ -39,6 +39,7 @@ const attribute = require("./routes/attribute");
 const selse = require("./routes/selse");
 const pincode = require("./routes/pincode");
 const vehicle = require("./routes/vehicle");
+const coupon_code = require("./routes/coupon_code");
 
 
 
@@ -71,6 +72,7 @@ app.use('/', attribute);
 app.use('/', selse);
 app.use('/', pincode);
 app.use('/', vehicle);
+app.use('/', coupon_code);
 
 
 

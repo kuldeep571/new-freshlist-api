@@ -56,6 +56,9 @@ const orderSchema = new Schema(
     notify:{
         type:String,
     },
+    email:{
+        type: String,
+    },
     previous_add:{
         type: String,
     },

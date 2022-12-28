@@ -22,6 +22,7 @@ exports.addorder = async (req, res)=>{
         time_slot,
         items,
         assing_drive,
+        email,
         notify,
         previous_add,
         new_address,
@@ -45,6 +46,7 @@ exports.addorder = async (req, res)=>{
         time_slot: time_slot,
         items: items,
         assing_drive: assing_drive,
+        email: email,
         notify: notify,
         previous_add: previous_add,
         new_address: new_address,
@@ -152,5 +154,25 @@ exports.edit_order = async(req, res)=>{
             error: "error",
         })
     }
+}
+
+exports.pending_order = async(req, res)=>{
+    const findpending_order = await orderproduct.find({status:"pending"})
+    .populate("product")
+    .populate("attribute")
+    .then((findpending_order)=>{
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: findpending_order,
+        })
+    })
+    .catch((error)=>{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: error,
+        })
+    })
 }
 
