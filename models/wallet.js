@@ -20,8 +20,9 @@ const newwalletSchema = new Schema(
             default: 0,
         },
         remarks:{
-            type: String
-        }
+            type: String,
+            default: "false",
+        },
     },
     {timestamps: true},
 )
