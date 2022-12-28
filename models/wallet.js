@@ -12,7 +12,7 @@ const newwalletSchema = new Schema(
         name:{
             type: String,
         },
-        payment_type:{
+        wallet_type:{
             type: String,
         },
         amount:{

@@ -7,7 +7,7 @@ exports.addwallet = async (req, res) => {
         mobile_no,
         orderId,
         name,
-        payment_type,
+        wallet_type,
         amount,
         remarks
     } = req.body;
@@ -16,7 +16,7 @@ exports.addwallet = async (req, res) => {
         mobile_no: mobile_no,
         orderId: "#ORDC" + Date.now(),
         name: name,
-        payment_type: payment_type,
+        wallet_type: wallet_type,
         amount: amount,
         remarks: remarks
     })
