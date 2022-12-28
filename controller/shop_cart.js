@@ -50,6 +50,23 @@ exports.allcart = async(req, res)=>{
     }
 }
 
+exports.viewone_cart = async(req, res)=>{
+    const findonedata = await cart.findOne({_id: req.params.id})
+    if(findonedata){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: findonedata,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
+        })
+    }
+}
+
 exports.remove_cart = async(req, res)=>{
     const deletedata = await cart.deleteOne({_id: req.params.id})
     if(deletedata){
