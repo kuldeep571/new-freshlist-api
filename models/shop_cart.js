@@ -3,9 +3,13 @@ const Schema = mongoose.Schema;
 
 const newcartSchema = new Schema(
     {
+        customer:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
         product:{
             type: mongoose.Schema.Types.ObjectId,
-            ref: "products"
+            ref: "products",
         },
         unit_price:{
             type: Number,

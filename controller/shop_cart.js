@@ -1,7 +1,9 @@
 const cart = require('../models/shop_cart');
+const product = require('../models/product');
 
 exports.add_cart = async (req, res)=>{
-    const {
+    const{
+        customer,
         product,
         unit_price,
         quantity,
@@ -9,11 +11,13 @@ exports.add_cart = async (req, res)=>{
     }=req.body;
 
     const newcart = new cart({
+        customer: customer,
         product: product,
         unit_price: unit_price,
         quantity: quantity,
         subtotal: subtotal,
     })
+    console.log("newcart", newcart);
     newcart
     .save()
     .then((newcart)=>{
@@ -32,13 +36,15 @@ exports.add_cart = async (req, res)=>{
     })
 }
 
-exports.allcart = async(req, res)=>{
-    const getalldata = await cart.find().sort({sortorder: 1})
+exports.getbycart = async(req, res)=>{
+    const getalldata = await cart.find({customer: req.params.id})
     .populate("product")
+    console.log("getalldata", getalldata)
     if(getalldata){
         res.status(200).json({
             status: true,
             msg: "success",
+            length: getalldata.length,
             data: getalldata,
         })
     }else{
@@ -49,6 +55,7 @@ exports.allcart = async(req, res)=>{
         })
     }
 }
+
 
 exports.viewone_cart = async(req, res)=>{
     const findonedata = await cart.findOne({_id: req.params.id})
@@ -83,3 +90,15 @@ exports.remove_cart = async(req, res)=>{
         })
     }
 }
+
+// exports.getbycart = async(req, res)=>{
+//     const findone = await cart.find({customer: req.params.id}).count();
+//     // if(findone){
+//     //     const findexist = await product.find({product: req.params.id})
+//     //     console.log("findexist", findexist);
+//     //     const data = findexist.value;
+
+//     //     console.log(data,"data");
+//     // }
+//     console.log("findone", findone)
+// }
