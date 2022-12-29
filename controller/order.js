@@ -176,3 +176,7 @@ exports.pending_order = async(req, res)=>{
     })
 }
 
+// exports.total_order = async(req, res)=>{
+//     const
+// }
+

@@ -36,7 +36,6 @@ exports.addunits= async (req, res)=>{
             })
         })
     }
-    
 // }
 
 exports.getall_units = async (req, res)=>{

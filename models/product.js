@@ -23,8 +23,8 @@ const productSchema = new Schema(
        type: String,
     },
     quantity:{
-        type: String,
-     },
+        type: Number,
+    },
     gst_class:{
         type: String,
      },
