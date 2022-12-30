@@ -54,7 +54,7 @@ const orderSchema = new Schema(
         type:String,
     },
     notify:{
-        type:String,
+        type:Array,
     },
     email:{
         type: String,

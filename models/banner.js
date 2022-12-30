@@ -12,6 +12,9 @@ const bannerSchema = new Schema(
         banner_url:{
             type: String,
         },
+        banner_type:{
+            type: String,
+        },
         status:{
             type: String,
             default: "Active",

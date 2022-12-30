@@ -59,6 +59,7 @@ exports.getbycart = async(req, res)=>{
 
 exports.viewone_cart = async(req, res)=>{
     const findonedata = await cart.findOne({_id: req.params.id})
+    .populate("product");
     if(findonedata){
         res.status(200).json({
             status: true,

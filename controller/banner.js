@@ -16,6 +16,7 @@ exports.add_banner = async (req, res) => {
         banner_title,
         banner_img,
         banner_url,
+        banner_type,
         status,
     } = req.body;
 
@@ -23,9 +24,10 @@ exports.add_banner = async (req, res) => {
         banner_title: banner_title,
         banner_img: banner_img,
         banner_url: banner_url,
+        banner_type: banner_type,
         status: status,
     })
-    console.log('newbanner', newbanner);
+    console.log("newbanner", newbanner);
     const findexist = await banner.findOne({banner_title: banner_title});
     if(findexist){
         res.status(403).json({
@@ -48,7 +50,7 @@ exports.add_banner = async (req, res) => {
             newbanner.banner_img = alluploads;
         }
     }
-    newbrand
+    newbanner
         .save()
         .then((data) => {
             res.status(200).json({

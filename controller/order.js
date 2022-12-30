@@ -157,7 +157,7 @@ exports.edit_order = async(req, res)=>{
 }
 
 exports.pending_order = async(req, res)=>{
-    const findpending_order = await orderproduct.find({status:"pending"})
+    const findpending_order = await orderproduct.find({status:"Pending"})
     .populate("product")
     .populate("attribute")
     .then((findpending_order)=>{
@@ -176,7 +176,55 @@ exports.pending_order = async(req, res)=>{
     })
 }
 
-// exports.total_order = async(req, res)=>{
-//     const
-// }
+exports.complete_order = async(req, res)=>{
+    const resultdata = await orderproduct.find({status:"complete"})
+    if(resultdata){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: resultdata,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
+        })
+    }
+}
+
+exports.cancel = async(req, res)=>{
+    const canceldata = await orderproduct.find({status: "cancel"})
+    if(canceldata){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: canceldata,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
+        })
+    }
+}
+
+exports.total_order = async(req, res)=>{
+    const finddata = await orderproduct.countDocuments()
+    .then((finddata)=>{
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: finddata,
+        })
+    })
+    .catch((error)=>{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: error,
+        })
+    })
+}
 

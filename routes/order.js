@@ -10,6 +10,8 @@ const {
     del_order,
     edit_order,
     pending_order,
+    complete_order,
+    total_order,
   
 }=require('../controller/order');
 
@@ -25,5 +27,9 @@ router.delete('/admin/del_order/:id', del_order);
 router.post('/admin/edit_order/:id', edit_order);   
 
 router.get('/admin/pending_order', pending_order);   
+
+router.get('/admin/complete_order', complete_order);   
+
+router.get('/admin/total_order', total_order);   
 
 module.exports = router;
