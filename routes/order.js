@@ -13,7 +13,7 @@ const {
     complete_order,
     delivery_order,
     total_order,
-    cancel_order,
+    canceled_order,
     dailybyselse,
   
 }=require('../controller/order');
@@ -37,7 +37,7 @@ router.get('/admin/delivery_order', delivery_order);
 
 router.get('/admin/total_order', total_order);   
 
-router.get('/admin/cancel_order', cancel_order);   
+router.get('/admin/canceled_order', canceled_order);   
 
 router.get('/admin/dailybyselse', dailybyselse);
 

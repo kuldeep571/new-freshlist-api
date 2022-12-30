@@ -193,7 +193,7 @@ exports.complete_order = async(req, res)=>{
     }
 }
 
-exports.cancel_order = async(req, res)=>{
+exports.canceled_order = async(req, res)=>{
     const canceldata = await orderproduct.find({status: "cancel"})
     if(canceldata){
         res.status(200).json({
