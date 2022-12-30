@@ -13,6 +13,7 @@ cloudinary.config({
 
 exports.addblog = async (req, res)=>{
     const {
+        blog_category,
         thumbnail_img,
         title,
         desc,
@@ -20,10 +21,11 @@ exports.addblog = async (req, res)=>{
     }=req.body;
 
     const newaddblog = new blog({
+        blog_category: blog_category, 
         thumbnail_img: thumbnail_img,
         title: title,
         desc :desc,
-        date: date
+        date: date,
     })
     if(req.file){
         const result = await cloudinary.uploader.upload(req.file.path)

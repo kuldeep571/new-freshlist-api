@@ -193,7 +193,7 @@ exports.complete_order = async(req, res)=>{
     }
 }
 
-exports.cancel = async(req, res)=>{
+exports.cancel_order = async(req, res)=>{
     const canceldata = await orderproduct.find({status: "cancel"})
     if(canceldata){
         res.status(200).json({
@@ -208,6 +208,23 @@ exports.cancel = async(req, res)=>{
             error: "error",
         })
     }
+}
+
+exports.delivery_order = async(req, res)=>{
+    const deliveryorder = await orderproduct.find({status: "Delivery"})
+        if(deliveryorder){
+            res.status(200).json({
+                status: true,
+                msg: "success",
+                data: deliveryorder,
+            })
+        }else{
+            res.status(400).json({
+                status: false,
+                msg: "error",
+                error: "error",
+            })
+        }
 }
 
 exports.total_order = async(req, res)=>{
@@ -229,8 +246,25 @@ exports.total_order = async(req, res)=>{
 }
 
 
-// exports.dailybyselse = async(req, res)=>{
-//     const findexist = await orderproduct.find({})
+exports.dailybyselse = async(req, res)=>{
+    const findexist = await orderproduct.find({status: "complete"})
+    // console.log('findexist', findexist);
+    var timeStamp = Date.now()
+    var date = new Date(timeStamp);
 
-// }
+    if(findexist){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: findexist,
+            date: date,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
+        })
+    }
+}
 

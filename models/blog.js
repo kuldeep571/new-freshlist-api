@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 const newblogSchema = new Schema(
     {
+        blog_category:{
+            type: String,
+        },
         thumbnail_img:{
             type: String,
         },
@@ -16,10 +19,10 @@ const newblogSchema = new Schema(
         date:{
             type: String,
         },
-        // status:{
-        //     type:String,
-        //     default:"Active",
-        // },
+        status:{
+            type:String,
+            default:"Active",
+        },
     },
     {timestamps: true},
 )
