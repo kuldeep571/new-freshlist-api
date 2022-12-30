@@ -104,6 +104,7 @@ exports.del_blog = async (req, res)=>{
 
 exports.editblog = async(req, res)=>{
     const {
+        blog_category,
         thumbnail_img,
         title,
         desc,
@@ -111,6 +112,9 @@ exports.editblog = async(req, res)=>{
     }=req.body;
 
     data={};
+    if(blog_category){
+        data.blog_category = blog_category;
+    }
     if(thumbnail_img){
         data.thumbnail_img = thumbnail_img;
     }
