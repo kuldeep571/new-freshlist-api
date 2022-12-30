@@ -42,7 +42,7 @@ exports.addorder = async (req, res)=>{
         billing_add: billing_add,
         delivery_add: delivery_add,
         order_date: order_date,
-        delivery_date: new Date().toLocaleDateString(),
+        delivery_date: delivery_date,
         time_slot: time_slot,
         items: items,
         assing_drive: assing_drive,
@@ -227,4 +227,10 @@ exports.total_order = async(req, res)=>{
         })
     })
 }
+
+
+// exports.dailybyselse = async(req, res)=>{
+//     const findexist = await orderproduct.find({})
+
+// }
 

@@ -12,6 +12,7 @@ const {
     pending_order,
     complete_order,
     total_order,
+    // dailybyselse,
   
 }=require('../controller/order');
 
@@ -31,5 +32,7 @@ router.get('/admin/pending_order', pending_order);
 router.get('/admin/complete_order', complete_order);   
 
 router.get('/admin/total_order', total_order);   
+
+// router.get('/admin/dailybyselse', dailybyselse);
 
 module.exports = router;
