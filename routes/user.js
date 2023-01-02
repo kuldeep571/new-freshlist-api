@@ -69,7 +69,7 @@ router.post("/user/userRegister/:id", userRegister);
 
 //adminuser
 
-// router.post("/admin/adduser", adduser);
+router.post("/admin/adduser", adduser);
 
 
 

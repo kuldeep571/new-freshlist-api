@@ -247,7 +247,7 @@ exports.edituser = async (req, res) => {
     {
       _id: req.params.id,
     },
-    { $set: req.body,status:"true" },
+    { $set: req.body, status: "true" },
     { new: true }
   );
 
@@ -357,7 +357,7 @@ exports.sendotp = async (req, res) => {
         _id: data?._id,
       })
     })
-    .catch((error)=>{
+    .catch((error) => {
       res.status(400).json({
         status: false,
         msg: "unsend otp",
@@ -372,7 +372,7 @@ exports.verifyotps = async (req, res) => {
   let defaultotp = "123456";
   const { mobile, otp } = req.body;
   if (otp == 123456) {
-    const findone = await User.findOne({ mobile: mobile});
+    const findone = await User.findOne({ mobile: mobile });
     if (findone) {
       res.status(200).json({
         status: true,
@@ -392,30 +392,30 @@ exports.verifyotps = async (req, res) => {
 
 
 
-exports.userRegister = async(req,res) =>{
-  const {status,password} = req.body
+exports.userRegister = async (req, res) => {
+  const { status, password } = req.body
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashpassword = bcrypt.hashSync(password, salt);
 
-  
+
   const userdetail = await User.findOneAndUpdate(
     {
-  _id:req.params.id
-  },
-  {$set :req.body,status:"true",password:hashpassword,cnfrmPassword:hashpassword},
-  {new:true}
+      _id: req.params.id
+    },
+    { $set: req.body, status: "true", password: hashpassword, cnfrmPassword: hashpassword },
+    { new: true }
   )
-  if(userdetail){
+  if (userdetail) {
     res.status(200).json({
       status: true,
       msg: "success",
       data: userdetail,
     })
-  }else{
+  } else {
     res.status(400).json({
-      status:false,
+      status: false,
       msg: "error",
-      error:"error",
+      error: "error",
     })
   }
 }
@@ -444,7 +444,7 @@ exports.userRegister = async(req,res) =>{
 
 //   const salt = bcrypt.genSaltSync(saltRounds);
 //     const hashpassword = bcrypt.hashSync(password, salt);
-  
+
 //     create_random_string(6);
 //     function create_random_string(string_length) {
 //       (random_string = ""),
@@ -513,7 +513,7 @@ exports.login = async (req, res) => {
     $or: [{ mobile: mobile }, { password: password }],
   });
   console.log("data", user)
-  if (user?.status == "true"){
+  if (user?.status == "true") {
     const validPass = await bcrypt.compare(password, user.password);
     console.log("data", validPass);
     if (validPass) {
@@ -532,7 +532,7 @@ exports.login = async (req, res) => {
         msg: "login success",
         user: user,
       });
-    }else{
+    } else {
       res.status(400).json({
         status: false,
         msg: "password is incorrect ",
@@ -561,50 +561,60 @@ exports.login = async (req, res) => {
 //admin user form api
 
 
-// exports.adduser = async(req, res)=>{
-//   const{
-//     username,
-//     email,
-//     mobile,
-//     password,
-//     status,
-//   }=req.body;
+exports.adduser = async (req, res) => {
+  const {
+    username,
+    email,
+    mobile,
+    password,
+    cnfrmPassword,
+    status,
+  } = req.body;
+
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hashpassword = bcrypt.hashSync(password, salt);
 
 
-//     if(password == cnfrmpassword)
-//     const newadduser = new user({
-//         username: username,
-//         email: email,
-//         mobile: mobile,
-//         password: password,
-//         cnfrmpassword: cnfrmpassword,
-//         status: status,
-//     })
+  if (password == cnfrmPassword) {
+    const newadduser = new user({
+      username: username,
+      email: email,
+      mobile: mobile,
+      password: hashpassword,
+      cnfrmPassword: hashpassword,
+      status: "true",
+    })
 
-//     const findexist = await user.findOne({email: email})
-//     if(findexist){
-//       res.status(403).json({
-//         status: false,
-//         msg: "Allready exist",
-//         data: {},
-//       })
-//     }
-//     newadduser.save()
-//     .then((newadduser)=>{
-//         res.status(200).json({
-//           status: true,
-//           msg: "success",
-//           data: newadduser,
-//         })
-//     })
-//     .catch((error)=>{
-//       res.status(400).json({
-//         status: false,
-//         msg: "error",
-//         error: error,
-//       })
-//     })
-
-// }
+    const findexist = await user.findOne({ email: email})
+    if (findexist) {
+      res.status(403).json({
+        status: false,
+        msg: "Allready exist",
+        data: {},
+      })
+    }
+    newadduser.save()
+      .then((newadduser) => {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: newadduser,
+        })
+      })
+      .catch((error) => {
+        res.status(400).json({
+          status: false,
+          msg: "error",
+          error: error,
+        })
+      })
+  }else{
+      res.status(403).json({
+        status: false,
+        msg: "password and cnfrmpassword is not match",
+        error: "error",
+      })
+  }
+}
 
 
