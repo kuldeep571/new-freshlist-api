@@ -210,6 +210,40 @@ exports.canceled_order = async(req, res)=>{
     }
 }
 
+exports.out_of_delivery = async(req, res)=>{
+    const outofdata = await orderproduct.find({status: "out_of_delivery"});
+    if(outofdata){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: outofdata,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
+        })
+    }
+}
+
+exports.inprocess_order = async(req, res)=>{
+    const inprocess_data = await orderproduct.find({status: "inprocess"})
+    if(inprocess_data){
+        res.status(200).json({
+            status: false,
+            msg: "error",
+            data: inprocess_data,
+        })
+    }else{
+        res.status(400).json({
+            status: true,
+            msg: "error",
+            error: "error",
+        })
+    }
+}
+
 exports.delivery_order = async(req, res)=>{
     const deliveryorder = await orderproduct.find({status: "Delivery"})
         if(deliveryorder){
@@ -246,18 +280,15 @@ exports.total_order = async(req, res)=>{
 }
 
 
-exports.dailybyselse = async(req, res)=>{
-    const findexist = await orderproduct.find({status: "complete"})
-    // console.log('findexist', findexist);
-    var timeStamp = Date.now()
-    var date = new Date(timeStamp);
+exports.returned_order = async(req, res)=>{
 
-    if(findexist){
+    const returned_data = await orderproduct.find({status: "returned"})
+    
+    if(returned_data){
         res.status(200).json({
             status: true,
             msg: "success",
-            data: findexist,
-            date: date,
+            data: returned_data,
         })
     }else{
         res.status(400).json({
@@ -268,3 +299,9 @@ exports.dailybyselse = async(req, res)=>{
     }
 }
 
+
+// exports.dailybyselse = async(req, res)=>{
+//     const sailbroduct = await orderproduct({
+//         $and: [{id: req.c }, { status: "Complete" }],
+//     })
+// }

@@ -4,6 +4,7 @@ const router = express.Router();
 
 
 const {
+    
     addorder,
     allorder_list,
     viewone_order,
@@ -14,7 +15,10 @@ const {
     delivery_order,
     total_order,
     canceled_order,
-    dailybyselse,
+    out_of_delivery,
+    inprocess_order,
+    returned_order,
+    // dailybyselse,
   
 }=require('../controller/order');
 
@@ -37,8 +41,14 @@ router.get('/admin/delivery_order', delivery_order);
 
 router.get('/admin/total_order', total_order);   
 
-router.get('/admin/canceled_order', canceled_order);   
+router.get('/admin/canceled_order', canceled_order);  
 
-router.get('/admin/dailybyselse', dailybyselse);
+router.get('/admin/out_of_delivery', out_of_delivery);  
+
+router.get('/admin/inprocess_order', inprocess_order)
+
+router.get('/admin/returned_order', returned_order)
+
+// router.get('/admin/dailybyselse', dailybyselse);
 
 module.exports = router;

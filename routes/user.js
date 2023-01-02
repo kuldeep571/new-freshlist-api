@@ -22,10 +22,13 @@ const {
   verifyotps,
   // adduser,
   userRegister,
+
+  //adminuser form
+  adduser,
+
 } = require("../controller/user");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    //console.log(file);
     let path = `./uploads`;
     if (!fs.existsSync("uploads")) {
       fs.mkdirSync("uploads");
@@ -59,16 +62,16 @@ router.post("/user/edituser/:id", edituser);
 router.post("/user/user_true_false/:id", user_true_false);
 router.delete("/user/dlt_user/:id", dlt_user);
 router.get("/user/getviewone/:id", getviewone);
-
-
-
 router.post("/user/sendotp", sendotp);
-
 router.post("/user/verifyotps", verifyotps);
-
 // router.post("/user/adduser", adduser);
-
 router.post("/user/userRegister/:id", userRegister);
+
+//adminuser
+
+// router.post("/admin/adduser", adduser);
+
+
 
 
 module.exports = router;

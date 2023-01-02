@@ -3,6 +3,7 @@ const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const user = require("../models/user");
 const saltRounds = 10;
 const key = "verysecretkey";
 //const nodemailer = require("nodemailer");
@@ -109,9 +110,6 @@ const key = "verysecretkey";
 //     })
 //   }
 //   // console.log("newcustomer data",newCustomer)
-
-
-
 // };
 
 // exports.sendotpuser = async (req, res) => {
@@ -423,91 +421,91 @@ exports.userRegister = async(req,res) =>{
 }
 
 
-exports.adduser = async (req, res) => {
-  const {
-    customerId,
-    username,
-    email,
-    mobile,
-    password,
-    type,
-    cnfrmPassword,
-    status,
-    alt_mobile,
-    alt_email,
-    group,
-    latitude,
-    longitude,
-    name,
-    city,
-    door_number
+// exports.adduser = async (req, res) => {
+//   const {
+//     customerId,
+//     username,
+//     email,
+//     mobile,
+//     password,
+//     type,
+//     cnfrmPassword,
+//     status,
+//     alt_mobile,
+//     alt_email,
+//     group,
+//     latitude,
+//     longitude,
+//     name,
+//     city,
+//     door_number
 
-  } = req.body;
+//   } = req.body;
 
-  const salt = bcrypt.genSaltSync(saltRounds);
-    const hashpassword = bcrypt.hashSync(password, salt);
+//   const salt = bcrypt.genSaltSync(saltRounds);
+//     const hashpassword = bcrypt.hashSync(password, salt);
   
-    create_random_string(6);
-    function create_random_string(string_length) {
-      (random_string = ""),
-        (characters =
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz");
-      for (var i, i = 0; i < string_length; i++) {
-        random_string += characters.charAt(
-          Math.floor(Math.random() * characters.length)
-        );
-      }
-      return random_string;
-    }
+//     create_random_string(6);
+//     function create_random_string(string_length) {
+//       (random_string = ""),
+//         (characters =
+//           "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz");
+//       for (var i, i = 0; i < string_length; i++) {
+//         random_string += characters.charAt(
+//           Math.floor(Math.random() * characters.length)
+//         );
+//       }
+//       return random_string;
+//     }
 
-  const newUser = new User({
-    customerId: random_string,
-    username: username,
-    email: email,
-    mobile: mobile,
-    password: hashpassword,
-    cnfrmPassword: hashpassword,
-    type: type,
-    // status: status,
-    alt_mobile: alt_mobile,
-    alt_email: alt_email,
-    group: group,
-    latitude: latitude,
-    longitude: longitude,
-    name: name,
-    city: city,
-    door_number: door_number,
-  });
-  console.log("newUser", newUser)
-  // return false
+//   const newUser = new User({
+//     customerId: random_string,
+//     username: username,
+//     email: email,
+//     mobile: mobile,
+//     password: hashpassword,
+//     cnfrmPassword: hashpassword,
+//     type: type,
+//     // status: status,
+//     alt_mobile: alt_mobile,
+//     alt_email: alt_email,
+//     group: group,
+//     latitude: latitude,
+//     longitude: longitude,
+//     name: name,
+//     city: city,
+//     door_number: door_number,
+//   });
+//   console.log("newUser", newUser)
+//   // return false
 
-  const findexist = await User.findOne({ email: email });
-  if (findexist) {
-    res.status(400).json({
-      status: false,
-      msg: "Already Exists",
-      data: {},
-    });
-  }
-  else {
-    newUser
-      .save()
-      .then((data) => {
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: data,
-        });
-      })
-      .catch((error) => {
-        res.status(400).json({
-          status: false,
-          msg: "error",
-          error: error,
-        });
-      });
-  }
-}
+//   const findexist = await User.findOne({ email: email });
+//   if (findexist) {
+//     res.status(400).json({
+//       status: false,
+//       msg: "Already Exists",
+//       data: {},
+//     });
+//   }
+//   else {
+//     newUser
+//       .save()
+//       .then((data) => {
+//         res.status(200).json({
+//           status: true,
+//           msg: "success",
+//           data: data,
+//         });
+//       })
+//       .catch((error) => {
+//         res.status(400).json({
+//           status: false,
+//           msg: "error",
+//           error: error,
+//         });
+//       });
+//   }
+// }
 
 exports.login = async (req, res) => {
   const { mobile, email, password } = req.body;
@@ -556,4 +554,57 @@ exports.login = async (req, res) => {
     });
   };
 }
+
+
+
+
+//admin user form api
+
+
+// exports.adduser = async(req, res)=>{
+//   const{
+//     username,
+//     email,
+//     mobile,
+//     password,
+//     status,
+//   }=req.body;
+
+
+//     if(password == cnfrmpassword)
+//     const newadduser = new user({
+//         username: username,
+//         email: email,
+//         mobile: mobile,
+//         password: password,
+//         cnfrmpassword: cnfrmpassword,
+//         status: status,
+//     })
+
+//     const findexist = await user.findOne({email: email})
+//     if(findexist){
+//       res.status(403).json({
+//         status: false,
+//         msg: "Allready exist",
+//         data: {},
+//       })
+//     }
+//     newadduser.save()
+//     .then((newadduser)=>{
+//         res.status(200).json({
+//           status: true,
+//           msg: "success",
+//           data: newadduser,
+//         })
+//     })
+//     .catch((error)=>{
+//       res.status(400).json({
+//         status: false,
+//         msg: "error",
+//         error: error,
+//       })
+//     })
+
+// }
+
 

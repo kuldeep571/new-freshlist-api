@@ -9,7 +9,7 @@ exports.addproduct = async (req, res) => {
 
     const { product_name, description, type, brand, model, quantity, gst_class, min_selling_Q, max_selling_Q, reward_points, product_image, video_url, metadata, meta_desc, product_search_tags, category, sub_category
         ,
-        mrp, buying_price, m_margin, buying_price1, m_margin1, selling_price, units_name, m_customer, save_parsent, stock, color, size, status, bundle, fix_price } = req.body;
+        mrp, buying_price, m_margin, buying_price1, m_margin1, selling_price, units_name, m_customer, save_parsent, stock, color, size, status, bundle, fix_price} = req.body;
 
     const newproducts = new products({
         product_name: product_name,
