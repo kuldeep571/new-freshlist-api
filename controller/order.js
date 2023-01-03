@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 exports.addorder = async (req, res)=>{
 
     const {
+        customerId,
         orderId,
         name,
         delivery_slot,
@@ -30,6 +31,7 @@ exports.addorder = async (req, res)=>{
     }=req.body;
 
     const neworder = new orderproduct({
+        customerId: customerId,
         orderId: "#ORDC" + Date.now(),
         orderd_from: orderd_from,
         name: name,
@@ -299,6 +301,24 @@ exports.returned_order = async(req, res)=>{
     }
 }
 
+exports.customer_order_list = async(req, res)=>{
+    const findexist = await orderproduct.find({customerId: req.params.id})
+    .populate("customerId")
+    .populate("product")
+    if(findexist){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: findexist,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            mag: "error",
+            error: "error",
+        })
+    }
+}
 
 // exports.dailybyselse = async(req, res)=>{
 //     const sailbroduct = await orderproduct({

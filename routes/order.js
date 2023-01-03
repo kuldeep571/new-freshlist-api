@@ -18,6 +18,7 @@ const {
     out_of_delivery,
     inprocess_order,
     returned_order,
+    customer_order_list,
     // dailybyselse,
   
 }=require('../controller/order');
@@ -48,6 +49,8 @@ router.get('/admin/out_of_delivery', out_of_delivery);
 router.get('/admin/inprocess_order', inprocess_order)
 
 router.get('/admin/returned_order', returned_order)
+
+router.get('/admin/customer_order_list/:id', customer_order_list)
 
 // router.get('/admin/dailybyselse', dailybyselse);
 

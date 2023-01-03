@@ -46,7 +46,6 @@ const leave_comment = require("./routes/leave_comment");
 
 app.use('/', user);
 app.use('/', adminlogin);
-
 app.use('/', aboutus);
 app.use('/', seller);
 app.use('/', category);
