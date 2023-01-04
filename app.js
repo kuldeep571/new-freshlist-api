@@ -42,6 +42,10 @@ const vehicle = require("./routes/vehicle");
 const coupon_code = require("./routes/coupon_code");
 const leave_comment = require("./routes/leave_comment");
 
+//app all api
+
+const appuser = require("./routes/appuser")
+
 
 
 app.use('/', user);
@@ -74,6 +78,10 @@ app.use('/', pincode);
 app.use('/', vehicle);
 app.use('/', coupon_code);
 app.use('/', leave_comment);
+
+// app user api
+
+app.use('/', appuser);
 
 
 

@@ -4,11 +4,13 @@ const wishlist = require('../models/shop_wishlist');
 
 exports.addwishlist = async(req, res)=>{
     const {
+        customer,
         product,
         stock_status,
     }=req.body;
 
     const newwishlist = new wishlist({
+        customer: customer,
         product: product,
         stock_status: stock_status
     });
@@ -41,12 +43,13 @@ exports.addwishlist = async(req, res)=>{
 
 
 exports.all_wishlist = async (req, res)=>{
-    const findalldata = await wishlist.find().sort({sortorder: 1})
+    const findalldata = await wishlist.find({customer: req.params.id})
     .populate("product")
     if(findalldata){
         res.status(200).json({
             status: true,
             msg: "success",
+            length: findalldata.length,
             data: findalldata,
         })
     }else{

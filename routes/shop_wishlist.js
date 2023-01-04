@@ -10,7 +10,7 @@ const{
 
 router.post('/admin/addwishlist', addwishlist);
 
-router.get('/admin/all_wishlist', all_wishlist);
+router.get('/admin/all_wishlist/:id', all_wishlist);
 
 router.delete('/admin/remove_wishlist/:id', remove_wishlist);
 
