@@ -243,26 +243,73 @@ exports.userlist = async (req, res) => {
 };
 
 exports.edituser = async (req, res) => {
-  const findandUpdateEntry = await User.findOneAndUpdate(
-    {
-      _id: req.params.id,
-    },
-    { $set: req.body, status: "true" },
-    { new: true }
-  );
+  const {
+    username,
+    email,
+    mobile,
+    image,
+    password,
+    cnfrmPassword,
+  } = req.body;
 
-  if (findandUpdateEntry) {
-    res.status(200).json({
-      status: true,
-      msg: 'success',
-      data: findandUpdateEntry,
-    })
+  const salt = bcrypt.genSaltSync(saltRounds);
+  const hashpassword = bcrypt.hashSync(password, salt);
+
+
+  data = {};
+  if (username) {
+    data.username = username;
+  }
+  if (email) {
+    data.email = email;
+  }
+  if (mobile) {
+    data.mobile = mobile;
+  }
+  if (image) {
+    data.image = image;
+  }
+  if (password == cnfrmPassword) {
+    const salt = await bcrypt.genSalt(10);
+    let hashPassword = await bcrypt.hash(password, salt);
+    data.password = hashPassword;
+    data.cnfrmPassword = hashPassword;
+  }
+  // if (cnfrmPassword) {
+  //   const salt = await bcrypt.genSalt(10);
+  //   let hashPassword = await bcrypt.hash(password, salt);
+  //   data.cnfrmPassword = hashPassword;
+  // }
+  if (req.file) {
+    const result = await cloudinary.uploader.upload(req.file.path);
+    data.image = result.secure_url;
+    fs.unlinkSync(req.file.path);
+  }
+  if (password == cnfrmPassword) {
+    if (data) {
+      const updatebrand = await User.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: data },
+        { new: true }
+      );
+      if (updatebrand) {
+        res.status(200).json({
+          status: true,
+          msg: "success",
+          data: updatebrand
+        })
+      }else{
+        res.status(400).json({
+          status: false,
+          msg:"error",
+        })
+      }
+    }
   } else {
     res.status(400).json({
       status: false,
-      status: error,
-      msg: 'error',
-    })
+      msg: "password and cnfrompassword is not match",
+    });
   }
 }
 
@@ -556,7 +603,47 @@ exports.login = async (req, res) => {
 }
 
 
+exports.totaluser = async (req, res) => {
+  await User.countDocuments()
+    .then((data) => {
+      res.status(200).json({
+        status: true,
+        data: data
+      })
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: "error",
+      })
+    })
+}
 
+// exports.changepass = async (req, res) => {
+//   const { password, } = req.body
+//   const salt = await bcrypt.genSalt(10);
+//   const hashPassword = await bcrypt.hash(password, salt);
+//   finddetails = await User.findOneAndUpdate(
+//     { _id: req.userId },
+//     [{ password: hashPassword }, { cnfrmPassword: hashPassword }],
+//     //  { $set: { password: hashPassword } },
+//     { new: true }
+//   )
+//   if (finddetails) {
+//     res.status(200).json({
+//       status: true,
+//       msg: "Password Reset Successfull",
+//       data: finddetails,
+//     });
+//   } else {
+//     res.status(400).json({
+//       status: false,
+//       msg: "error",
+//       error: "error",
+//     });
+//   }
+// }
 
 //admin user form api
 
@@ -585,7 +672,7 @@ exports.adduser = async (req, res) => {
       status: "true",
     })
 
-    const findexist = await user.findOne({ email: email})
+    const findexist = await user.findOne({ email: email })
     if (findexist) {
       res.status(403).json({
         status: false,
@@ -608,12 +695,12 @@ exports.adduser = async (req, res) => {
           error: error,
         })
       })
-  }else{
-      res.status(403).json({
-        status: false,
-        msg: "password and cnfrmpassword is not match",
-        error: "error",
-      })
+  } else {
+    res.status(403).json({
+      status: false,
+      msg: "password and cnfrmpassword is not match",
+      error: "error",
+    })
   }
 }
 

@@ -55,6 +55,9 @@ const customerSchema = new Schema(
     door_number:{
       type: String,
     },
+    image:{
+      type: String,
+    },
     captcha:{
       type: String,
     },

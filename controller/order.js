@@ -1,7 +1,18 @@
 const orderproduct = require('../models/order');
 const { v4: uuidv4 } = require("uuid");
 
-
+create_random_string(6);
+function create_random_string(string_length) {
+  (random_string = ""),
+    (characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz");
+  for (var i, i = 0; i < string_length; i++) {
+    random_string += characters.charAt(
+      Math.floor(Math.random() * characters.length)
+    );
+  }
+  return random_string;
+}
 
 exports.addorder = async (req, res)=>{
 
@@ -32,7 +43,7 @@ exports.addorder = async (req, res)=>{
 
     const neworder = new orderproduct({
         customerId: customerId,
-        orderId: "#ORDC" + Date.now(),
+        orderId: random_string,
         orderd_from: orderd_from,
         name: name,
         delivery_slot: delivery_slot,
