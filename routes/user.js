@@ -23,6 +23,7 @@ const {
   // adduser,
   userRegister,
   totaluser,
+  resetPassword,
 
   //adminuser form
   adduser,
@@ -68,6 +69,8 @@ router.post("/user/verifyotps", verifyotps);
 // router.post("/user/adduser", adduser);
 router.post("/user/userRegister/:id", userRegister);
 router.get("/user/totaluser", totaluser);
+router.post("/user/resetPassword/:id", resetPassword);
+
 
 
 //adminuser

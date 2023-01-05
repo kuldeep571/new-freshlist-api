@@ -597,33 +597,47 @@ exports.totaluser = async(req, res)=>{
   })
 }
 
-// exports.changepass = async (req, res) => {
-//     const {password,} = req.body
-//     const salt = await bcrypt.genSalt(10);
-//     const hashPassword = await bcrypt.hash(password, salt);
-//     finddetails = await User.findOneAndUpdate(
-//       { _id: req.userId },
-//        [{ password: hashPassword }, { cnfrmPassword :hashPassword }],
-//     //  { $set: { password: hashPassword } },
-//       { new: true }
-//     )
-//     if (finddetails) {
-//       res.status(200).json({
-//         status: true,
-//         msg: "Password Reset Successfull",
-//         data: finddetails,
-//       });
-//     } else {
-//       res.status(400).json({
-//         status: false,
-//         msg: "error",
-//         error: "error",
-//       });
-//     }
-//   }
-
-//admin user form api
-
+exports.resetPassword = async (req, res) => {
+  const { oldpassword ,password, cnfrmPassword } = req.body
+  const userData = await User.findOne({_id : req.params.id})
+  if(userData){
+  const passwordMatch = await bcrypt.compare(oldpassword,userData.password)
+  if(passwordMatch){
+    // console.log("matched")
+    if(password === cnfrmPassword){
+      const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(password, salt);
+    const findandUpdateEntry = await User.findOneAndUpdate(
+          {
+            _id: req.params.id
+          },
+          { $set: { password: hashPassword, cnfrmPassword: hashPassword } },
+          { new: true }
+        );
+        if (findandUpdateEntry) {
+          res.status(200).json({
+            status: true,
+            msg: "success",
+            data: findandUpdateEntry,
+          });
+        } 
+    }else {
+      res.status(401).json({
+        status: false,
+        msg: "Password confirm password not matched"
+        
+      });
+    }
+  }else{
+    res.status(400).json({
+          status: false,
+          msg: "Old Password not matched",
+         
+        })
+      }
+  
+  }
+};
 
 exports.adduser = async (req, res) => {
   const {
