@@ -67,7 +67,7 @@ exports.vender_veryfyotp = async (req, res) => {
         mobile,
         otp,
     } = req.body;
-    if (otp == 123456) {
+    if (otp == 1234) {
         const findone = await appvender.findOne({ mobile: mobile });
         if (findone) {
             res.status(200).json({
