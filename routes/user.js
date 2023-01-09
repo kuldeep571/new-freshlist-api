@@ -9,19 +9,17 @@ const { tokenverify } = require("../functions/tokenverify");
 const {
   websignup,
   veryfyotp,
-  login,
-  edituser,
-  userlist,
-  dlt_user,
-  user_true_false,
-  getviewone,
-
   userVryfyotp,
   emailSend,
   sendotp,
   verifyotps,
-  // adduser,
   userRegister,
+  login,
+  userlist,
+  dlt_user,
+  edituser,
+  user_true_false,
+  getviewone,
   totaluser,
   resetPassword,
 
@@ -58,27 +56,21 @@ let uploads = multer({ storage: storage });
 
 // router.post("/user/websignup", websignup);
 // router.post("/user/veryfyotp", veryfyotp);
-router.post("/user/login", login);
-router.get("/user/userlist", userlist);
-router.post("/user/edituser/:id", uploads.single("image"), edituser);
-router.post("/user/user_true_false/:id", user_true_false);
-router.delete("/user/dlt_user/:id", dlt_user);
-router.get("/user/getviewone/:id", getviewone);
 router.post("/user/sendotp", sendotp);
 router.post("/user/verifyotps", verifyotps);
-// router.post("/user/adduser", adduser);
 router.post("/user/userRegister/:id", userRegister);
+router.post("/user/login", login);
+router.get("/user/userlist", userlist);
+router.delete("/user/dlt_user/:id", dlt_user);
+router.get("/user/getviewone/:id", getviewone);
+router.post("/user/edituser/:id", uploads.single("image"), edituser);
+router.post("/user/user_true_false/:id", user_true_false);
 router.get("/user/totaluser", totaluser);
 router.post("/user/resetPassword/:id", resetPassword);
-
-
 
 //adminuser
 
 router.post("/admin/adduser", adduser);
-
-
-
 
 module.exports = router;
  

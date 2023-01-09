@@ -10,6 +10,7 @@ const key = "verysecretkey";
 //const { sendmail } = require("./mail");
 
 
+
 // exports.websignup = async (req, res) => {
 //   let length = 6;
 //   let defaultotp = "123456";
@@ -335,7 +336,7 @@ exports.getviewone = async (req, res) => {
     const findone = await User.findOne({ _id: req.params.id });
     if (findone) {
       res.status(200).json({
-        status: false,
+        status: true,
         msg: "success",
         data: findone,
       })
@@ -351,7 +352,6 @@ exports.getviewone = async (req, res) => {
     console.log(error);
   }
 }
-
 
 exports.sendotp = async (req, res) => {
   let length = 6;
@@ -390,7 +390,6 @@ exports.sendotp = async (req, res) => {
     })
 }
 
-
 exports.verifyotps = async (req, res) => {
   let length = 6;
   let defaultotp = "123456";
@@ -413,8 +412,6 @@ exports.verifyotps = async (req, res) => {
     });
   }
 }
-
-
 
 exports.userRegister = async (req, res) => {
   const { status, password } = req.body
@@ -443,7 +440,6 @@ exports.userRegister = async (req, res) => {
     })
   }
 }
-
 
 // exports.adduser = async (req, res) => {
 //   const {

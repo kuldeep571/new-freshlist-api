@@ -16,8 +16,8 @@ const key = "verysecretkey";
 
 
 exports.vender_sendotp = async (req, res) => {
-    let length = 6;
-    let defaultotp = "123456";
+    let length = 4;
+    let defaultotp = "1234";
 
     const { name,
         mobile,
@@ -61,8 +61,8 @@ exports.vender_sendotp = async (req, res) => {
 
 
 exports.vender_veryfyotp = async (req, res) => {
-    let length = 6;
-    let defaultotp = "123456";
+    let length = 4;
+    let defaultotp = "1234";
     const {
         mobile,
         otp,
@@ -196,12 +196,12 @@ exports.vender_register_img = async (req, res) => {
             data.pancard_img = alluploads;
         }
 
-        if(req.files.passbook_img){
+        if (req.files.passbook_img) {
             alluploads = [];
-            for(let i=0; i< req.files.passbook_img.length; i++){
+            for (let i = 0; i < req.files.passbook_img.length; i++) {
                 const result = await cloudinary.uploader.upload(
                     req.files.passbook_img[i].path,
-                    {use_filename: true, unique_filename: false}
+                    { use_filename: true, unique_filename: false }
                 );
                 fs.unlinkSync(req.files.passbook_img[i].path);
                 alluploads.push(result.secure_url);
@@ -213,7 +213,7 @@ exports.vender_register_img = async (req, res) => {
         const updatedata = await appvender.findOneAndUpdate(
             { _id: req.params.id },
             { $set: data, status: "true" },
-            { new: true }
+            { new: true },
         )
         if (updatedata) {
             res.status(200).json({
@@ -232,15 +232,15 @@ exports.vender_register_img = async (req, res) => {
 }
 
 
-exports.vender_getlist = async(req, res)=>{
-    const finddata = await appvender.find().sort({sortorder: 1})
-    if(finddata){
+exports.vender_getlist = async (req, res) => {
+    const finddata = await appvender.find().sort({ sortorder: 1 })
+    if (finddata) {
         res.status(200).json({
             status: true,
             msg: "success",
             data: finddata,
         })
-    }else{
+    } else {
         res.status(400).json({
             status: false,
             msg: "error",
@@ -249,15 +249,15 @@ exports.vender_getlist = async(req, res)=>{
     }
 }
 
-exports.vender_getviewone = async(req, res)=>{
-    const findviewone = await appvender.findOne({_id: req.params.id})
-    if(findviewone){
+exports.vender_getviewone = async (req, res) => {
+    const findviewone = await appvender.findOne({ _id: req.params.id })
+    if (findviewone) {
         res.status(200).json({
             status: true,
             msg: "success",
             data: findviewone,
         })
-    }else{
+    } else {
         res.status(400).json({
             status: false,
             msg: "error",
@@ -266,15 +266,15 @@ exports.vender_getviewone = async(req, res)=>{
     }
 }
 
-exports.vender_deleteone = async(req, res)=>{
-    const deleteone = await appvender.deleteOne({_id: req.params.id})
-    if(deleteone){
+exports.vender_deleteone = async (req, res) => {
+    const deleteone = await appvender.deleteOne({ _id: req.params.id })
+    if (deleteone) {
         res.status(200).json({
             status: true,
             msg: "success",
             data: deleteone,
         })
-    }else{
+    } else {
         res.status(400).json({
             status: false,
             msg: "error",
@@ -282,3 +282,94 @@ exports.vender_deleteone = async(req, res)=>{
         })
     }
 }
+
+
+// exports.vender_login = async (req, res) => {
+//     const { mobile, email, otp } = req.body;
+//     const user = await appvender.findOne({
+//       $or: [{ mobile: mobile }, { otp: otp }],
+//     });
+//     if (user) {
+//       const validPass = await bcrypt.compare(otp, user.otp);
+//       console.log("data", validPass);
+//       if (validPass) {
+//         const token = jwt.sign(
+//           {
+//             userId: user._id,
+//           },
+//           process.env.TOKEN_SECRET,
+//           {
+//             expiresIn: 86400000,
+//           }
+//         );
+//         res.status(200).json({
+//           status: true,
+//           token: token,
+//           msg: "login success",
+//           user: user,
+//         });
+//       } else {
+//         res.status(400).json({
+//           status: false,
+//           msg: "password is incorrect ",
+//           error: "error",
+//         })
+//       }
+//     } else if (user?.status == "false") {
+//       res.status(400).json({
+//         status: false,
+//         msg: "waiting for mobile verification",
+//         error: "error",
+//       });
+//     }
+//     else {
+//       res.status(400).json({
+//         status: false,
+//         msg: "Email and password is incorrect",
+//         error: "error",
+//       });
+//     };
+//   }
+
+
+//   exports.vender_login = async(req, res)=>{
+//     try {
+//         const mobile = req.body.mobile;
+//         const otp = req.body.otp;
+//         await Frontendvalidation.loginvalidation(req, res);
+//         const userdata = await appvender.findOne({
+//                    $or: [{ mobile: mobile }, { otp: otp }],
+//                 });
+//         if (userdata && userdata.length > 0) {
+//             let user = userdata[0];
+//             if (user.otp == otp) {
+//                res.status(200).json({
+//                     status: true,
+//                     msg: "password is currect",
+//                })
+//             //     let token = jwt.sign({
+//             //         pagedata: {
+//             //             userId: user.id,
+//             //         }
+//             // }, 'amozontestAdmin@12345', {expiresIn: 30 });
+//                 // req.session.token=token;
+//                 // res.redirect('/home');
+//             } else {
+//                 req.session.status = "error";
+//                 req.session.message = "incorrect password";
+//                 res.redirect('/login');
+//             }
+//         } else {
+//            res.status(400).json({
+//             status: false,
+//             msg:"incurrect email & password",
+//            })
+//         }
+
+//     } catch (error) {
+//         res.status(400).json({
+//             status: false,
+//             msg: "error"
+//         })
+//     }
+// }
