@@ -40,10 +40,17 @@ const storage = multer.diskStorage({
   
   let uploads = multer({ storage: storage });
 
+  let multipleUpload = uploads.fields([
+    { name: "rc", maxCount: 1 },
+    { name: "insurance", maxCount: 1 },
+    { name: "license", maxCount: 1 },
+    { name: "driver_img", maxCount: 1 },
+  ]);
 
 
 
-router.post("/admin/addvehicle", uploads.single("driver_img"), addvehicle);
+
+router.post("/admin/addvehicle", multipleUpload, addvehicle);
 
 router.get("/admin/getall_vehicle", getall_vehicle);
 

@@ -113,16 +113,19 @@ exports.vender_register_img = async (req, res) => {
     const {
         vendoor_img,
         adhar_no,
-        adhar_img,
+        adhar_img_front,
+        adhar_img_back,
         pancard_no,
-        pancard_img,
+        pancard_img_front,
+        pancard_img_back,
         account_no,
         cus_name,
         branch,
         ifsc_code,
         passbook_img,
 
-    } = req.body
+    } = req.body;
+
     data = {};
 
     if (vendoor_img) {
@@ -131,14 +134,20 @@ exports.vender_register_img = async (req, res) => {
     if (adhar_no) {
         data.adhar_no = adhar_no;
     }
-    if (adhar_img) {
-        data.adhar_img = adhar_img;
+    if (adhar_img_front) {
+        data.adhar_img_front = adhar_img_front;
+    }
+    if (adhar_img_back) {
+        data.adhar_img_back = adhar_img_back;
     }
     if (pancard_no) {
         data.pancard_no = pancard_no;
     }
-    if (pancard_img) {
-        data.pancard_img = pancard_img;
+    if (pancard_img_front) {
+        data.pancard_img_front = pancard_img_front;
+    }
+    if (pancard_img_back) {
+        data.pancard_img_back = pancard_img_back;
     }
     if (account_no) {
         data.account_no = account_no;
@@ -156,59 +165,140 @@ exports.vender_register_img = async (req, res) => {
         data.passbook_img = passbook_img;
     }
 
-    if (req.files) {
+    //if (req.files) {
         if (req.files.vendoor_img) {
             alluploads = [];
             for (let i = 0; i < req.files.vendoor_img.length; i++) {
-                const result = await cloudinary.uploader.upload(
+                const resp = await cloudinary.uploader.upload(
                     req.files.vendoor_img[i].path,
-                    { use_filename: true, unique_filename: false }
+                    // { use_filename: true, unique_filename: false }
                 );
                 fs.unlinkSync(req.files.vendoor_img[i].path);
-                alluploads.push(result.secure_url);
+                alluploads.push(resp.secure_url);
             }
             data.vendoor_img = alluploads;
         }
-
-        if (req.files.adhar_img) {
+        if (req.files.adhar_img_front) {
             alluploads = [];
-            for (let i = 0; i < req.files.adhar_img.length; i++) {
-                const result = await cloudinary.uploader.upload(
-                    req.files.adhar_img[i].path,
-                    { use_filename: true, unique_filename: false }
+            for (let i = 0; i < req.files.adhar_img_front.length; i++) {
+                const resp = await cloudinary.uploader.upload(
+                    req.files.adhar_img_front[i].path,
+                    // { use_filename: true, unique_filename: false }
                 );
-                fs.unlinkSync(req.files.adhar_img[i].path);
-                alluploads.push(result.secure_url);
+                fs.unlinkSync(req.files.adhar_img_front[i].path);
+                alluploads.push(resp.secure_url);
             }
-            data.adhar_img = alluploads;
+            data.adhar_img_front = alluploads;
         }
-
-        if (req.files.pancard_img) {
+        if (req.files.adhar_img_back) {
             alluploads = [];
-            for (let i = 0; i < req.files.pancard_img.length; i++) {
-                const result = await cloudinary.uploader.upload(
-                    req.files.pancard_img[i].path,
-                    { use_filename: true, unique_filename: false }
+            for (let i = 0; i < req.files.adhar_img_back.length; i++) {
+                const resp = await cloudinary.uploader.upload(
+                    req.files.adhar_img_back[i].path,
+                    // { use_filename: true, unique_filename: false }
                 );
-                fs.unlinkSync(req.files.pancard_img[i].path);
-                alluploads.push(result.secure_url);
+                fs.unlinkSync(req.files.adhar_img_back[i].path);
+                alluploads.push(resp.secure_url);
             }
-            data.pancard_img = alluploads;
+            data.adhar_img_back = alluploads;
         }
-
+        if (req.files.pancard_img_front) {
+            alluploads = [];
+            for (let i = 0; i < req.files.pancard_img_front.length; i++) {
+                const resp = await cloudinary.uploader.upload(
+                    req.files.pancard_img_front[i].path,
+                    // { use_filename: true, unique_filename: false }
+                );
+                fs.unlinkSync(req.files.pancard_img_front[i].path);
+                alluploads.push(resp.secure_url);
+            }
+            data.pancard_img_front = alluploads;
+        }
+        if (req.files.pancard_img_back) {
+            alluploads = [];
+            for (let i = 0; i < req.files.pancard_img_back.length; i++) {
+                const resp = await cloudinary.uploader.upload(
+                    req.files.pancard_img_back[i].path,
+                    // { use_filename: true, unique_filename: false }
+                );
+                fs.unlinkSync(req.files.pancard_img_back[i].path);
+                alluploads.push(resp.secure_url);
+            }
+            data.pancard_img_back = alluploads;
+        }
         if (req.files.passbook_img) {
             alluploads = [];
             for (let i = 0; i < req.files.passbook_img.length; i++) {
-                const result = await cloudinary.uploader.upload(
+                const resp = await cloudinary.uploader.upload(
                     req.files.passbook_img[i].path,
-                    { use_filename: true, unique_filename: false }
+                    // { use_filename: true, unique_filename: false }
                 );
                 fs.unlinkSync(req.files.passbook_img[i].path);
-                alluploads.push(result.secure_url);
+                alluploads.push(resp.secure_url);
             }
             data.passbook_img = alluploads;
         }
-    }
+        // if (req.files.adhar_img_front) {
+        //     alluploads = [];
+        //     for (let i = 0; i < req.files.adhar_img_front.length; i++) {
+        //         const result = await cloudinary.uploader.upload(
+        //             req.files.adhar_img_front[i].path,
+        //             { use_filename: true, unique_filename: false }
+        //         );
+        //         fs.unlinkSync(req.files.adhar_img_front[i].path);
+        //         alluploads.push(result.secure_url);
+        //     }
+        //     data.adhar_img_front = alluploads;
+        // }
+        // if (req.files.adhar_img_back) {
+        //     alluploads = [];
+        //     for (let i = 0; i < req.files.adhar_img_back.length; i++) {
+        //         const result = await cloudinary.uploader.upload(
+        //             req.files.adhar_img_back[i].path,
+        //             { use_filename: true, unique_filename: false }
+        //         );
+        //         fs.unlinkSync(req.files.adhar_img_back[i].path);
+        //         alluploads.push(result.secure_url);
+        //     }
+        //     data.adhar_img_back = alluploads;
+        // }
+        // if (req.files.pancard_img_front) {
+        //     alluploads = [];
+        //     for (let i = 0; i < req.files.pancard_img_front.length; i++) {
+        //         const result = await cloudinary.uploader.upload(
+        //             req.files.pancard_img_front[i].path,
+        //             { use_filename: true, unique_filename: false }
+        //         );
+        //         fs.unlinkSync(req.files.pancard_img_front[i].path);
+        //         alluploads.push(result.secure_url);
+        //     }
+        //     data.pancard_img_front = alluploads;
+        // }
+        // if (req.files.pancard_img_back) {
+        //     alluploads = [];
+        //     for (let i = 0; i < req.files.pancard_img_back.length; i++) {
+        //         const result = await cloudinary.uploader.upload(
+        //             req.files.pancard_img_back[i].path,
+        //             { use_filename: true, unique_filename: false }
+        //         );
+        //         fs.unlinkSync(req.files.pancard_img_back[i].path);
+        //         alluploads.push(result.secure_url);
+        //     }
+        //     data.pancard_img_back = alluploads;
+        // }
+        // if (req.files.passbook_img) {
+        //     alluploads = [];
+        //     for (let i = 0; i < req.files.passbook_img.length; i++) {
+        //         const result = await cloudinary.uploader.upload(
+        //             req.files.passbook_img[i].path,
+        //             { use_filename: true, unique_filename: false }
+        //         );
+        //         fs.unlinkSync(req.files.passbook_img[i].path);
+        //         alluploads.push(result.secure_url);
+        //     }
+        //     data.passbook_img = alluploads;
+        // }
+    // }
     if (data) {
         const updatedata = await appvender.findOneAndUpdate(
             { _id: req.params.id },
@@ -287,89 +377,88 @@ exports.vender_deleteone = async (req, res) => {
 // exports.vender_login = async (req, res) => {
 //     const { mobile, email, otp } = req.body;
 //     const user = await appvender.findOne({
-//       $or: [{ mobile: mobile }, { otp: otp }],
+//         $or: [{ mobile: mobile }, { otp: otp }],
 //     });
 //     if (user) {
-//       const validPass = await bcrypt.compare(otp, user.otp);
-//       console.log("data", validPass);
-//       if (validPass) {
-//         const token = jwt.sign(
-//           {
-//             userId: user._id,
-//           },
-//           process.env.TOKEN_SECRET,
-//           {
-//             expiresIn: 86400000,
-//           }
-//         );
-//         res.status(200).json({
-//           status: true,
-//           token: token,
-//           msg: "login success",
-//           user: user,
-//         });
-//       } else {
-//         res.status(400).json({
-//           status: false,
-//           msg: "password is incorrect ",
-//           error: "error",
-//         })
-//       }
+//         const validPass = await bcrypt.compare(otp, user.otp);
+//         // console.log("data", validPass);
+//         if (validPass) {
+//             // const token = jwt.sign(
+//             //     {
+//             //         userId: user._id,
+//             //     },
+//             //     process.env.TOKEN_SECRET,
+//             //     {
+//             //         expiresIn: 86400000,
+//             //     }
+//             // );
+//             res.status(200).json({
+//                 status: true,
+//                 // token: token,
+//                 msg: "success",
+//                 user: validPass,
+//             });
+//         } else {
+//             res.status(400).json({
+//                 status: false,
+//                 msg: "otp is incorrect ",
+//                 error: "error",
+//             })
+//         }
 //     } else if (user?.status == "false") {
-//       res.status(400).json({
-//         status: false,
-//         msg: "waiting for mobile verification",
-//         error: "error",
-//       });
+//         res.status(400).json({
+//             status: false,
+//             msg: "waiting for mobile verification",
+//             error: "error",
+//         });
 //     }
 //     else {
-//       res.status(400).json({
-//         status: false,
-//         msg: "Email and password is incorrect",
-//         error: "error",
-//       });
-//     };
-//   }
-
-
-//   exports.vender_login = async(req, res)=>{
-//     try {
-//         const mobile = req.body.mobile;
-//         const otp = req.body.otp;
-//         await Frontendvalidation.loginvalidation(req, res);
-//         const userdata = await appvender.findOne({
-//                    $or: [{ mobile: mobile }, { otp: otp }],
-//                 });
-//         if (userdata && userdata.length > 0) {
-//             let user = userdata[0];
-//             if (user.otp == otp) {
-//                res.status(200).json({
-//                     status: true,
-//                     msg: "password is currect",
-//                })
-//             //     let token = jwt.sign({
-//             //         pagedata: {
-//             //             userId: user.id,
-//             //         }
-//             // }, 'amozontestAdmin@12345', {expiresIn: 30 });
-//                 // req.session.token=token;
-//                 // res.redirect('/home');
-//             } else {
-//                 req.session.status = "error";
-//                 req.session.message = "incorrect password";
-//                 res.redirect('/login');
-//             }
-//         } else {
-//            res.status(400).json({
-//             status: false,
-//             msg:"incurrect email & password",
-//            })
-//         }
-
-//     } catch (error) {
 //         res.status(400).json({
 //             status: false,
-//             msg: "error"
-//         })
-//     }
+//             msg: "mobile & otp is incorrect",
+//             error: "error",
+//         });
+//     };
 // }
+
+
+  exports.vender_login = async(req, res)=>{
+    try {
+        const mobile = req.body.mobile;
+        const otp = req.body.otp;
+        const userdata = await appvender.findOne({
+                   $or: [{ mobile: mobile }, { otp: otp }],
+                });
+                console.log('userdata', userdata);
+                if (userdata && userdata.length > 0) {
+                    let user = userdata[0];
+                    if(user.otp == otp) {
+                        res.status(200).json({
+                            status: true,
+                            msg: "otp is currect",
+                            data: userdata,
+                        })
+                        console.log('data1', data1);
+                    } else {
+                        res.status(400).json({
+                            status: false,
+                            msg: "incurrect otp",
+                        })
+                        console.log('data2', data2);
+                    }
+                } else {
+           res.status(400).json({
+            status: false,
+            msg:"incurrect mobile & otp",
+            error: "error",
+        })
+        console.log('data12', data2);
+        }
+    } catch (error) {
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: error,
+        })
+    }
+}

@@ -4,16 +4,16 @@ const Schema = mongoose.Schema;
 const newvehicleSchema = Schema(
     {
         rc:{
-            type: String,
+            type: Array,
         },
         insurance:{
-            type: String,
+            type: Array,
         },
         license:{
-            type: String,
+            type: Array,
         },
         driver_img:{
-            type: String,
+            type: Array,
         },
     },
     {timestamps: true},
