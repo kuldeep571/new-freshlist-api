@@ -43,12 +43,12 @@ const storage = multer.diskStorage({
   let uploads = multer({ storage: storage });
 
   let multipleUpload = uploads.fields([
-    { name: "vendoor_img", maxCount: 2 },
-    { name: "adhar_img_front", maxCount: 2 },
-    { name: "adhar_img_back", maxCount: 2 },
-    { name: "pancard_img_front", maxCount: 2 },
-    { name: "pancard_img_back", maxCount: 2 },  
-    { name: "passbook_img", maxCount: 2 },
+    { name: "vendoor_img", maxCount: 1 },
+    { name: "adhar_img_front", maxCount: 1 },
+    { name: "adhar_img_back", maxCount: 1 },
+    { name: "pancard_img_front", maxCount: 1 },
+    { name: "pancard_img_back", maxCount: 1 },  
+    { name: "passbook_img", maxCount: 1 },
   ]);
 
    
