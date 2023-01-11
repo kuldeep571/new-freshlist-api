@@ -61,3 +61,5 @@ router.post('/admin/edit_vendor/:id', multipleUpload, edit_vendor)
 
 
 module.exports = router;
+
+//console
