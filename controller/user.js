@@ -622,7 +622,7 @@ exports.login = async (req, res) => {
         user: user,
       });
     } else {
-      res.status(400).json({
+      res.status(401).json({
         status: false,
         msg: "Incorrect Password",
         error: "error",
