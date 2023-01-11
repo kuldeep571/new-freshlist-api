@@ -73,6 +73,22 @@ const orderSchema = new Schema(
         type:String,
         default:"Order Placed",
     },
+    payment_status:{
+        type: String,
+        default: "paid",
+    },
+    shipping_type:{
+        type: String,
+    },
+    choose_driver:{
+        type: String,
+    },
+    driver_will_get:{
+        type: String,
+    },
+    expected_delivery_date:{
+        type: String,
+    },
 },
 {timestamps:true},
 

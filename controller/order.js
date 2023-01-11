@@ -15,7 +15,6 @@ function create_random_string(string_length) {
 }
 
 exports.addorder = async (req, res)=>{
-
     const {
         customerId,
         orderId,
@@ -67,7 +66,6 @@ exports.addorder = async (req, res)=>{
     })
     
     const findexist = await orderproduct.findOne({orderId: orderId })
-
     if(findexist){
         res.status(403).json({
             status: false,

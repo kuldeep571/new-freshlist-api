@@ -320,92 +320,84 @@ exports.vender_deleteone = async (req, res) => {
     }
 }
 
+
+
 // exports.vender_login = async (req, res) => {
-//     const { mobile, email, otp } = req.body;
-//     const user = await appvender.findOne({
-//         $or: [{ mobile: mobile }, { otp: otp }],
-//     });
-//     if (user) {
-//         const validPass = await bcrypt.compare(otp, user.otp);
-//         // console.log("data", validPass);
-//         if (validPass) {
-//             // const token = jwt.sign(
-//             //     {
-//             //         userId: user._id,
-//             //     },
-//             //     process.env.TOKEN_SECRET,
-//             //     {
-//             //         expiresIn: 86400000,
-//             //     }
-//             // );
-//             res.status(200).json({
-//                 status: true,
-//                 // token: token,
-//                 msg: "success",
-//                 user: validPass,
-//             });
-//         } else {
-//             res.status(400).json({
-//                 status: false,
-//                 msg: "otp is incorrect ",
-//                 error: "error",
-//             })
-//         }
-//     } else if (user?.status == "false") {
+//     try {
+//         const mobile = req.body.mobile;
+//         const otp = req.body.otp;
+//         const userdata = await appvender.findOne({
+//             $or: [{ mobile: mobile }, { otp: otp }],
+//         });
+//         // console.log('userdata', userdata);
+//         // return false;
+//         if (userdata && userdata.length > 0) {
+//             let user = userdata[0];
+//             if (user.otp == otp) {
+//                 res.status(200).json({
+//                     status: true,
+//                     msg: "otp is currect",
+//                     data: userdata,
+//                 })
+//                 console.log('currect otp', data1);
+//             } else {
+//                 res.status(403).json({
+//                     status: false,
+//                     msg: "incurrect otp",
+//                 })
+//                 console.log('incurrect otp', data2);
+//             }
+//             console.log("first if", userdata);
+//         } 
+//     } catch (error) {
 //         res.status(400).json({
 //             status: false,
-//             msg: "waiting for mobile verification",
-//             error: "error",
-//         });
+//             msg: "incurrect mobile no & otp",
+//             error: error,
+//         })
+//         console.log('catch error', error);
 //     }
-//     else {
-//         res.status(400).json({
-//             status: false,
-//             msg: "mobile & otp is incorrect",
-//             error: "error",
-//         });
-//     };
 // }
 
 
 exports.vender_login = async (req, res) => {
-    try {
-        const mobile = req.body.mobile;
-        const otp = req.body.otp;
-        const userdata = await appvender.findOne({
-            $or: [{ mobile: mobile }, { otp: otp }],
-        });
-        console.log('userdata', userdata);
-        if (userdata && userdata.length > 0) {
-            let user = userdata[0];
-            if (user.otp == otp) {
+    const { mobile, otp } = req.body;
+    const user = await appvender.findOne({
+        $or: [{ mobile: mobile }, { otp: otp }],
+    });
+    // console.log("data", user)
+    // return false;
+    if (user?.status == "true") {
+        if (user && user.length > 0) {
+            let users = userdata[0];
+            if (users.otp == otp) {
                 res.status(200).json({
                     status: true,
-                    msg: "otp is currect",
+                    msg: "login successfully",
                     data: userdata,
                 })
-                console.log('data1', data1);
+                console.log('currect otp', data1);
             } else {
-                res.status(400).json({
+                res.status(403).json({
                     status: false,
                     msg: "incurrect otp",
                 })
-                console.log('data2', data2);
+                console.log('incurrect otp', data2);
             }
-        } else {
-            res.status(400).json({
-                status: false,
-                msg: "incurrect mobile & otp",
-                error: "error",
-            })
-            console.log('data12', data2);
         }
-    } catch (error) {
+    } else if (user?.status == "false") {
         res.status(400).json({
             status: false,
-            msg: "error",
-            error: error,
-        })
+            msg: "waiting for mobile verification",
+            error: "error",
+        });
     }
+    else {
+        res.status(400).json({
+            status: false,
+            msg: "incorrect mobile number and otp",
+            error: "error",
+        });
+    };
 }
 

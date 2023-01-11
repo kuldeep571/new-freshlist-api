@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const appuserSchema = new Schema(
+  
   {
-
     mobile: {
       type: Number,
     },

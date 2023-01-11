@@ -527,53 +527,115 @@ exports.userRegister = async (req, res) => {
 //   }
 // }
 
+// exports.login = async (req, res) => {
+//   const { mobile, email, password } = req.body;
+//   const user = await User.findOne({
+//     $or: [{ mobile: mobile }, { password: password }],
+//   });
+//   console.log("data", user)
+//   if (user?.status == "true") {
+//     const validPass = await bcrypt.compare(password, user.password);
+//     // console.log("data", validPass);
+//     if (validPass) {
+//       const token = jwt.sign(
+//         {
+//           userId: user._id,
+//         },
+//         process.env.TOKEN_SECRET,
+//         {
+//           expiresIn: 86400000,
+//         }
+//       );
+//       res.status(200).json({
+//         status: true,
+//         token: token,
+//         msg: "login success",
+//         user: user,
+//       });
+//     } else {
+//       res.status(400).json({
+//         status: false,
+//         msg: "password is incorrect ",
+//         error: "error",
+//       })
+//     }
+//   } else if (user?.status == "false") {
+//     res.status(201).json({
+//       status: false,
+//       msg: "waiting for mobile verification",
+//       error: "error",
+//     });
+//   }
+//   else {
+//     res.status(401).json({
+//       status: false,
+//       msg: "Email and password is incorrect",
+//       error: "error",
+//     });
+//   };
+// }
+
+// exports.login = async (req,res) =>{
+//   let length = 6;
+//   let defaultotp = "123456";
+//   const getuser = await User.findOne({ mobile: req.body.mobile });
+//   if (getuser?.approvedstatus == "true") {
+//     console.log("STRING",getuser)
+//     res.status(200).send({
+//       status: true,
+//       msg: "otp Send Successfully",
+//       //otp: otp,
+//       _id: getuser._id,
+//       mobile:getuser.mobile
+//     })
+//    } else if(getuser?.approvedstatus == "false") {
+//     res.status(200).json({
+//       status: true,
+//       msg: "Waiting for Admin Approval",
+//     });
+//   }else{
+//     res.status(400).json({
+//       status : false,
+//       msg :"User doesn't Exist"
+//     })
+//   }
+// };
+
 exports.login = async (req, res) => {
-  const { mobile, email, password } = req.body;
-  const user = await User.findOne({
+  const {  email, password,mobile } = req.body;
+  const user = await User.findOne( {   
     $or: [{ mobile: mobile }, { password: password }],
-  });
-  console.log("data", user)
-  if (user?.status == "true") {
+  //   $and: [
+
+  //     { $or: [{ password: password }, { mobile: mobile }] }
+    
+
+   });
+  console.log("user", user);
+  if (user.status == "true") {
+      
     const validPass = await bcrypt.compare(password, user.password);
-    console.log("data", validPass);
     if (validPass) {
-      const token = jwt.sign(
-        {
-          userId: user._id,
-        },
-        process.env.TOKEN_SECRET,
-        {
-          expiresIn: 86400000,
-        }
-      );
-      res.status(200).json({
+      res.status(200).send({
         status: true,
-        token: token,
-        msg: "login success",
+        msg: "success",
         user: user,
       });
     } else {
       res.status(400).json({
         status: false,
-        msg: "password is incorrect ",
+        msg: "Incorrect Password",
         error: "error",
-      })
+      });
     }
-  } else if (user?.status == "false") {
+  } else {
     res.status(400).json({
       status: false,
-      msg: "waiting for mobile verification",
+      msg: "User Doesnot Exist",
       error: "error",
     });
   }
-  else {
-    res.status(400).json({
-      status: false,
-      msg: "Email and password is incorrect",
-      error: "error",
-    });
-  };
-}
+};
 
 
 exports.totaluser = async(req, res)=>{

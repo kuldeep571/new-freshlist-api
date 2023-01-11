@@ -20,7 +20,7 @@ exports.add_drive = async (req, res) => {
         phone_no,
         address,
         deliveryman_img,
-     
+
         identity_img
     } = req.body;
 
@@ -85,15 +85,15 @@ exports.add_drive = async (req, res) => {
     }
 }
 
-exports.getall_drive = async(req, res)=>{
-    const finddata = await assingdrive.find().sort({sortorder: 1})
-    if(finddata){
+exports.getall_drive = async (req, res) => {
+    const finddata = await assingdrive.find().sort({ sortorder: 1 })
+    if (finddata) {
         res.status(200).json({
             status: true,
             msg: "success",
             data: finddata,
         })
-    }else{
+    } else {
         res.status(400).json({
             status: false,
             msg: "error",
@@ -102,32 +102,32 @@ exports.getall_drive = async(req, res)=>{
     }
 }
 
-exports.viewone_drive = async(req, res)=>{
-    const findonedata = await assingdrive.findOne({_id: req.params.id});
-    if(findonedata){
+exports.viewone_drive = async (req, res) => {
+    const findonedata = await assingdrive.findOne({ _id: req.params.id });
+    if (findonedata) {
         res.status(200).json({
-            status:true,
+            status: true,
             msg: "success",
             data: findonedata,
         })
-    }else{
+    } else {
         res.status(400).json({
-            status:false,
+            status: false,
             msg: "error",
             error: error,
         })
     }
 }
 
-exports.del_drive = async(req, res)=>{
-    const deleteone = await assingdrive.deleteOne({_id: req.params.id});
-    if(deleteone){
+exports.del_drive = async (req, res) => {
+    const deleteone = await assingdrive.deleteOne({ _id: req.params.id });
+    if (deleteone) {
         res.status(200).json({
             status: true,
             msg: "success",
             data: deleteone,
         })
-    }else{
+    } else {
         res.status(400).json({
             status: false,
             msg: "error",
@@ -136,8 +136,8 @@ exports.del_drive = async(req, res)=>{
     }
 }
 
-exports.edit_drive = async(req, res)=>{
-    const{
+exports.edit_drive = async (req, res) => {
+    const {
         firstname,
         lastname,
         identity_type,
@@ -146,76 +146,76 @@ exports.edit_drive = async(req, res)=>{
         address,
         deliveryman_img,
         identity_img
-    }=req.body;
+    } = req.body;
 
-    data={};
-    if(firstname){
+    data = {};
+    if (firstname) {
         data.firstname = firstname;
     }
-    if(lastname){
+    if (lastname) {
         data.lastname = lastname;
     }
-    if(identity_type){
+    if (identity_type) {
         data.identity_type = identity_type;
     }
-    if(identity_no){
+    if (identity_no) {
         data.identity_no = identity_no;
     }
-    if(phone_no){
+    if (phone_no) {
         data.phone_no = phone_no;
     }
-    if(address){
+    if (address) {
         data.address = address;
     }
-    if(deliveryman_img){
+    if (deliveryman_img) {
         data.deliveryman_img = deliveryman_img;
     }
-    if(identity_img){
+    if (identity_img) {
         data.identity_img = identity_img;
     }
 
     // multipal image update
-   
-    if(req.files){
-       if(req.files.deliveryman_img){
-        alluploads = [];
-        for(let i = 0; i< req.files.deliveryman_img.length; i++){
-            const result = await cloudinary.uploader.upload(
-                req.files.deliveryman_img[i].path,
-                {use_filename: true, unique_filename: false}
-            );
-            fs.unlinkSync(req.files.deliveryman_img[i].path);
-            alluploads.push(result.secure_url); 
-        }
-        data.deliveryman_img = alluploads;
-       }
 
-       if(req.files.identity_img){
-        alluploads = [];
-        for(let i=0; i< req.files.identity_img.length; i++){
-            const result = await cloudinary.uploader.upload(
-                req.files.identity_img[i].path,
-                {use_filename: true, unique_filename: false}
-            );
-            fs.unlinkSync(req.files.identity_img[i].path);
-            alluploads.push(result.secure_url);
+    if (req.files) {
+        if (req.files.deliveryman_img) {
+            alluploads = [];
+            for (let i = 0; i < req.files.deliveryman_img.length; i++) {
+                const result = await cloudinary.uploader.upload(
+                    req.files.deliveryman_img[i].path,
+                    { use_filename: true, unique_filename: false }
+                );
+                fs.unlinkSync(req.files.deliveryman_img[i].path);
+                alluploads.push(result.secure_url);
+            }
+            data.deliveryman_img = alluploads;
         }
-        data.identity_img = alluploads;
-       }
+
+        if (req.files.identity_img) {
+            alluploads = [];
+            for (let i = 0; i < req.files.identity_img.length; i++) {
+                const result = await cloudinary.uploader.upload(
+                    req.files.identity_img[i].path,
+                    { use_filename: true, unique_filename: false }
+                );
+                fs.unlinkSync(req.files.identity_img[i].path);
+                alluploads.push(result.secure_url);
+            }
+            data.identity_img = alluploads;
+        }
     }
-    if(data){
+    if (data) {
         const updatedata = await assingdrive.findOneAndUpdate(
-            {_id: req.params.id},
-            {$set: data},
-            {new: true}
+            { _id: req.params.id },
+            { $set: data },
+            { new: true }
         )
-        if(updatedata){
+        if (updatedata) {
             res.status(200).json({
                 status: true,
                 msg: "success",
                 data: updatedata,
             })
-        }else{
+        } else {
             res.status(400).json({
                 status: false,
                 msg: "error",
@@ -224,3 +224,47 @@ exports.edit_drive = async(req, res)=>{
         }
     }
 }
+
+
+
+exports.account_information = async (req, res) => {
+    const {
+        email,
+        password,
+        cnfrmPassword,
+        status,
+    } = req.body;
+
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hashpassword = bcrypt.hashSync(password, salt);
+
+    if (password == cnfrmPassword) {
+
+        const newCustomer = new assingdrive({
+            email: email,
+            password: hashpassword,
+            cnfrmPassword: hashpassword,
+            status: status,
+        });
+        newCustomer.save()
+            .then((data) => {
+                res.status(200).json({
+                    status: true,
+                    msg: "success",
+                    data: data,
+                })
+            })
+            .catch((error) => {
+                res.status(400).json({
+                    status: false,
+                    msg: "error",
+                    error: error,
+                });
+            });
+    } else {
+        res.status(403).json({
+            status: false,
+            msg: "password is not match",
+        })
+    }
+};
