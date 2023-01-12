@@ -42,6 +42,7 @@ const vehicle = require("./routes/vehicle");
 const coupon_code = require("./routes/coupon_code");
 const leave_comment = require("./routes/leave_comment");
 const refundrequest = require("./routes/refundrequest");
+const subscription = require("./routes/subscription");
 
 //app all api
 
@@ -81,6 +82,7 @@ app.use('/', vehicle);
 app.use('/', coupon_code);
 app.use('/', leave_comment);
 app.use('/', refundrequest);
+app.use('/', subscription);
 
 // app user api
 

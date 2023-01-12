@@ -28,14 +28,14 @@ exports.add_banner = async (req, res) => {
         status: status,
     })
     console.log("newbanner", newbanner);
-    const findexist = await banner.findOne({banner_title: banner_title});
-    if(findexist){
-        res.status(403).json({
-            status:true,
-            msg:"Allready exist",
-            data: {},
-        })
-    } else{
+    // const findexist = await banner.findOne({banner_title: banner_title});
+    // if(findexist){
+    //     res.status(403).json({
+    //         status:true,
+    //         msg:"Allready exist",
+    //         data: {},
+    //     })
+    // } else{
     if (req.files) {
         if (req.files.banner_img[0].path) {
             alluploads = [];
@@ -67,7 +67,7 @@ exports.add_banner = async (req, res) => {
             })
         })
     }
-}
+// }
 
 
 exports.getall_banner = async (req, res)=>{
@@ -102,6 +102,26 @@ exports.viewone_banner = async (req, res)=>{
             error: "error",
         })
     }
+}
+
+exports.getbannerbytype = async(req, res)=>{
+    const getbybanner = await banner.find({banner_type: req.params.banner_type}).sort({
+        sortorder: 1,
+    })
+    if(getbybanner){
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: getbybanner,
+        })
+    }else{
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error",
+        })
+    }
+
 }
 
 exports.del_banner = async (req, res)=>{

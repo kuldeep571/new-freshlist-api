@@ -11,6 +11,7 @@ const {
     getall_banner,
     viewone_banner,
     del_banner,
+    getbannerbytype,
     
 } = require("../controller/banner");
 
@@ -52,6 +53,8 @@ router.post("/admin/add_banner", multipleUpload, add_banner);
 router.get("/admin/getall_banner", getall_banner);
 
 router.get("/admin/viewone_banner/:id", viewone_banner);
+
+router.get("/admin/getbannerbytype/:banner_type", getbannerbytype);
 
 router.delete("/admin/del_banner/:id", del_banner);
 
