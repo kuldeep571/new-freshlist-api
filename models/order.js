@@ -55,7 +55,8 @@ const orderSchema = new Schema(
         type:String,
     }, 
     assing_drive:{
-        type:String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"drive",
     },
     notify:{
         type:Array,
@@ -80,10 +81,7 @@ const orderSchema = new Schema(
     shipping_type:{
         type: String,
     },
-    choose_driver:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"drive",
-    },
+ 
     driver_will_get:{
         type: String,
     },
@@ -92,7 +90,6 @@ const orderSchema = new Schema(
     },
 },
 {timestamps:true},
-
 );
 
 

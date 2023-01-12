@@ -9,6 +9,7 @@ const{
     getall_vehicle,
     viewone_vehicle,
     del_vehicle,
+    edit_vehicle,
 
 }=require('../controller/vehicle');
 
@@ -57,6 +58,8 @@ router.get("/admin/getall_vehicle", getall_vehicle);
 router.get("/admin/viewone_vehicle/:id", viewone_vehicle);
 
 router.delete("/admin/del_vehicle/:id", del_vehicle);
+
+router.post("/admin/edit_vehicle/:id", multipleUpload, edit_vehicle);
  
 
 

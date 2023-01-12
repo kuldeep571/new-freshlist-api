@@ -96,6 +96,7 @@ exports.allorder_list = async (req, res)=>{
     const getalldata = await orderproduct.find().sort({sortorder: 1})
     .populate("product")
     .populate("attribute")
+    .populate("assing_drive")
     if(getalldata){
         res.status(200).json({
             status: true,

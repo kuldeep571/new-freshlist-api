@@ -11,7 +11,6 @@ cloudinary.config({
 });
 
 const jwt = require("jsonwebtoken");
-// const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const key = "verysecretkey";
 
@@ -330,25 +329,20 @@ exports.vender_deleteone = async (req, res) => {
 //         const userdata = await appvender.findOne({
 //             $or: [{ mobile: mobile }, { otp: otp }],
 //         });
-//         // console.log('userdata', userdata);
-//         // return false;
 //         if (userdata && userdata.length > 0) {
 //             let user = userdata[0];
-//             if (user.otp == otp) {
+//             if (user.otp == otp){
 //                 res.status(200).json({
 //                     status: true,
 //                     msg: "otp is currect",
 //                     data: userdata,
 //                 })
-//                 console.log('currect otp', data1);
 //             } else {
 //                 res.status(403).json({
 //                     status: false,
 //                     msg: "incurrect otp",
 //                 })
-//                 console.log('incurrect otp', data2);
 //             }
-//             console.log("first if", userdata);
 //         } 
 //     } catch (error) {
 //         res.status(400).json({
@@ -356,7 +350,6 @@ exports.vender_deleteone = async (req, res) => {
 //             msg: "incurrect mobile no & otp",
 //             error: error,
 //         })
-//         console.log('catch error', error);
 //     }
 // }
 
@@ -403,60 +396,54 @@ exports.vender_deleteone = async (req, res) => {
 // }
 
 
-// exports.login = async (req,res) =>{
-//   let length = 6;
-//   let defaultotp = "123456";
-//   const getuser = await User.findOne({ mobile: req.body.mobile });
-//   if (getuser?.approvedstatus == "true") {
-//     console.log("STRING",getuser)
-//     res.status(200).send({
-//       status: true,
-//       msg: "otp Send Successfully",
-//       //otp: otp,
-//       _id: getuser._id,
-//       mobile:getuser.mobile
-//     })
-//    } else if(getuser?.approvedstatus == "false") {
-//     res.status(200).json({
-//       status: true,
-//       msg: "Waiting for Admin Approval",
-//     });
-//   }else{
-//     res.status(400).json({
-//       status : false,
-//       msg :"User doesn't Exist"
-//     })
-//   }
+// exports.vender_logins = async (req, res) => {
+//     let length = 4;
+//     let defaultotp = "1234";
+//     const getuser = await appvender.findOne({ mobile: req.body.mobile }, {otp: req.body.otp});
+//     if (getuser?.status == "true") {
+//         res.status(200).send({
+//             status: true,
+//             msg: "otp Send Successfully",
+//             otp: otp,
+//             _id: getuser._id,
+//             mobile: getuser.mobile
+//         })
+//     } else if (getuser?.status == "false") {
+//         res.status(200).json({
+//             status: true,
+//             msg: "Waiting for veryfy Approval",
+//         });
+//     } else {
+//         res.status(400).json({
+//             status: false,
+//             msg: "User doesn't Exist"
+//         })
+//     }
 // };
 
-exports.vender_login = async (req, res) => {
-  const { otp, mobile } = req.body;
-  const user = await appvender.findOne( {   
-    $or: [{ mobile: mobile }, { otp: otp }],
-   });
-  console.log("user", user);
-  if (user.status == "true") {
-    const validPass = await bcrypt.compare(otp, user.otp);
-    if (validPass) {
-      res.status(200).send({
-        status: true,
-        msg: "success",
-        user: user,
-      });
-    } else {
-      res.status(401).json({
-        status: false,
-        msg: "Incorrect otp",
-        error: "error",
-      });
-    }
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "User Doesnot Exist",
-      error: "error",
-    });
-  }
-};
+// exports.vender_login = async (req, res) => {
+//     let length = 4;
+//     let defaultotp = "1234";
+//     const {
+//         mobile,
+//         otp,
+//     } = req.body;
+//     if (otp == 1234) {
+//         const findone = await appvender.findOne({ mobile: mobile });
+//         if (findone) {
+//             res.status(200).json({
+//                 status: true,
+//                 msg: "login successfully",
+//                 data: findone,
+//                 _id: findone._id
+//             });
+//         }
+//     } else {
+//         res.status(400).json({
+//             status: false,
+//             mag: "incurrect otp",
+//         });
+//     }
+// }
 
 

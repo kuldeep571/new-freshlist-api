@@ -11,7 +11,7 @@ const{
     vender_getlist,
     vender_getviewone,
     vender_deleteone,
-    vender_login,
+    // vender_login,
 }=require("../controller/appuser");
 
 const storage = multer.diskStorage({
@@ -66,7 +66,7 @@ router.get("/app/vender_getviewone/:id", vender_getviewone)
 
 router.delete("/app/vender_deleteone/:id", vender_deleteone)
 
-router.post("/app/vender_login", vender_login)
+// router.post("/app/vender_login", vender_login)
 
 
 
