@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 const {
-   
+    addsubscription,
 }=require('../controller/subscription');
 
 
@@ -14,7 +14,7 @@ const {
 
 
 
-// router.post('/admin/addsubscription', addsubscription);
+router.post('/admin/addsubscription', addsubscription);
 
 
 module.exports = router;

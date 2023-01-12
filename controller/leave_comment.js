@@ -2,6 +2,7 @@ const leavecomment = require("../models/leave_comment");
 
 exports.addleave_comment = async(req, res)=>{
     const{
+        customerId,
         write_comment,
         name,
         email,
@@ -11,6 +12,7 @@ exports.addleave_comment = async(req, res)=>{
     }=req.body;
 
     const newleavecomment = new leavecomment({
+        customerId: customerId,
         write_comment: write_comment,
         name: name,
         email: email,
@@ -33,13 +35,11 @@ exports.addleave_comment = async(req, res)=>{
             error: error,
         })
     })
-
-
-
 }
 
 exports.getallleave_comment = async(req, res)=>{
     const findalldata = await leavecomment.find().sort({sortorder: 1})
+    .populate("customerId")
         if(findalldata){
             res.status(200).json({
                 status: true,
@@ -57,6 +57,7 @@ exports.getallleave_comment = async(req, res)=>{
 
 exports.viewone_comment = async(req, res)=>{
     const findalldata = await leavecomment.findOne({_id: req.params.id})
+    .populate("customerId")
         if(findalldata){
             res.status(200).json({
                 status: true,

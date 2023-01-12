@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const leavecommit_Schema = new Schema(
     {
+        customerId:{
+            type : mongoose.Schema.Types.ObjectId,
+            ref:"User",
+        },
         write_comment:{
             type: String,
         },
