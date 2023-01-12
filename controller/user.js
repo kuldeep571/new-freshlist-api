@@ -527,53 +527,53 @@ exports.userRegister = async (req, res) => {
 //   }
 // }
 
-exports.login = async (req, res) => {
-  const { mobile, email, password } = req.body;
-  const user = await User.findOne({
-    $or: [{ mobile: mobile }, { password: password }],
-  });
-  console.log("data", user)
-  if (user?.status == "true") {
-    const validPass = await bcrypt.compare(password, user.password);
-    // console.log("data", validPass);
-    if (validPass) {
-      const token = jwt.sign(
-        {
-          userId: user._id,
-        },
-        process.env.TOKEN_SECRET,
-        {
-          expiresIn: 86400000,
-        }
-      );
-      res.status(200).json({
-        status: true,
-        token: token,
-        msg: "login success",
-        user: user,
-      });
-    } else {
-      res.status(400).json({
-        status: false,
-        msg: "password is incorrect ",
-        error: "error",
-      })
-    }
-  } else if (user?.status == "false") {
-    res.status(201).json({
-      status: false,
-      msg: "waiting for mobile verification",
-      error: "error",
-    });
-  }
-  else {
-    res.status(401).json({
-      status: false,
-      msg: "Email and password is incorrect",
-      error: "error",
-    });
-  };
-}
+// exports.login = async (req, res) => {
+//   const { mobile, email, password } = req.body;
+//   const user = await User.findOne({
+//     $or: [{ mobile: mobile }, { password: password }],
+//   });
+//   console.log("data", user)
+//   if (user?.status == "true") {
+//     const validPass = await bcrypt.compare(password, user.password);
+//     // console.log("data", validPass);
+//     if (validPass) {
+//       const token = jwt.sign(
+//         {
+//           userId: user._id,
+//         },
+//         process.env.TOKEN_SECRET,
+//         {
+//           expiresIn: 86400000,
+//         }
+//       );
+//       res.status(200).json({
+//         status: true,
+//         token: token,
+//         msg: "login success",
+//         user: user,
+//       });
+//     } else {
+//       res.status(400).json({
+//         status: false,
+//         msg: "password is incorrect ",
+//         error: "error",
+//       })
+//     }
+//   } else if (user?.status == "false") {
+//     res.status(201).json({
+//       status: false,
+//       msg: "waiting for mobile verification",
+//       error: "error",
+//     });
+//   }
+//   else {
+//     res.status(401).json({
+//       status: false,
+//       msg: "Email and password is incorrect",
+//       error: "error",
+//     });
+//   };
+// }
 
 // exports.login = async (req,res) =>{
 //   let length = 6;
@@ -601,41 +601,41 @@ exports.login = async (req, res) => {
 //   }
 // };
 
-// exports.login = async (req, res) => {
-//   const {  email, password,mobile } = req.body;
-//   const user = await User.findOne( {   
-//     $or: [{ mobile: mobile }, { password: password }],
-//   //   $and: [
+exports.login = async (req, res) => {
+  const {  email, password,mobile } = req.body;
+  const user = await User.findOne( {   
+    $or: [{ mobile: mobile }, { password: password }],
+  //   $and: [
 
-//   //     { $or: [{ password: password }, { mobile: mobile }] }
+  //     { $or: [{ password: password }, { mobile: mobile }] }
     
 
-//    });
-//   console.log("user", user);
-//   if (user.status == "true") {
+   });
+  console.log("user", user);
+  if (user.status == "true") {
       
-//     const validPass = await bcrypt.compare(password, user.password);
-//     if (validPass) {
-//       res.status(200).send({
-//         status: true,
-//         msg: "success",
-//         user: user,
-//       });
-//     } else {
-//       res.status(401).json({
-//         status: false,
-//         msg: "Incorrect Password",
-//         error: "error",
-//       });
-//     }
-//   } else {
-//     res.status(400).json({
-//       status: false,
-//       msg: "User Doesnot Exist",
-//       error: "error",
-//     });
-//   }
-// };
+    const validPass = await bcrypt.compare(password, user.password);
+    if (validPass) {
+      res.status(200).send({
+        status: true,
+        msg: "success",
+        user: user,
+      });
+    } else {
+      res.status(401).json({
+        status: false,
+        msg: "Incorrect Password",
+        error: "error",
+      });
+    }
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "User Doesnot Exist",
+      error: "error",
+    });
+  }
+};
 
 
 exports.totaluser = async(req, res)=>{

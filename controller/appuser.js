@@ -1,5 +1,6 @@
 const appvender = require('../models/appuser');
 const cloudinary = require('cloudinary').v2;
+const bcrypt = require("bcrypt");
 const fs = require('fs');
 
 require("dotenv").config();
@@ -10,7 +11,7 @@ cloudinary.config({
 });
 
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const key = "verysecretkey";
 
@@ -360,44 +361,102 @@ exports.vender_deleteone = async (req, res) => {
 // }
 
 
+// exports.vender_login = async (req, res) => {
+//     const { mobile, otp } = req.body;
+//     const user = await appvender.findOne({
+//         $or: [{ mobile: mobile }, { otp: otp }],
+//     });
+//     // console.log("data", user)
+//     // return false;
+//     if (user?.status == "true") {
+//         if (user && user.length > 0) {
+//             let users = userdata[0];
+//             if (users.otp == otp) {
+//                 res.status(200).json({
+//                     status: true,
+//                     msg: "login successfully",
+//                     data: userdata,
+//                 })
+//                 console.log('currect otp', data1);
+//             } else {
+//                 res.status(403).json({
+//                     status: false,
+//                     msg: "incurrect otp",
+//                 })
+//                 console.log('incurrect otp', data2);
+//             }
+//         }
+//     } else if (user?.status == "false") {
+//         res.status(400).json({
+//             status: false,
+//             msg: "waiting for mobile verification",
+//             error: "error",
+//         });
+//     }
+//     else {
+//         res.status(400).json({
+//             status: false,
+//             msg: "incorrect mobile number and otp",
+//             error: "error",
+//         });
+//     };
+// }
+
+
+// exports.login = async (req,res) =>{
+//   let length = 6;
+//   let defaultotp = "123456";
+//   const getuser = await User.findOne({ mobile: req.body.mobile });
+//   if (getuser?.approvedstatus == "true") {
+//     console.log("STRING",getuser)
+//     res.status(200).send({
+//       status: true,
+//       msg: "otp Send Successfully",
+//       //otp: otp,
+//       _id: getuser._id,
+//       mobile:getuser.mobile
+//     })
+//    } else if(getuser?.approvedstatus == "false") {
+//     res.status(200).json({
+//       status: true,
+//       msg: "Waiting for Admin Approval",
+//     });
+//   }else{
+//     res.status(400).json({
+//       status : false,
+//       msg :"User doesn't Exist"
+//     })
+//   }
+// };
+
 exports.vender_login = async (req, res) => {
-    const { mobile, otp } = req.body;
-    const user = await appvender.findOne({
-        $or: [{ mobile: mobile }, { otp: otp }],
-    });
-    // console.log("data", user)
-    // return false;
-    if (user?.status == "true") {
-        if (user && user.length > 0) {
-            let users = userdata[0];
-            if (users.otp == otp) {
-                res.status(200).json({
-                    status: true,
-                    msg: "login successfully",
-                    data: userdata,
-                })
-                console.log('currect otp', data1);
-            } else {
-                res.status(403).json({
-                    status: false,
-                    msg: "incurrect otp",
-                })
-                console.log('incurrect otp', data2);
-            }
-        }
-    } else if (user?.status == "false") {
-        res.status(400).json({
-            status: false,
-            msg: "waiting for mobile verification",
-            error: "error",
-        });
+  const { otp, mobile } = req.body;
+  const user = await appvender.findOne( {   
+    $or: [{ mobile: mobile }, { otp: otp }],
+   });
+  console.log("user", user);
+  if (user.status == "true") {
+    const validPass = await bcrypt.compare(otp, user.otp);
+    if (validPass) {
+      res.status(200).send({
+        status: true,
+        msg: "success",
+        user: user,
+      });
+    } else {
+      res.status(401).json({
+        status: false,
+        msg: "Incorrect otp",
+        error: "error",
+      });
     }
-    else {
-        res.status(400).json({
-            status: false,
-            msg: "incorrect mobile number and otp",
-            error: "error",
-        });
-    };
-}
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "User Doesnot Exist",
+      error: "error",
+    });
+  }
+};
+
 
