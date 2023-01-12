@@ -81,7 +81,8 @@ const orderSchema = new Schema(
         type: String,
     },
     choose_driver:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"drive",
     },
     driver_will_get:{
         type: String,

@@ -612,7 +612,7 @@ exports.login = async (req, res) => {
 
    });
   console.log("user", user);
-  if (user.status == "true") {
+  if (user) {
       
     const validPass = await bcrypt.compare(password, user.password);
     if (validPass) {
@@ -623,7 +623,7 @@ exports.login = async (req, res) => {
       });
     } else {
       res.status(401).json({
-        status: false,
+        status: true,
         msg: "Incorrect Password",
         error: "error",
       });
